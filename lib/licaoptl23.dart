@@ -33,30 +33,6 @@ class _LicaoPTL23State extends State<LicaoPTL23> {
         child: Column(
           children: <Widget>[
             Expanded(
-              flex: 1,
-              child: Container(
-                color: Colors.white,
-                child: Center(
-                  child: Text(
-                    'CORUJA',
-                    style: TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-              ),
-            ),
-            SizedBox(height: 20),
-            Text(
-              'Escolha o sinal que representa a palavra',
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            SizedBox(height: 20),
-            Expanded(
               flex: 3,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
