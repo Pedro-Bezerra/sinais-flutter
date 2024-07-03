@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'licaoptl2.dart';
 import 'licaoptl22.dart';
+import 'licaoptl23.dart';
 
 void main() {
   runApp(MyApp());
@@ -19,6 +20,7 @@ class MyApp extends StatelessWidget {
         '/home': (context) => HomePage(),
         '/licaoPTL2': (context) => LicaoPTL2(),
         '/licaoPTL22': (context) => LicaoPTL22(),
+        '/licaoPTL23': (context) => LicaoPTL23(),
       },
     );
   }
