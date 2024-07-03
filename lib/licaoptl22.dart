@@ -6,10 +6,12 @@ class LicaoPTL22 extends StatefulWidget {
 }
 
 class _LicaoPTL22State extends State<LicaoPTL22> {
-  String? _selectedButton;
+  String? _selectedButton;  
 
   @override
   Widget build(BuildContext context) {
+    double imageSize = MediaQuery.of(context).size.width * 0.35;
+
     return Scaffold(
       appBar: AppBar(
         title: Text(''),
@@ -67,8 +69,8 @@ class _LicaoPTL22State extends State<LicaoPTL22> {
                         },
                         image: Image.network(
                           'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg',
-                          width: 200,
-                          height: 200,
+                          width: imageSize,
+                          height: imageSize,
                         ),
                       ),
                       SizedBox(width: 20),
@@ -78,8 +80,8 @@ class _LicaoPTL22State extends State<LicaoPTL22> {
                         },
                         image: Image.network(
                           'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg',
-                          width: 200,
-                          height: 200,
+                          width: imageSize,
+                          height: imageSize,
                         ),
                       ),
                     ],
@@ -94,8 +96,8 @@ class _LicaoPTL22State extends State<LicaoPTL22> {
                         },
                         image: Image.network(
                           'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg',
-                          width: 200,
-                          height: 200,
+                          width: imageSize,
+                          height: imageSize,
                         ),
                       ),
                       SizedBox(width: 20),
@@ -105,8 +107,8 @@ class _LicaoPTL22State extends State<LicaoPTL22> {
                         },
                         image: Image.network(
                           'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg',
-                          width: 200,
-                          height: 200,
+                          width: imageSize,
+                          height: imageSize,
                         ),
                       ),
                     ],

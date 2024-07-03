@@ -19,7 +19,7 @@ class _LicaoPTL2State extends State<LicaoPTL2> {
             icon: Icon(Icons.close),
             onPressed: () {
               Navigator.pushNamedAndRemoveUntil(
-                context, '/home', (route) => false);
+                  context, '/home', (route) => false);
             },
           ),
         ],
@@ -46,53 +46,11 @@ class _LicaoPTL2State extends State<LicaoPTL2> {
               ),
             ),
             SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () {
-                _handleButtonClick(context, 'Botão 1');
-              },
-              child: Text(
-                'Cachorro',
-                style: TextStyle(color: Colors.black),
-              ),
-              style: ElevatedButton.styleFrom(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                minimumSize: Size(double.infinity, 50),
-              ),
-            ),
+            _buildButton(context, 'Cachorro'),
             SizedBox(height: 10),
-            ElevatedButton(
-              onPressed: () {
-                _handleButtonClick(context, 'Botão 2');
-              },
-              child: Text(
-                'Coruja',
-                style: TextStyle(color: Colors.black),
-              ),
-              style: ElevatedButton.styleFrom(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                minimumSize: Size(double.infinity, 50),
-              ),
-            ),
+            _buildButton(context, 'Coruja'),
             SizedBox(height: 10),
-            ElevatedButton(
-              onPressed: () {
-                _handleButtonClick(context, 'Botão 3');
-              },
-              child: Text(
-                'Tartaruga',
-                style: TextStyle(color: Colors.black),
-              ),
-              style: ElevatedButton.styleFrom(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                minimumSize: Size(double.infinity, 50),
-              ),
-            ),
+            _buildButton(context, 'Tartaruga'),
             SizedBox(height: 20),
             Padding(
               padding: const EdgeInsets.all(8.0),
@@ -121,6 +79,27 @@ class _LicaoPTL2State extends State<LicaoPTL2> {
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget _buildButton(BuildContext context, String buttonLabel) {
+    bool isSelected = _selectedButton == buttonLabel;
+
+    return ElevatedButton(
+      onPressed: () {
+        _handleButtonClick(context, buttonLabel);
+      },
+      child: Text(
+        buttonLabel,
+        style: TextStyle(color: isSelected ? Colors.white : Colors.black),
+      ),
+      style: ElevatedButton.styleFrom(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12),
+        ),
+        minimumSize: Size(double.infinity, 50),
+        backgroundColor: isSelected ? Color(0xFF054A91) : Colors.grey,
       ),
     );
   }
