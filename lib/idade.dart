@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
+import 'package:teste_prototipo/botao_proximo.dart';
 import 'package:teste_prototipo/fluencia.dart';
+import 'package:teste_prototipo/titulo.dart';
 
 class Idade extends StatefulWidget {
   final String usuario;
@@ -36,11 +38,7 @@ class _IdadeState extends State<Idade> {
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      const Text("Qual é a sua idade?",
-                          style: TextStyle(
-                              fontSize: 24,
-                              fontWeight: FontWeight.w700,
-                              color: Colors.black)),
+                      Titulo("Qual é a sua idade?"),
                       Column(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
@@ -67,31 +65,13 @@ class _IdadeState extends State<Idade> {
                           ),
                         ],
                       ),
-                      Container(
-                        padding: EdgeInsets.all(16),
-                        width: MediaQuery.sizeOf(context).width,
-                        child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                              backgroundColor: Color.fromARGB(255, 5, 74, 145),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(5.0),
-                              )),
-                          onPressed: () {
-                            if (_formKey.currentState!.validate()) {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => Fluencia(usuario,
-                                          email, senha, curso, idade)));
-                            }
-                          },
-                          child: const Text("NEXT",
-                              style: TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w700,
-                                  color: Colors.white)),
-                        ),
-                      )
+                      BotaoNext(
+                          usuario: usuario,
+                          email: email,
+                          senha: senha,
+                          curso: curso,
+                          idade: idade,
+                          proximaPagina: Fluencia(usuario, email, senha, curso, idade),)
                     ]))));
   }
 }

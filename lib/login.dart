@@ -1,8 +1,10 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:teste_prototipo/inicio.dart';
+import 'package:teste_prototipo/licao_flashcard.dart';
 import 'package:teste_prototipo/main.dart';
 import 'package:teste_prototipo/nova_senha.dart';
+import 'package:teste_prototipo/video_player.dart';
 
 Future<List<dynamic>?> getUserByEmail(String email) async {
   try {
@@ -129,7 +131,7 @@ class _LoginPageState extends State<LoginPage> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => InicioPage(),
+                                  builder: (context) => LicaoFlashcard(),
                                 ));
                           } else {
                             print(value);

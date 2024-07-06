@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:teste_prototipo/botao_proximo.dart';
 import 'package:teste_prototipo/escolaridade.dart';
+import 'package:teste_prototipo/titulo.dart';
 
 class Fluencia extends StatefulWidget {
   final String usuario;
@@ -85,7 +87,7 @@ class _FluenciaState extends State<Fluencia> {
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
-        Titulo(),
+        Titulo("Qual é a sua fluência?"),
         Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
@@ -97,67 +99,16 @@ class _FluenciaState extends State<Fluencia> {
           ],
         ),
         BotaoNext(
-            usuario, email, senha, curso, idade, fluencias[_selectedValue])
+          usuario: usuario,
+          email: email,
+          senha: senha,
+          curso: curso,
+          idade: idade,
+          fluencia: fluencias[_selectedValue],
+          proximaPagina: Escolaridade(
+              usuario, email, senha, curso, idade, fluencias[_selectedValue]),
+        )
       ],
     ));
-  }
-}
-
-class Titulo extends StatelessWidget {
-  const Titulo({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return const Text("Qual curso você fará?",
-        style: TextStyle(
-            fontSize: 24, fontWeight: FontWeight.w700, color: Colors.black));
-  }
-}
-
-class BotaoNext extends StatelessWidget {
-  final String usuario;
-  final String email;
-  final String senha;
-  final String curso;
-  final int idade;
-  final String fluencia;
-
-  const BotaoNext(
-    this.usuario,
-    this.email,
-    this.senha,
-    this.curso,
-    this.idade,
-    this.fluencia, {
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.all(16),
-      width: MediaQuery.sizeOf(context).width,
-      child: ElevatedButton(
-        style: ElevatedButton.styleFrom(
-            backgroundColor: Color.fromARGB(255, 5, 74, 145),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(5.0),
-            )),
-        onPressed: () {
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => Escolaridade(
-                      usuario, email, senha, curso, idade, fluencia)));
-        },
-        child: const Text("NEXT",
-            style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.w700,
-                color: Colors.white)),
-      ),
-    );
   }
 }
