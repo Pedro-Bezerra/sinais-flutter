@@ -149,7 +149,7 @@ class _LicaoPTL23State extends State<LicaoPTL23> {
               child: ElevatedButton(
                 onPressed: _selectedButton != null && _selectedImage != null
                     ? () {
-                        Navigator.pushNamed(context, '/home');
+                        Navigator.pushNamed(context, '/licaoPTL24');
                       }
                     : null,
                 child: Text(
