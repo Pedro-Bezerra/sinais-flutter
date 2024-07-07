@@ -18,7 +18,7 @@ class _LicaoPTL25State extends State<LicaoPTL25> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Complete com Substantivos'),
+        title: Text(''),
         automaticallyImplyLeading: false,
         actions: [
           IconButton(
