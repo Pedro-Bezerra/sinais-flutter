@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:teste_prototipo/botao_proximo.dart';
 import 'package:teste_prototipo/botao_sim_nao.dart';
 import 'package:teste_prototipo/direcionamento.dart';
+import 'package:teste_prototipo/licao_l10.dart';
 import 'package:teste_prototipo/texto_flashcard.dart';
 import 'package:teste_prototipo/video_player.dart';
 import 'flashcard.dart';
@@ -32,7 +33,7 @@ class LicaoFlashcard extends StatelessWidget {
                     BotaoSimNao(Colors.green, Icon(Icons.thumb_up))
                   ],
                 ),
-                BotaoNext()
+                BotaoNext(proximaPagina: LicaoL10())
               ],
             )),
       ),
