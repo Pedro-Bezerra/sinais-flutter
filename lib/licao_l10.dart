@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:teste_prototipo/botao_proximo.dart';
+import 'package:teste_prototipo/conectar_conteudo.dart';
 import 'package:teste_prototipo/direcionamento.dart';
 import 'package:teste_prototipo/texto_dragging.dart';
 import 'package:teste_prototipo/video_player.dart';
@@ -41,7 +42,7 @@ class _LicaoL10State extends State<LicaoL10> {
                 ],
               ),
             ),
-            BotaoNext()
+            BotaoNext(proximaPagina: ConectarColunas())
           ],
         ),
       ),
