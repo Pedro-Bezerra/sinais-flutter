@@ -123,7 +123,7 @@ class _MyWidgetState extends State<ToggleLoginSignup> {
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 12),
-              child: Text("Sign up", style: signupStyle),
+              child: Text("Cadastro", style: signupStyle),
             )
           ],
         ));

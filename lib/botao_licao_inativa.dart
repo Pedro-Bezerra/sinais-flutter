@@ -22,7 +22,6 @@ class BotaoLicaoInativa extends StatelessWidget {
             },
             style: ElevatedButton.styleFrom(
                 shape: CircleBorder(),
-                padding: EdgeInsets.all(35),
                 backgroundColor: Color.fromARGB(255, 203, 203, 203)),
             child: Center(
               child: Icon(

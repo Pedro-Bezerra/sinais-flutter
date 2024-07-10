@@ -24,7 +24,8 @@ class _ConectarColunasState extends State<ConectarColunas> {
               child: TextoDirecionamento("Conecte a imagem com o sinal")),
           Expanded(
               flex: 5,
-              child: Column(
+              child: SingleChildScrollView(
+                child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   Row(
@@ -60,7 +61,7 @@ class _ConectarColunasState extends State<ConectarColunas> {
                     ],
                   ),
                 ],
-              )),
+              ))),
           BotaoNext(proximaPagina: Placeholder())
         ],
       ),

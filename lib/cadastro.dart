@@ -31,6 +31,9 @@ class _SignUpPageState extends State<SignUpPage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
+              Text("Cadastro",
+                  style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold)),
+              SizedBox(height: 20),
               TextFormField(
                 decoration: const InputDecoration(
                     labelText: 'Usuario',
