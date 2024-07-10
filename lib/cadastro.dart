@@ -33,7 +33,7 @@ class _SignUpPageState extends State<SignUpPage> {
             children: <Widget>[
               TextFormField(
                 decoration: const InputDecoration(
-                    labelText: 'Username',
+                    labelText: 'Usuario',
                     border: OutlineInputBorder(),
                     enabledBorder: OutlineInputBorder(
                         borderSide:
@@ -64,10 +64,10 @@ class _SignUpPageState extends State<SignUpPage> {
                             color: Color.fromARGB(255, 5, 74, 145)))),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'Please enter your email';
+                    return 'Informe um email';
                   }
                   if (!value.contains('@')) {
-                    return 'Please enter a valid email';
+                    return 'Informe um email válido';
                   }
                   return null;
                 },
@@ -90,7 +90,7 @@ class _SignUpPageState extends State<SignUpPage> {
                             ? Icons.visibility_off
                             : Icons.visibility),
                       ),
-                      labelText: 'Password',
+                      labelText: 'Senha',
                       border: const OutlineInputBorder(),
                       enabledBorder: const OutlineInputBorder(
                           borderSide: BorderSide(
@@ -101,16 +101,16 @@ class _SignUpPageState extends State<SignUpPage> {
                   obscureText: _obscurePasswordCreation,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'Please enter your password';
+                      return 'Informe uma senha';
                     }
                     if (value.length < 8) {
-                      return 'Your password must have at least 8 characters';
+                      return 'A senha deve ter no mínimo 8 caracteres';
                     }
                     if (!regexUpper.hasMatch(value)) {
-                      return 'Your password must have an uppercase letter';
+                      return 'A senha deve ter uma letra maiúscula';
                     }
                     if (!regexSpecial.hasMatch(value)) {
-                      return 'Your password must have a special character';
+                      return 'A senha deve ter um caracter especial';
                     }
                     return null;
                   },
@@ -132,7 +132,7 @@ class _SignUpPageState extends State<SignUpPage> {
                           ? Icons.visibility_off
                           : Icons.visibility),
                     ),
-                    labelText: 'Confirm Password',
+                    labelText: 'Confirme sua senha',
                     border: const OutlineInputBorder(),
                     enabledBorder: const OutlineInputBorder(
                         borderSide:
@@ -143,19 +143,19 @@ class _SignUpPageState extends State<SignUpPage> {
                 obscureText: _obscurePasswordConfirmation,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'Please confirm your password';
+                    return 'Confirme sua senha';
                   }
                   if (value != _password) {
-                    return 'Passwords do not match';
+                    return 'As senhas são diferentes';
                   }
                   if (value.length < 8) {
-                    return 'Your password must have at least 8 characters';
+                    return 'A senha deve ter no mínimo 8 caracteres';
                   }
                   if (!regexUpper.hasMatch(value)) {
-                    return 'Your password must have an uppercase letter';
+                    return 'A senha deve ter uma letra maiúscula';
                   }
                   if (!regexSpecial.hasMatch(value)) {
-                    return 'Your password must have a special character';
+                    return 'A senha deve ter um caracter especial';
                   }
                   return null;
                 },

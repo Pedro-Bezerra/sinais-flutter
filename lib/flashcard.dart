@@ -28,8 +28,8 @@ class _FlashcardState extends State<Flashcard> {
     final double screenWidth = MediaQuery.of(context).size.width;
     final double screenHeight = MediaQuery.of(context).size.height;
 
-    // Calculate sizes based on percentages
-    final double cardWidth = screenWidth * 0.8; // 80% of screen width
+    
+    final double cardWidth = screenWidth * 0.8; 
     final double cardHeight = screenHeight * 0.5;
 
     return GestureDetector(

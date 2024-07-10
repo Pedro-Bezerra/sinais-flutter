@@ -25,7 +25,7 @@ class _HomePageState extends State<HomePage> {
         body: Column(
       children: [
         const Expanded(
-          flex: 1,
+          flex: 2,
           child: AppBarHome(),
         ),
         Expanded(
@@ -58,9 +58,12 @@ class AppBarHome extends StatelessWidget {
 
     return Scaffold(
         body: Column(
+          mainAxisAlignment: MainAxisAlignment.end,
       children: [
         Center(child: Text("SINAIS", style: sinaisStyle)),
         const ToggleLoginSignup(),
+        SizedBox(height: 20),
+        const Text("Aperte o botão para ir pra tela de login ou de cadastro", style: TextStyle(fontSize: 10),),
       ],
     ));
   }

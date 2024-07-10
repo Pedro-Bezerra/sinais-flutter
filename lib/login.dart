@@ -44,6 +44,9 @@ class _LoginPageState extends State<LoginPage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
+              Text("Login",
+                  style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold)),
+                SizedBox(height: 20),
               TextFormField(
                 decoration: const InputDecoration(
                     labelText: 'Email',
@@ -56,10 +59,10 @@ class _LoginPageState extends State<LoginPage> {
                             color: Color.fromARGB(255, 5, 74, 145)))),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'Please enter your email';
+                    return 'Informe um email';
                   }
                   if (!value.contains('@')) {
-                    return 'Please enter a valid email';
+                    return 'Informe um email válido';
                   }
                   return null;
                 },
@@ -80,7 +83,7 @@ class _LoginPageState extends State<LoginPage> {
                           ? Icons.visibility_off
                           : Icons.visibility),
                     ),
-                    labelText: 'Password',
+                    labelText: 'Senha',
                     border: const OutlineInputBorder(),
                     enabledBorder: const OutlineInputBorder(
                         borderSide:
@@ -131,7 +134,7 @@ class _LoginPageState extends State<LoginPage> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => LicaoFlashcard(),
+                                  builder: (context) => InicioPage(),
                                 ));
                           } else {
                             print(value);

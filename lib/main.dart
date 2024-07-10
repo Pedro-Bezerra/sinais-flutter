@@ -1,6 +1,7 @@
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:teste_prototipo/login.dart';
 import 'home.dart';
 
 void main() async {
@@ -31,7 +32,12 @@ class MyApp extends StatelessWidget {
         child: MaterialApp(
             title: 'Login',
             theme: ThemeData(
-                scaffoldBackgroundColor: Color.fromARGB(255, 237, 228, 222)),
+                scaffoldBackgroundColor: Color.fromARGB(255, 237, 228, 222),
+                navigationBarTheme: NavigationBarThemeData(
+                  indicatorColor: Colors.transparent,
+                  labelTextStyle: WidgetStateProperty.all(TextStyle(
+                      fontSize: 12, color: Color.fromARGB(255, 183, 179, 179))),
+                )),
             home: HomePage()));
   }
 }
