@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'custom_next_button.dart';
 
 class LicaoPTL25 extends StatefulWidget {
   @override
@@ -24,8 +25,7 @@ class _LicaoPTL25State extends State<LicaoPTL25> {
           IconButton(
             icon: Icon(Icons.close),
             onPressed: () {
-              Navigator.pushNamedAndRemoveUntil(
-                  context, '/home', (route) => false);
+              Navigator.pushNamedAndRemoveUntil(context, '/home', (route) => false);
             },
           ),
         ],
@@ -34,6 +34,7 @@ class _LicaoPTL25State extends State<LicaoPTL25> {
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             Text(
               'Escreva o substantivo que corresponde à imagem',
@@ -109,30 +110,12 @@ class _LicaoPTL25State extends State<LicaoPTL25> {
               ),
             ),
             SizedBox(height: 20),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: ElevatedButton(
-                onPressed: _canProceed()
-                    ? () {
-                        Navigator.pushNamed(context, '/telaDeResultado');
-                      }
-                    : null,
-                child: Text(
-                  'Próximo',
-                  style: TextStyle(
-                    color: Colors.white,
-                  ),
-                ),
-                style: ElevatedButton.styleFrom(
-                  minimumSize: Size(double.infinity, 50),
-                  backgroundColor: _canProceed()
-                      ? Color(0xFF054A91)
-                      : Colors.grey,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                ),
-              ),
+            CustomNextButton(
+              label: 'Próximo',
+              onPressed: _canProceed() ? () {
+                Navigator.pushNamed(context, '/telaDeResultado');
+              } : () {},
+              isEnabled: _canProceed(),
             ),
           ],
         ),

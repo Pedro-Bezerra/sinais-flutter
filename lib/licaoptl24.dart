@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'custom_next_button.dart'; // Importando o CustomNextButton
 
 class LicaoPTL24 extends StatefulWidget {
   @override
@@ -22,8 +23,7 @@ class _LicaoPTL24State extends State<LicaoPTL24> {
           IconButton(
             icon: Icon(Icons.close),
             onPressed: () {
-              Navigator.pushNamedAndRemoveUntil(
-                  context, '/home', (route) => false);
+              Navigator.pushNamedAndRemoveUntil(context, '/home', (route) => false);
             },
           ),
         ],
@@ -74,31 +74,13 @@ class _LicaoPTL24State extends State<LicaoPTL24> {
               ],
             ),
             SizedBox(height: 20),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: ElevatedButton(
-                onPressed: _canProceed()
-                    ? () {
-                        Navigator.pushNamed(context, '/licaoPTL25');
-                      }
-                    : null,
-                child: Text(
-                  'Próximo',
-                  style: TextStyle(
-                    color: Colors.white,
-                  ),
-                ),
-                style: ElevatedButton.styleFrom(
-                  minimumSize: Size(double.infinity, 50),
-                  backgroundColor: _canProceed()
-                      ? Color(0xFF054A91)
-                      : Colors.grey,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                ),
-              ),
-            ),
+CustomNextButton(
+  label: 'Próximo',
+  onPressed: _canProceed() ? () {
+    Navigator.pushNamed(context, '/licaoPTL25');
+  } : () {},
+  isEnabled: _canProceed(),
+),
           ],
         ),
       ),
