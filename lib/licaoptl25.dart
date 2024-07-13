@@ -114,7 +114,7 @@ class _LicaoPTL25State extends State<LicaoPTL25> {
               child: ElevatedButton(
                 onPressed: _canProceed()
                     ? () {
-                        Navigator.pushNamed(context, '/home');
+                        Navigator.pushNamed(context, '/telaDeResultado');
                       }
                     : null,
                 child: Text(

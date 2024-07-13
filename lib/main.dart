@@ -4,6 +4,7 @@ import 'licaoptl22.dart';
 import 'licaoptl23.dart';
 import 'licaoptl24.dart';
 import 'licaoptl25.dart';
+import 'teladeresultado.dart';
 
 void main() {
   runApp(MyApp());
@@ -25,6 +26,7 @@ class MyApp extends StatelessWidget {
         '/licaoPTL23': (context) => LicaoPTL23(),
         '/licaoPTL24': (context) => LicaoPTL24(),
         '/licaoPTL25': (context) => LicaoPTL25(),
+        '/telaDeResultado': (context) => TelaDeResultado(),
       },
     );
   }

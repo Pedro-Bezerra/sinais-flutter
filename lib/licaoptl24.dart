@@ -16,7 +16,7 @@ class _LicaoPTL24State extends State<LicaoPTL24> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Complete as Frases'),
+        title: Text(''),
         automaticallyImplyLeading: false,
         actions: [
           IconButton(
