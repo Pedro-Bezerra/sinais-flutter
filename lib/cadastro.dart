@@ -5,6 +5,7 @@ import 'package:teste_prototipo/curso.dart';
 
 final regexUpper = RegExp('[A-Z]');
 final regexSpecial = RegExp('[!@#\$%^&*(),.?":{}|<>]');
+final regexNumber = RegExp(r'\d');
 
 class SignUpPage extends StatefulWidget {
   @override
@@ -19,6 +20,24 @@ class _SignUpPageState extends State<SignUpPage> {
   String _confirmPassword = '';
   bool _obscurePasswordCreation = true;
   bool _obscurePasswordConfirmation = true;
+  bool _isPasswordFocused = false;
+  final FocusNode _passwordFocusNode = FocusNode();
+
+  @override
+  void initState() {
+    super.initState();
+    _passwordFocusNode.addListener(() {
+      setState(() {
+        _isPasswordFocused = _passwordFocusNode.hasFocus;
+      });
+    });
+  }
+
+  @override
+  void dispose() {
+    _passwordFocusNode.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -80,6 +99,7 @@ class _SignUpPageState extends State<SignUpPage> {
               ),
               const SizedBox(height: 20),
               Focus(
+                focusNode: _passwordFocusNode,
                 child: TextFormField(
                   decoration: InputDecoration(
                       suffixIcon: GestureDetector(
@@ -110,10 +130,13 @@ class _SignUpPageState extends State<SignUpPage> {
                       return 'A senha deve ter no mínimo 8 caracteres';
                     }
                     if (!regexUpper.hasMatch(value)) {
-                      return 'A senha deve ter uma letra maiúscula';
+                      return 'A senha deve conter uma letra maiúscula';
                     }
                     if (!regexSpecial.hasMatch(value)) {
-                      return 'A senha deve ter um caracter especial';
+                      return 'A senha deve conter um caracter especial';
+                    }
+                    if (!regexNumber.hasMatch(value)) {
+                      return "A senha deve conter um número";
                     }
                     return null;
                   },
@@ -121,8 +144,20 @@ class _SignUpPageState extends State<SignUpPage> {
                     _password = value;
                   },
                 ),
-                onFocusChange: (hasFocus) {},
               ),
+              if (_isPasswordFocused)
+                Padding(
+                  padding: const EdgeInsets.only(top: 8.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: const [
+                      Text('A senha deve ter no mínimo 8 caracteres'),
+                      Text('A senha deve conter uma letra maiúscula'),
+                      Text('A senha deve conter um número'),
+                      Text('A senha deve conter um caracter especial'),
+                    ],
+                  ),
+                ),
               const SizedBox(height: 20),
               TextFormField(
                 decoration: InputDecoration(

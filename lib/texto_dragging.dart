@@ -3,47 +3,77 @@ import 'package:flutter/material.dart';
 class TextoDragAndDrop extends StatefulWidget {
   final String resposta;
   final String ordem;
+  final ValueChanged<String> onTextDropped;
 
-  TextoDragAndDrop(this.resposta, this.ordem);
+  TextoDragAndDrop({
+    required this.resposta,
+    required this.ordem,
+    required this.onTextDropped,
+  });
 
   @override
-  _TextoDragAndDropState createState() => _TextoDragAndDropState(resposta, ordem);
+  _TextoDragAndDropState createState() => _TextoDragAndDropState();
 }
 
 class _TextoDragAndDropState extends State<TextoDragAndDrop> {
   String _droppedText = '';
-  String resposta;
-  String ordem;
 
-  _TextoDragAndDropState(this.resposta, this.ordem);
+  void _onAcceptWithDetails(DragTargetDetails<String> details) {
+    setState(() {
+      _droppedText = details.data;
+    });
+    widget.onTextDropped(details.data);
+  }
+
+  BoxDecoration _getContainerDecoration() {
+    Color borderColor;
+
+    bool errado = (_droppedText != "A" && widget.ordem != "1") ||
+        (_droppedText != "aluna" && widget.ordem != "2") ||
+        (_droppedText != "respondeu" && widget.ordem != "3") ||
+        (_droppedText != "a" && widget.ordem != "4") ||
+        (_droppedText != "prova" && widget.ordem != "1");
+
+    bool certo = (_droppedText == "A" && widget.ordem == "1") ||
+        (_droppedText == "aluna" && widget.ordem == "2") ||
+        (_droppedText == "respondeu" && widget.ordem == "3") ||
+        (_droppedText == "a" && widget.ordem == "4") ||
+        (_droppedText == "prova" && widget.ordem == "5");
+
+    if (certo) {
+      borderColor = Colors.green;
+    } else if (errado && _droppedText != "") {
+      borderColor = Colors.red;
+    } else {
+      borderColor = Color.fromARGB(75, 150, 150, 150);
+    }
+
+    return BoxDecoration(
+      color: Colors.white,
+      border: Border.all(
+        color: borderColor, // Border color based on dropped text
+        width: 1.0, // Border width
+      ),
+      borderRadius: BorderRadius.circular(15.0), // Border radius
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
         DragTarget<String>(
-          onAcceptWithDetails: (details) {
-            setState(() {
-              _droppedText = details.data;
-            });
-          },
+          onAcceptWithDetails: _onAcceptWithDetails,
           builder: (BuildContext context, List<dynamic> accepted,
               List<dynamic> rejected) {
             return Container(
-              width: MediaQuery.sizeOf(context).width * 0.2,
-              height: MediaQuery.sizeOf(context).height * 0.1,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                border: Border.all(
-                  color: Color.fromARGB(75, 150, 150, 150), // Border color
-                  width: 1.0, // Border width
-                ),
-                borderRadius: BorderRadius.circular(15.0), // Border radius
-              ),
+              width: MediaQuery.of(context).size.width * 0.2,
+              height: MediaQuery.of(context).size.height * 0.1,
+              decoration: _getContainerDecoration(),
               child: Center(
                 child: Text(
-                  _droppedText.isEmpty ? ordem : _droppedText,
-                  style: TextStyle(fontSize: 20, color: Colors.black),
+                  _droppedText.isEmpty ? widget.ordem : _droppedText,
+                  style: TextStyle(fontSize: 15, color: Colors.black),
                 ),
               ),
             );
@@ -51,21 +81,21 @@ class _TextoDragAndDropState extends State<TextoDragAndDrop> {
         ),
         SizedBox(height: 10),
         Draggable<String>(
-          data: resposta,
+          data: widget.resposta,
           child: Text(
-            resposta,
+            widget.resposta,
             style: TextStyle(fontSize: 20, color: Colors.black),
           ),
           feedback: Material(
             color: Colors.transparent,
             child: Text(
-              resposta,
+              widget.resposta,
               style:
                   TextStyle(fontSize: 20, color: Colors.black.withOpacity(0.7)),
             ),
           ),
           childWhenDragging: Text(
-            resposta,
+            widget.resposta,
             style: TextStyle(fontSize: 20, color: Colors.grey),
           ),
         ),

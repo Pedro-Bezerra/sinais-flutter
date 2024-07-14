@@ -1,10 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:teste_prototipo/inicio.dart';
-import 'package:teste_prototipo/licao_flashcard.dart';
 import 'package:teste_prototipo/main.dart';
 import 'package:teste_prototipo/nova_senha.dart';
-import 'package:teste_prototipo/video_player.dart';
 
 Future<List<dynamic>?> getUserByEmail(String email) async {
   try {
@@ -46,7 +44,7 @@ class _LoginPageState extends State<LoginPage> {
             children: <Widget>[
               Text("Login",
                   style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold)),
-                SizedBox(height: 20),
+              SizedBox(height: 20),
               TextFormField(
                 decoration: const InputDecoration(
                     labelText: 'Email',
@@ -125,6 +123,7 @@ class _LoginPageState extends State<LoginPage> {
                     onPressed: () async {
                       if (_formKey.currentState!.validate()) {
                         getUserByEmail(_email).then((value) {
+                          print(value!);
                           if (listEquals(value!, [])) {
                             print("Não há nenhum cadastro com esse e-mail");
                             return;
@@ -134,7 +133,10 @@ class _LoginPageState extends State<LoginPage> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => InicioPage(),
+                                  builder: (context) => InicioPage(
+                                    usuario: value![2],
+                                    email: _email,
+                                  ),
                                 ));
                           } else {
                             print(value);

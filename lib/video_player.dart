@@ -2,13 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 
 class VideoPlayerScreen extends StatefulWidget {
-  const VideoPlayerScreen({super.key});
+  final String caminhoVideo;
+  const VideoPlayerScreen({required this.caminhoVideo, super.key});
 
   @override
-  State<VideoPlayerScreen> createState() => _VideoPlayerScreenState();
+  State<VideoPlayerScreen> createState() =>
+      _VideoPlayerScreenState(caminhoVideo);
 }
 
 class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
+  String video;
+
+  _VideoPlayerScreenState(this.video);
+
   late VideoPlayerController _controller;
   bool play = true;
 
@@ -16,11 +22,10 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
   void initState() {
     super.initState();
 
-    _controller =
-        VideoPlayerController.asset('assets/videos/video_teste_libras.mp4')
-          ..initialize().then((_) {
-            setState(() {});
-          });
+    _controller = VideoPlayerController.asset(video)
+      ..initialize().then((_) {
+        setState(() {});
+      });
   }
 
   @override

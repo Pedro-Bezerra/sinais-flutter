@@ -54,11 +54,13 @@ class BotaoNext extends StatelessWidget {
             inserirDado(
                 usuario, email, senha, curso, idade, fluencia, escolaridade);
           }
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => proximaPagina!,
-              ));
+          if (proximaPagina != null) {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => proximaPagina!,
+                ));
+          }
         },
         child: const Text("Próximo",
             style: TextStyle(

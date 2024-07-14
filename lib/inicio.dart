@@ -2,17 +2,26 @@ import 'package:flutter/material.dart';
 import 'dart:math';
 
 import 'package:teste_prototipo/aprender_page.dart';
-import 'package:teste_prototipo/licao_flashcard.dart';
-
+import 'package:teste_prototipo/buscar_page..dart';
+import 'package:teste_prototipo/perfil_page.dart';
+import 'package:teste_prototipo/revisar_page.dart';
 
 class InicioPage extends StatefulWidget {
-  const InicioPage({super.key});
+  final String usuario;
+  final String email;
+
+  const InicioPage({required this.usuario, required this.email, super.key});
 
   @override
-  State<InicioPage> createState() => _InicioPageState();
+  State<InicioPage> createState() => _InicioPageState(email, usuario);
 }
 
 class _InicioPageState extends State<InicioPage> {
+  final String email;
+  final String usuario;
+
+  _InicioPageState(this.email, this.usuario);
+
   int _selectedIndex = 0;
   final PageController _pageController = PageController();
 
@@ -33,12 +42,12 @@ class _InicioPageState extends State<InicioPage> {
             _selectedIndex = index;
           });
         },
-        children: const <Widget>[
+        children: <Widget>[
           AprenderPage(),
           BuscarPage(),
           RevisarPage(),
           DicionarioPage(),
-          PerfilPage(),
+          PerfilPage(email: email, usuario: usuario),
         ],
       ),
       bottomNavigationBar: NavigationBar(
@@ -46,29 +55,37 @@ class _InicioPageState extends State<InicioPage> {
         onDestinationSelected: _onItemTapped,
         destinations: const [
           NavigationDestination(
-            icon: Icon(Icons.book_online_rounded, color: Color.fromARGB(255, 183, 179, 179)),
+            icon: Icon(Icons.book_online_rounded,
+                color: Color.fromARGB(255, 183, 179, 179)),
             label: "Aprender",
-            selectedIcon: Icon(Icons.book_online_rounded, color: Color.fromARGB(255, 5, 74, 145)),
+            selectedIcon: Icon(Icons.book_online_rounded,
+                color: Color.fromARGB(255, 5, 74, 145)),
           ),
           NavigationDestination(
             icon: Icon(Icons.search, color: Color.fromARGB(255, 183, 179, 179)),
             label: "Buscar",
-            selectedIcon: Icon(Icons.search, color: Color.fromARGB(255, 5, 74, 145)),
+            selectedIcon:
+                Icon(Icons.search, color: Color.fromARGB(255, 5, 74, 145)),
           ),
           NavigationDestination(
-            icon: Icon(Icons.arrow_circle_down, color: Color.fromARGB(255, 183, 179, 179)),
+            icon: Icon(Icons.arrow_circle_down,
+                color: Color.fromARGB(255, 183, 179, 179)),
             label: "Revisar",
-            selectedIcon: Icon(Icons.arrow_circle_down, color: Color.fromARGB(255, 5, 74, 145)),
+            selectedIcon: Icon(Icons.arrow_circle_down,
+                color: Color.fromARGB(255, 5, 74, 145)),
           ),
           NavigationDestination(
-            icon: Icon(Icons.book_rounded, color: Color.fromARGB(255, 183, 179, 179)),
+            icon: Icon(Icons.book_rounded,
+                color: Color.fromARGB(255, 183, 179, 179)),
             label: "Dicionário",
-            selectedIcon: Icon(Icons.book_rounded, color: Color.fromARGB(255, 5, 74, 145)),
+            selectedIcon: Icon(Icons.book_rounded,
+                color: Color.fromARGB(255, 5, 74, 145)),
           ),
           NavigationDestination(
             icon: Icon(Icons.person, color: Color.fromARGB(255, 183, 179, 179)),
             label: "Perfil",
-            selectedIcon: Icon(Icons.person, color: Color.fromARGB(255, 5, 74, 145)),
+            selectedIcon:
+                Icon(Icons.person, color: Color.fromARGB(255, 5, 74, 145)),
           ),
         ],
         backgroundColor: Colors.white,
@@ -77,49 +94,7 @@ class _InicioPageState extends State<InicioPage> {
   }
 }
 
-class BuscarPage extends StatelessWidget {
-  const BuscarPage({super.key});
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        height: MediaQuery.sizeOf(context).height,
-        width: MediaQuery.sizeOf(context).width,
-        decoration: const BoxDecoration(
-            gradient: LinearGradient(
-                colors: [
-              Color.fromARGB(255, 133, 199, 242),
-              Color.fromARGB(255, 5, 74, 145)
-            ],
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-                transform: GradientRotation(pi / 4))),
-    ));
-  }
-}
-
-class RevisarPage extends StatelessWidget {
-  const RevisarPage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body:Container(
-        height: MediaQuery.sizeOf(context).height,
-        width: MediaQuery.sizeOf(context).width,
-        decoration: const BoxDecoration(
-            gradient: LinearGradient(
-                colors: [
-              Color.fromARGB(255, 133, 199, 242),
-              Color.fromARGB(255, 5, 74, 145)
-            ],
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-                transform: GradientRotation(pi / 4))),
-    ));
-  }
-}
 
 class DicionarioPage extends StatelessWidget {
   const DicionarioPage({super.key});
@@ -127,40 +102,18 @@ class DicionarioPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        height: MediaQuery.sizeOf(context).height,
-        width: MediaQuery.sizeOf(context).width,
-        decoration: const BoxDecoration(
-            gradient: LinearGradient(
-                colors: [
-              Color.fromARGB(255, 133, 199, 242),
-              Color.fromARGB(255, 5, 74, 145)
-            ],
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-                transform: GradientRotation(pi / 4))),
-    ));
-  }
-}
-
-class PerfilPage extends StatelessWidget {
-  const PerfilPage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        height: MediaQuery.sizeOf(context).height,
-        width: MediaQuery.sizeOf(context).width,
-        decoration: const BoxDecoration(
-            gradient: LinearGradient(
-                colors: [
-              Color.fromARGB(255, 133, 199, 242),
-              Color.fromARGB(255, 5, 74, 145)
-            ],
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-                transform: GradientRotation(pi / 4))),
+        body: Container(
+      height: MediaQuery.sizeOf(context).height,
+      width: MediaQuery.sizeOf(context).width,
+      decoration: const BoxDecoration(
+          gradient: LinearGradient(
+              colors: [
+            Color.fromARGB(255, 133, 199, 242),
+            Color.fromARGB(255, 5, 74, 145)
+          ],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              transform: GradientRotation(pi / 4))),
     ));
   }
 }

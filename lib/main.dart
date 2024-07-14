@@ -1,6 +1,7 @@
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:teste_prototipo/inicio.dart';
 import 'package:teste_prototipo/login.dart';
 import 'home.dart';
 

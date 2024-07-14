@@ -29,7 +29,7 @@ class _HomePageState extends State<HomePage> {
           child: AppBarHome(),
         ),
         Expanded(
-          flex: 4,
+          flex: 5,
           child: telaLoginCadastro.isTelaLogin ? LoginPage() : SignUpPage(),
         ),
       ],

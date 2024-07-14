@@ -108,7 +108,7 @@ class _EscolaridadeState extends State<Escolaridade> {
             idade: idade,
             fluencia: fluencia,
             escolaridade: escolaridades[_selectedValue],
-            proximaPagina: InicioPage(),
+            proximaPagina: InicioPage(usuario: usuario, email: email,),
           )
         ],
       ),
