@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:teste_prototipo/inicio.dart';
+import 'package:teste_prototipo/paginas/inicio.dart';
 import 'package:teste_prototipo/main.dart';
 
 void inserirDado(String usuario, String email, String senha, String curso,

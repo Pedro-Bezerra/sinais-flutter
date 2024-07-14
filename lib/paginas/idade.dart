@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
-import 'package:teste_prototipo/botao_proximo.dart';
-import 'package:teste_prototipo/fluencia.dart';
-import 'package:teste_prototipo/titulo.dart';
+import 'package:teste_prototipo/widgets/botao_proximo.dart';
+import 'package:teste_prototipo/paginas/fluencia.dart';
+import 'package:teste_prototipo/widgets/titulo.dart';
 
 class Idade extends StatefulWidget {
   final String usuario;

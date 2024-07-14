@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:teste_prototipo/botao_proximo.dart';
-import 'package:teste_prototipo/botao_sim_nao.dart';
-import 'package:teste_prototipo/direcionamento.dart';
-import 'package:teste_prototipo/licao_l10.dart';
-import 'package:teste_prototipo/texto_flashcard.dart';
-import 'package:teste_prototipo/video_player.dart';
-import 'flashcard.dart';
+import 'package:teste_prototipo/widgets/botao_proximo.dart';
+import 'package:teste_prototipo/widgets/botao_sim_nao.dart';
+import 'package:teste_prototipo/widgets/direcionamento.dart';
+import 'package:teste_prototipo/licoes/licao_l10.dart';
+import 'package:teste_prototipo/widgets/texto_flashcard.dart';
+import 'package:teste_prototipo/widgets/video_player.dart';
+import '../widgets/flashcard.dart';
 
 class LicaoFlashcard extends StatefulWidget {
   @override

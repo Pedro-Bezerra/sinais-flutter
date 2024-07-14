@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:teste_prototipo/botao_proximo.dart';
-import 'package:teste_prototipo/conteudo_conectar.dart';
-import 'package:teste_prototipo/direcionamento.dart';
-import 'package:teste_prototipo/video_player.dart';
+import 'package:teste_prototipo/widgets/botao_proximo.dart';
+import 'package:teste_prototipo/widgets/conteudo_conectar.dart';
+import 'package:teste_prototipo/widgets/direcionamento.dart';
+import 'package:teste_prototipo/widgets/video_player.dart';
 
 class ConectarColunas extends StatefulWidget {
   const ConectarColunas({super.key});

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'dart:math';
 
-import 'package:teste_prototipo/aprender_page.dart';
-import 'package:teste_prototipo/buscar_page..dart';
-import 'package:teste_prototipo/perfil_page.dart';
-import 'package:teste_prototipo/revisar_page.dart';
+import 'package:teste_prototipo/paginas/aprender_page.dart';
+import 'package:teste_prototipo/paginas/buscar_page..dart';
+import 'package:teste_prototipo/paginas/perfil_page.dart';
+import 'package:teste_prototipo/paginas/revisar_page.dart';
 
 class InicioPage extends StatefulWidget {
   final String usuario;

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:teste_prototipo/botao_proximo.dart';
-import 'package:teste_prototipo/licao_conectar.dart';
-import 'package:teste_prototipo/direcionamento.dart';
-import 'package:teste_prototipo/texto_dragging.dart';
-import 'package:teste_prototipo/video_player.dart';
+import 'package:teste_prototipo/widgets/botao_proximo.dart';
+import 'package:teste_prototipo/licoes/licao_conectar.dart';
+import 'package:teste_prototipo/widgets/direcionamento.dart';
+import 'package:teste_prototipo/widgets/texto_dragging.dart';
+import 'package:teste_prototipo/widgets/video_player.dart';
 
 class LicaoL10 extends StatefulWidget {
   @override

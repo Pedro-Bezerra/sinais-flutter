@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
-import 'package:teste_prototipo/inicio.dart';
+import 'package:teste_prototipo/paginas/inicio.dart';
 import 'package:teste_prototipo/main.dart'; // Assuming this is where 'supabase' is defined
 
 Future<List<dynamic>?> atualizarUsuario(String usuario, String email) async {

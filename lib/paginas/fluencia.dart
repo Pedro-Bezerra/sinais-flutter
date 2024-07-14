@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:teste_prototipo/botao_proximo.dart';
-import 'package:teste_prototipo/escolaridade.dart';
-import 'package:teste_prototipo/titulo.dart';
+import 'package:teste_prototipo/widgets/botao_proximo.dart';
+import 'package:teste_prototipo/paginas/escolaridade.dart';
+import 'package:teste_prototipo/widgets/titulo.dart';
 
 class Fluencia extends StatefulWidget {
   final String usuario;

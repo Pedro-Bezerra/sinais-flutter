@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:teste_prototipo/curso.dart';
+import 'package:teste_prototipo/paginas/curso.dart';
 
 final regexUpper = RegExp('[A-Z]');
 final regexSpecial = RegExp('[!@#\$%^&*(),.?":{}|<>]');

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:teste_prototipo/inicio.dart';
-import 'package:teste_prototipo/botao_proximo.dart';
-import 'package:teste_prototipo/titulo.dart';
+import 'package:teste_prototipo/paginas/inicio.dart';
+import 'package:teste_prototipo/widgets/botao_proximo.dart';
+import 'package:teste_prototipo/widgets/titulo.dart';
 
 class Escolaridade extends StatefulWidget {
   final String usuario;

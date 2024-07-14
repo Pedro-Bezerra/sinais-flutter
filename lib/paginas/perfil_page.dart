@@ -3,9 +3,9 @@ import 'dart:js_interop_unsafe';
 import 'package:flutter/material.dart';
 import 'dart:math';
 
-import 'package:teste_prototipo/cabecalho_drawer.dart';
-import 'package:teste_prototipo/editar_perfil.dart';
-import 'package:teste_prototipo/home.dart';
+import 'package:teste_prototipo/widgets/cabecalho_drawer.dart';
+import 'package:teste_prototipo/paginas/editar_perfil.dart';
+import 'package:teste_prototipo/paginas/home.dart';
 import 'package:teste_prototipo/main.dart';
 
 Future<bool> removerCadastro(String email) async {

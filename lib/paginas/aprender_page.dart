@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'dart:math';
 
-import 'package:teste_prototipo/botao_iniciar_licao.dart';
-import 'package:teste_prototipo/botao_licao_inativa.dart';
-import 'package:teste_prototipo/licao_flashcard.dart';
+import 'package:teste_prototipo/widgets/botao_iniciar_licao.dart';
+import 'package:teste_prototipo/widgets/botao_licao_inativa.dart';
+import 'package:teste_prototipo/licoes/licao_flashcard.dart';
 
 class AprenderPage extends StatefulWidget {
   const AprenderPage({super.key});

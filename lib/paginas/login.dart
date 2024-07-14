@@ -1,8 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:teste_prototipo/inicio.dart';
+import 'package:teste_prototipo/paginas/inicio.dart';
 import 'package:teste_prototipo/main.dart';
-import 'package:teste_prototipo/nova_senha.dart';
+import 'package:teste_prototipo/paginas/nova_senha.dart';
 
 Future<List<dynamic>?> getUserByEmail(String email) async {
   try {

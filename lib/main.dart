@@ -1,9 +1,9 @@
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:teste_prototipo/inicio.dart';
-import 'package:teste_prototipo/login.dart';
-import 'home.dart';
+import 'package:teste_prototipo/paginas/inicio.dart';
+import 'package:teste_prototipo/paginas/login.dart';
+import 'paginas/home.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
