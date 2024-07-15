@@ -43,12 +43,14 @@ class BotaoNext extends StatelessWidget {
     return Container(
       padding: EdgeInsets.all(16),
       width: MediaQuery.sizeOf(context).width,
+      height: MediaQuery.sizeOf(context).height * 0.1,
       child: ElevatedButton(
-        style: ElevatedButton.styleFrom(
-            backgroundColor: Color.fromARGB(255, 5, 74, 145),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(5.0),
-            )),
+         style: ElevatedButton.styleFrom(
+          minimumSize: Size(double.infinity, 50),
+          backgroundColor: Color(0xFF054A91),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(8),
+          )),
         onPressed: () {
           if (escolaridade != "") {
             inserirDado(

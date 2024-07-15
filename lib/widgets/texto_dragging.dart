@@ -54,7 +54,7 @@ class _TextoDragAndDropState extends State<TextoDragAndDrop> {
         color: borderColor, // Border color based on dropped text
         width: 1.0, // Border width
       ),
-      borderRadius: BorderRadius.circular(15.0), // Border radius
+      borderRadius: BorderRadius.circular(8.0), // Border radius
     );
   }
 

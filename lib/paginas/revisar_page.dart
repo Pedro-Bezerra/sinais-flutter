@@ -65,7 +65,7 @@ class BotaoRevisar extends StatelessWidget {
       height: MediaQuery.sizeOf(context).height * 0.13,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-            backgroundColor: Color.fromARGB(177, 133, 199, 242),
+            backgroundColor: Color.fromARGB(175, 190, 224, 247),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(5.0),
             )),

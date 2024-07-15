@@ -33,6 +33,7 @@ class MyApp extends StatelessWidget {
         child: MaterialApp(
             title: 'Login',
             theme: ThemeData(
+              fontFamily: 'Inter',
                 scaffoldBackgroundColor: Color.fromARGB(255, 237, 228, 222),
                 navigationBarTheme: NavigationBarThemeData(
                   indicatorColor: Colors.transparent,
