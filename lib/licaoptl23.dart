@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'custom_next_button.dart'; // Importe o arquivo onde está o CustomNextButton
+import 'custom_next_button.dart';
 
 class LicaoPTL23 extends StatefulWidget {
   @override
@@ -7,13 +7,26 @@ class LicaoPTL23 extends StatefulWidget {
 }
 
 class _LicaoPTL23State extends State<LicaoPTL23> {
+  Map<String, String?> _imageToButtonMap = {
+    'Imagem 1': null,
+    'Imagem 2': null,
+    'Imagem 3': null,
+    'Imagem 4': null,
+  };
+
+  Map<String, Color> _buttonColors = {
+    'Botão 1': Colors.blue,
+    'Botão 2': Colors.yellow,
+    'Botão 3': Colors.red,
+    'Botão 4': Colors.green,
+  };
+
   String? _selectedButton;
-  String? _selectedImage;
+
+  double get imageSize => MediaQuery.of(context).size.width * 0.35;
 
   @override
   Widget build(BuildContext context) {
-    double imageSize = MediaQuery.of(context).size.width * 0.35;
-
     return Scaffold(
       appBar: AppBar(
         title: Text(''),
@@ -23,7 +36,7 @@ class _LicaoPTL23State extends State<LicaoPTL23> {
             icon: Icon(Icons.close),
             onPressed: () {
               Navigator.pushNamedAndRemoveUntil(
-                context, '/home', (route) => false);
+                  context, '/home', (route) => false);
             },
           ),
         ],
@@ -41,58 +54,18 @@ class _LicaoPTL23State extends State<LicaoPTL23> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      GestureDetector(
-                        onTap: () {
-                          _handleImageClick('Imagem 1');
-                        },
-                        child: Image(
-                          image: NetworkImage(
-                              'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg'),
-                          width: imageSize,
-                          height: imageSize,
-                        ),
-                      ),
+                      _buildImage('Imagem 1'),
                       SizedBox(width: 20),
-                      GestureDetector(
-                        onTap: () {
-                          _handleImageClick('Imagem 2');
-                        },
-                        child: Image(
-                          image: NetworkImage(
-                              'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg'),
-                          width: imageSize,
-                          height: imageSize,
-                        ),
-                      ),
+                      _buildImage('Imagem 2'),
                     ],
                   ),
                   SizedBox(height: 20),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      GestureDetector(
-                        onTap: () {
-                          _handleImageClick('Imagem 3');
-                        },
-                        child: Image(
-                          image: NetworkImage(
-                              'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg'),
-                          width: imageSize,
-                          height: imageSize,
-                        ),
-                      ),
+                      _buildImage('Imagem 3'),
                       SizedBox(width: 20),
-                      GestureDetector(
-                        onTap: () {
-                          _handleImageClick('Imagem 4');
-                        },
-                        child: Image(
-                          image: NetworkImage(
-                              'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg'),
-                          width: imageSize,
-                          height: imageSize,
-                        ),
-                      ),
+                      _buildImage('Imagem 4'),
                     ],
                   ),
                 ],
@@ -110,54 +83,82 @@ class _LicaoPTL23State extends State<LicaoPTL23> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                ImageButton(
-                  onPressed: () {
-                    _handleButtonClick('Botão 1');
-                  },
-                  label: 'Botão 1',
-                ),
+                _buildButton('Botão 1'),
                 SizedBox(width: 20),
-                ImageButton(
-                  onPressed: () {
-                    _handleButtonClick('Botão 2');
-                  },
-                  label: 'Botão 2',
-                ),
+                _buildButton('Botão 2'),
               ],
             ),
             SizedBox(height: 20),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                ImageButton(
-                  onPressed: () {
-                    _handleButtonClick('Botão 3');
-                  },
-                  label: 'Botão 3',
-                ),
+                _buildButton('Botão 3'),
                 SizedBox(width: 20),
-                ImageButton(
-                  onPressed: () {
-                    _handleButtonClick('Botão 4');
-                  },
-                  label: 'Botão 4',
-                ),
+                _buildButton('Botão 4'),
               ],
             ),
             SizedBox(height: 20),
             CustomNextButton(
               label: 'Próximo',
-              onPressed: _selectedButton != null && _selectedImage != null
-                  ? () {
-                      Navigator.pushNamed(context, '/licaoPTL24');
-                    }
-                  : () {},
-              isEnabled: _selectedButton != null && _selectedImage != null,
+              onPressed: _canProceed() ? _navigateToLicaoPTL24 : null,
+              isEnabled: _canProceed(),
             ),
           ],
         ),
       ),
     );
+  }
+
+  void _navigateToLicaoPTL24() {
+    Navigator.pushNamed(context, '/licaoPTL24');
+  }
+
+  Widget _buildImage(String identifier) {
+    String? selectedButton = _imageToButtonMap[identifier];
+    Color borderColor = selectedButton != null
+        ? _buttonColors[selectedButton]!
+        : Colors.transparent;
+
+    return GestureDetector(
+      onTap: () {
+        if (_selectedButton != null) {
+          _handleImageClick(identifier);
+        }
+      },
+      child: Container(
+        decoration: BoxDecoration(
+          border: Border.all(color: borderColor, width: 4),
+          borderRadius: BorderRadius.circular(8),
+        ),
+        child: Image.network(
+          'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg',
+          width: imageSize,
+          height: imageSize,
+        ),
+      ),
+    );
+  }
+
+  Widget _buildButton(String identifier) {
+    bool isSelected = _selectedButton == identifier;
+    Color buttonColor = isSelected ? _buttonColors[identifier]! : Colors.grey;
+
+    return ElevatedButton(
+      onPressed: () {
+        _handleButtonClick(identifier);
+      },
+      style: ElevatedButton.styleFrom(
+        backgroundColor: buttonColor,
+      ),
+      child: Text(identifier),
+    );
+  }
+
+  void _handleImageClick(String imageName) {
+    setState(() {
+      _imageToButtonMap[imageName] = _selectedButton;
+    });
+    print('Imagem $imageName clicada!');
   }
 
   void _handleButtonClick(String buttonName) {
@@ -167,50 +168,9 @@ class _LicaoPTL23State extends State<LicaoPTL23> {
     print('Botão $buttonName clicado!');
   }
 
-  void _handleImageClick(String imageName) {
-    if (_selectedButton != null) {
-      setState(() {
-        _selectedImage = imageName;
-      });
-      print('Imagem $imageName clicada!');
-      print('Relacionando $_selectedButton com $imageName');
-      // Aqui você pode implementar a lógica para relacionar o botão selecionado com a imagem
-    } else {
-      print('Selecione um botão primeiro!');
-    }
-  }
-}
-
-class ImageButton extends StatelessWidget {
-  final VoidCallback onPressed;
-  final String label;
-
-  const ImageButton({
-    Key? key,
-    required this.onPressed,
-    required this.label,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return ElevatedButton(
-      onPressed: onPressed,
-      child: Text(
-        label,
-        style: TextStyle(
-          color: Colors.white,
-          fontSize: 16,
-          fontWeight: FontWeight.bold,
-        ),
-      ),
-      style: ElevatedButton.styleFrom(
-        backgroundColor: Color(0xFF054A91),
-        foregroundColor: Colors.white,
-        minimumSize: Size(150, 50),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(8),
-        ),
-      ),
-    );
+  bool _canProceed() {
+    Set<String?> uniqueSelections = _imageToButtonMap.values.toSet();
+    return _imageToButtonMap.values.every((selection) => selection != null) &&
+        uniqueSelections.length == _imageToButtonMap.values.length;
   }
 }

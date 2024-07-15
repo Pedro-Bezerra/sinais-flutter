@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class CustomNextButton extends StatelessWidget {
   final String label;
-  final VoidCallback onPressed;
+  final VoidCallback? onPressed;
   final bool isEnabled;
 
   const CustomNextButton({

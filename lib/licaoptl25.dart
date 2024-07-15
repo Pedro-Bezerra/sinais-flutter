@@ -15,8 +15,6 @@ class _LicaoPTL25State extends State<LicaoPTL25> {
 
   @override
   Widget build(BuildContext context) {
-    double imageSize = MediaQuery.of(context).size.width * 0.35;
-
     return Scaffold(
       appBar: AppBar(
         title: Text(''),
@@ -31,114 +29,105 @@ class _LicaoPTL25State extends State<LicaoPTL25> {
         ],
       ),
       backgroundColor: Color(0xFFD9D9D9),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            Text(
-              'Escreva o substantivo que corresponde à imagem',
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
+      body: SingleChildScrollView(
+        child: Container(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              Text(
+                'Escreva o substantivo que corresponde à imagem',
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
+                textAlign: TextAlign.center,
               ),
-              textAlign: TextAlign.center,
-            ),
-            SizedBox(height: 20),
-            Expanded(
-              child: Column(
+              SizedBox(height: 20),
+              Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Column(
-                        children: [
-                          Image.network(
-                            'https://m.media-amazon.com/images/I/61xLyYajSXL._AC_UF894,1000_QL80_.jpg',
-                            width: imageSize,
-                            height: imageSize,
-                          ),
-                          SizedBox(height: 10),
-                          _buildTextField(_controller1, ''),
-                        ],
-                      ),
-                      SizedBox(width: 20),
-                      Column(
-                        children: [
-                          Image.network(
-                            'https://img.kalunga.com.br/fotosdeprodutos/176072z_2.jpg',
-                            width: imageSize,
-                            height: imageSize,
-                          ),
-                          SizedBox(height: 10),
-                          _buildTextField(_controller2, ''),
-                        ],
-                      ),
-                    ],
+                  Expanded(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        _buildImageTextField(
+                          'https://m.media-amazon.com/images/I/61xLyYajSXL._AC_UF894,1000_QL80_.jpg',
+                          _controller1,
+                        ),
+                        SizedBox(height: 20),
+                        _buildImageTextField(
+                          'https://img.kalunga.com.br/fotosdeprodutos/176072z_2.jpg',
+                          _controller2,
+                        ),
+                      ],
+                    ),
                   ),
-                  SizedBox(height: 20),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Column(
-                        children: [
-                          Image.network(
-                            'https://www.papelariaartnova.com.br/img/products/caderno-espiral-univ-capa-dura-16x1-256-fls-zip-preto-tilibra-340821_1_600.jpg',
-                            width: imageSize,
-                            height: imageSize,
-                          ),
-                          SizedBox(height: 10),
-                          _buildTextField(_controller3, ''),
-                        ],
-                      ),
-                      SizedBox(width: 20),
-                      Column(
-                        children: [
-                          Image.network(
-                            'https://cdnv2.moovin.com.br/marbig/imagens/produtos/det/regua-em-poliestireno-15cm-academie-img-150497_2805241429046215.jpg',
-                            width: imageSize,
-                            height: imageSize,
-                          ),
-                          SizedBox(height: 10),
-                          _buildTextField(_controller4, ''),
-                        ],
-                      ),
-                    ],
+                  SizedBox(width: 20),
+                  Expanded(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        _buildImageTextField(
+                          'https://www.papelariaartnova.com.br/img/products/caderno-espiral-univ-capa-dura-16x1-256-fls-zip-preto-tilibra-340821_1_600.jpg',
+                          _controller3,
+                        ),
+                        SizedBox(height: 20),
+                        _buildImageTextField(
+                          'https://cdnv2.moovin.com.br/marbig/imagens/produtos/det/regua-em-poliestireno-15cm-academie-img-150497_2805241429046215.jpg',
+                          _controller4,
+                        ),
+                      ],
+                    ),
                   ),
                 ],
               ),
-            ),
-            SizedBox(height: 20),
-            CustomNextButton(
-              label: 'Próximo',
-              onPressed: _canProceed() ? () {
-                Navigator.pushNamed(context, '/telaDeResultado');
-              } : () {},
-              isEnabled: _canProceed(),
-            ),
-          ],
+              SizedBox(height: 20),
+              CustomNextButton(
+                label: 'Próximo',
+                onPressed: _canProceed() ? () {
+                  Navigator.pushNamed(context, '/telaDeResultado');
+                } : () {},
+                isEnabled: _canProceed(),
+              ),
+              SizedBox(height: 20),
+            ],
+          ),
         ),
       ),
     );
   }
 
-  Widget _buildTextField(TextEditingController controller, String hintText) {
-    return Container(
-      width: 200,
-      child: TextField(
-        controller: controller,
-        decoration: InputDecoration(
-          hintText: hintText,
-          border: OutlineInputBorder(),
+  Widget _buildImageTextField(String imageUrl, TextEditingController controller) {
+    double imageSize = MediaQuery.of(context).size.width * 0.35;
+
+    return Column(
+      children: <Widget>[
+        AspectRatio(
+          aspectRatio: 1.0,
+          child: Image.network(
+            imageUrl,
+            fit: BoxFit.cover,
+          ),
         ),
-        inputFormatters: [
-          FilteringTextInputFormatter.allow(RegExp(r'^[a-zA-Z]+$')),
-        ],
-        onChanged: (text) {
-          setState(() {});
-        },
-      ),
+        SizedBox(height: 10),
+        Container(
+          width: 200,
+          child: TextField(
+            controller: controller,
+            decoration: InputDecoration(
+              hintText: '',
+              border: OutlineInputBorder(),
+            ),
+            inputFormatters: [
+              FilteringTextInputFormatter.allow(RegExp(r'[a-zA-ZáÁâÂãÃàÀéÉêÊíÍóÓôÔõÕúÚüÜçÇ\s]+')),
+            ],
+            onChanged: (text) {
+              setState(() {});
+            },
+          ),
+        ),
+      ],
     );
   }
 

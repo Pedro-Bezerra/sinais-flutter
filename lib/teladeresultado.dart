@@ -35,8 +35,8 @@ class HomeScreen extends StatelessWidget {
 }
 
 class TelaDeResultado extends StatelessWidget {
-  final int correctAnswers = 5; // Example value
-  final int wrongAnswers = 2; // Example value
+  final int correctAnswers = 5; 
+  final int wrongAnswers = 2; 
 
   @override
   Widget build(BuildContext context) {
@@ -84,11 +84,12 @@ class TelaDeResultado extends StatelessWidget {
                         style: TextStyle(
                           color: Color(0xFF72FF80),
                           fontSize: 24,
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
                     ],
                   ),
-                  SizedBox(height: 20), // Espaçamento entre as seções
+                  SizedBox(height: 20), 
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -104,6 +105,7 @@ class TelaDeResultado extends StatelessWidget {
                         style: TextStyle(
                           color: Colors.red,
                           fontSize: 24,
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
                     ],
