@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:teste_prototipo/db/db.dart';
 import 'package:teste_prototipo/paginas/historico_page.dart';
 import 'package:teste_prototipo/paginas/inicio.dart';
+import 'package:teste_prototipo/widgets/progresso.dart';
 
 class TelaDeResultado extends StatelessWidget {
   final int acertos;
@@ -100,6 +102,7 @@ class TelaDeResultado extends StatelessWidget {
                 ),
                 onPressed: () {
                   //Historico.mudarPontuacao(acertos);
+                  Provider.of<ProgressManager>(context, listen: false).reset();
                   DB.inserirDadosHistorico(
                       "Vitinho", "vitor.farias@upe.br", acertos, erros);
                   Navigator.push(

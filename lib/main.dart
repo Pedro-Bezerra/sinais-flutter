@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:teste_prototipo/db/db.dart';
 import 'package:teste_prototipo/paginas/historico_page.dart';
+import 'package:teste_prototipo/widgets/progresso.dart';
 
 import 'paginas/home.dart';
 
@@ -19,8 +20,11 @@ final supabase = Supabase.instance.client;
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-        create: (context) => TelaLoginCadastro(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => TelaLoginCadastro()),
+        ChangeNotifierProvider(create: (context) => ProgressManager(),), // Add your new ChangeNotifier here
+      ],
         child: MaterialApp(
             title: 'Login',
             theme: ThemeData(
