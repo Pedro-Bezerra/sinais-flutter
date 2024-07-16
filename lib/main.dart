@@ -1,13 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'licaoptl2.dart';
 import 'licaoptl22.dart';
 import 'licaoptl23.dart';
 import 'licaoptl24.dart';
 import 'licaoptl25.dart';
 import 'teladeresultado.dart';
+import 'progresso.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(
+    ChangeNotifierProvider(
+      create: (context) => ProgressManager(),
+      child: MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -18,7 +25,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      initialRoute: '/home', 
+      initialRoute: '/home',
       routes: {
         '/home': (context) => HomePage(),
         '/licaoPTL2': (context) => LicaoPTL2(),
@@ -43,7 +50,8 @@ class HomePage extends StatelessWidget {
       body: Center(
         child: ElevatedButton(
           onPressed: () {
-            Navigator.pushNamed(context, '/licaoPTL2'); 
+            Provider.of<ProgressManager>(context, listen: false).reset();
+            Navigator.pushNamed(context, '/licaoPTL2');
           },
           child: Text('Lições Português L2'),
         ),

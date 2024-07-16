@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
-import 'custom_next_button.dart'; // Importando o CustomNextButton
+import 'package:provider/provider.dart';
+import 'custom_next_button.dart';
+import 'widgetprogresso.dart';
+import 'progresso.dart'; // Importar o ProgressManager
 
 class LicaoPTL24 extends StatefulWidget {
   @override
@@ -23,7 +26,8 @@ class _LicaoPTL24State extends State<LicaoPTL24> {
           IconButton(
             icon: Icon(Icons.close),
             onPressed: () {
-              Navigator.pushNamedAndRemoveUntil(context, '/home', (route) => false);
+              Navigator.pushNamedAndRemoveUntil(
+                  context, '/home', (route) => false);
             },
           ),
         ],
@@ -32,7 +36,10 @@ class _LicaoPTL24State extends State<LicaoPTL24> {
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
+            WidgetProgresso(count: 4), // Agora exibe 4 bolas azuis
+            SizedBox(height: 20),
             Expanded(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -54,6 +61,7 @@ class _LicaoPTL24State extends State<LicaoPTL24> {
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
               ),
+              textAlign: TextAlign.center,
             ),
             SizedBox(height: 20),
             Row(
@@ -74,13 +82,13 @@ class _LicaoPTL24State extends State<LicaoPTL24> {
               ],
             ),
             SizedBox(height: 20),
-CustomNextButton(
-  label: 'Próximo',
-  onPressed: _canProceed() ? () {
-    Navigator.pushNamed(context, '/licaoPTL25');
-  } : () {},
-  isEnabled: _canProceed(),
-),
+            CustomNextButton(
+              label: 'Próximo',
+              onPressed: _canProceed() ? () {
+                Navigator.pushNamed(context, '/licaoPTL25');
+              } : null,
+              isEnabled: _canProceed(),
+            ),
           ],
         ),
       ),
@@ -128,8 +136,7 @@ CustomNextButton(
         ),
       ),
       style: ElevatedButton.styleFrom(
-        backgroundColor: Color(0xFF054A91),
-        foregroundColor: Colors.white,
+        backgroundColor: label == 'Azul' ? Color(0xFF054A91) : Color(0xFF054A91), // Ajuste aqui para o botão 'Azul'
         minimumSize: Size(150, 50),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8),
@@ -170,13 +177,14 @@ CustomNextButton(
   }
 
   bool _canProceed() {
+    // Verifica se exatamente quatro espaços foram preenchidos corretamente
     List<String?> selectedSpaces = [
       _selectedSpace1,
       _selectedSpace2,
       _selectedSpace3,
       _selectedSpace4,
     ];
-    return selectedSpaces.toSet().length == selectedSpaces.length &&
-        selectedSpaces.every((element) => element != null);
+    // Retorna true se exatamente quatro espaços estão preenchidos
+    return selectedSpaces.where((space) => space != null).length == 4;
   }
 }

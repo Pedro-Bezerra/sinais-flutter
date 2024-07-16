@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:flutter/services.dart';
 import 'custom_next_button.dart';
+import 'widgetprogresso.dart';
+import 'progresso.dart';
 
 class LicaoPTL25 extends StatefulWidget {
   @override
@@ -35,6 +38,8 @@ class _LicaoPTL25State extends State<LicaoPTL25> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
+              WidgetProgresso(count: 4), // Widget de progresso com 4 bolas azuis
+              SizedBox(height: 20),
               Text(
                 'Escreva o substantivo que corresponde à imagem',
                 style: TextStyle(
@@ -87,7 +92,7 @@ class _LicaoPTL25State extends State<LicaoPTL25> {
                 label: 'Próximo',
                 onPressed: _canProceed() ? () {
                   Navigator.pushNamed(context, '/telaDeResultado');
-                } : () {},
+                } : null,
                 isEnabled: _canProceed(),
               ),
               SizedBox(height: 20),
@@ -112,18 +117,24 @@ class _LicaoPTL25State extends State<LicaoPTL25> {
         ),
         SizedBox(height: 10),
         Container(
-          width: 200,
+          decoration: BoxDecoration(
+            color: Colors.white, // Fundo branco
+            border: Border.all(color: Color(0xFF054A91)), // Cor da borda e traço
+            borderRadius: BorderRadius.circular(8.0), // Borda arredondada
+          ),
+          padding: EdgeInsets.symmetric(horizontal: 8.0),
           child: TextField(
             controller: controller,
             decoration: InputDecoration(
               hintText: '',
-              border: OutlineInputBorder(),
+              border: InputBorder.none, // Remove a borda padrão do TextField
             ),
+            style: TextStyle(color: Color(0xFF054A91)), // Cor do texto da caixa de texto
             inputFormatters: [
               FilteringTextInputFormatter.allow(RegExp(r'[a-zA-ZáÁâÂãÃàÀéÉêÊíÍóÓôÔõÕúÚüÜçÇ\s]+')),
             ],
             onChanged: (text) {
-              setState(() {});
+              Provider.of<ProgressManager>(context, listen: false).nextStep();
             },
           ),
         ),
@@ -132,9 +143,6 @@ class _LicaoPTL25State extends State<LicaoPTL25> {
   }
 
   bool _canProceed() {
-    return _controller1.text.isNotEmpty &&
-        _controller2.text.isNotEmpty &&
-        _controller3.text.isNotEmpty &&
-        _controller4.text.isNotEmpty;
+    return Provider.of<ProgressManager>(context).currentStep >= 4;
   }
 }

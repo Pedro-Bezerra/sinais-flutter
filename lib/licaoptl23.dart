@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'custom_next_button.dart';
+import 'widgetprogresso.dart'; // Certifique-se de importar o WidgetProgresso aqui também
 
 class LicaoPTL23 extends StatefulWidget {
   @override
@@ -45,7 +47,10 @@ class _LicaoPTL23State extends State<LicaoPTL23> {
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
+            WidgetProgresso(count: 5), // Certifique-se de que o count está correto aqui
+            SizedBox(height: 20),
             Expanded(
               flex: 3,
               child: Column(
@@ -78,6 +83,7 @@ class _LicaoPTL23State extends State<LicaoPTL23> {
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
               ),
+              textAlign: TextAlign.center,
             ),
             SizedBox(height: 20),
             Row(

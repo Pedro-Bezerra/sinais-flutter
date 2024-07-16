@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
-import 'custom_next_button.dart'; // Importar o arquivo onde está o CustomNextButton
+import 'package:provider/provider.dart';
+import 'custom_next_button.dart';
+import 'widgetprogresso.dart';
+import 'progresso.dart';
 
 class LicaoPTL2 extends StatefulWidget {
   @override
@@ -8,6 +11,7 @@ class LicaoPTL2 extends StatefulWidget {
 
 class _LicaoPTL2State extends State<LicaoPTL2> {
   String? _selectedButton;
+  bool _buttonsDisabled = false;
 
   @override
   Widget build(BuildContext context) {
@@ -19,8 +23,8 @@ class _LicaoPTL2State extends State<LicaoPTL2> {
           IconButton(
             icon: Icon(Icons.close),
             onPressed: () {
-              Navigator.pushNamedAndRemoveUntil(
-                  context, '/home', (route) => false);
+              Provider.of<ProgressManager>(context, listen: false).reset();
+              Navigator.pushNamedAndRemoveUntil(context, '/home', (route) => false);
             },
           ),
         ],
@@ -31,9 +35,10 @@ class _LicaoPTL2State extends State<LicaoPTL2> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            WidgetProgresso(count: 5),
+            SizedBox(height: 20),
             Image(
-              image: NetworkImage(
-                  'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg'),
+              image: NetworkImage('https://img.freepik.com/vetores-premium/ilustracao-vetorial-de-estilo-de-desenho-a-lapis_484148-216.jpg'),
               width: 250,
               height: 250,
             ),
@@ -47,20 +52,24 @@ class _LicaoPTL2State extends State<LicaoPTL2> {
               ),
             ),
             SizedBox(height: 20),
-            _buildButton(context, 'Cachorro'),
+            _buildButton(context, 'Borracha'),
             SizedBox(height: 10),
-            _buildButton(context, 'Coruja'),
+            _buildButton(context, 'Lápis'),
             SizedBox(height: 10),
-            _buildButton(context, 'Tartaruga'),
+            _buildButton(context, 'Caneta'),
             SizedBox(height: 20),
             CustomNextButton(
               label: 'Próximo',
-              onPressed: _selectedButton != null
+              onPressed: _selectedButton != null && !_buttonsDisabled
                   ? () {
+                      Provider.of<ProgressManager>(context, listen: false).nextStep();
+                      setState(() {
+                        _buttonsDisabled = true;
+                      });
                       Navigator.pushNamed(context, '/licaoPTL22');
                     }
-                  : () {},
-              isEnabled: _selectedButton != null,
+                  : null,
+              isEnabled: _selectedButton != null && !_buttonsDisabled,
             ),
           ],
         ),
@@ -70,11 +79,22 @@ class _LicaoPTL2State extends State<LicaoPTL2> {
 
   Widget _buildButton(BuildContext context, String buttonLabel) {
     bool isSelected = _selectedButton == buttonLabel;
+    Color buttonColor;
+
+    if (_buttonsDisabled) {
+      buttonColor = Colors.grey;
+    } else if (_selectedButton == null) {
+      buttonColor = Colors.grey;
+    } else if (isSelected && buttonLabel == 'Lápis') {
+      buttonColor = Colors.green;
+    } else if (isSelected && buttonLabel != 'Lápis') {
+      buttonColor = Colors.red;
+    } else {
+      buttonColor = Colors.grey;
+    }
 
     return ElevatedButton(
-      onPressed: () {
-        _handleButtonClick(context, buttonLabel);
-      },
+      onPressed: _buttonsDisabled || (_selectedButton != null && !isSelected) ? null : () => _handleButtonClick(context, buttonLabel),
       child: Text(
         buttonLabel,
         style: TextStyle(color: isSelected ? Colors.white : Colors.black),
@@ -84,7 +104,7 @@ class _LicaoPTL2State extends State<LicaoPTL2> {
           borderRadius: BorderRadius.circular(12),
         ),
         minimumSize: Size(double.infinity, 50),
-        backgroundColor: isSelected ? Color(0xFF054A91) : Colors.grey,
+        backgroundColor: buttonColor,
       ),
     );
   }

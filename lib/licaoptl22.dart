@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'custom_next_button.dart';
+import 'widgetprogresso.dart';
+import 'progresso.dart';
 
 class LicaoPTL22 extends StatefulWidget {
   @override
@@ -7,7 +10,8 @@ class LicaoPTL22 extends StatefulWidget {
 }
 
 class _LicaoPTL22State extends State<LicaoPTL22> {
-  String? _selectedButton;
+  String? _selectedImage;
+  bool _buttonsDisabled = false;
 
   @override
   Widget build(BuildContext context) {
@@ -29,11 +33,14 @@ class _LicaoPTL22State extends State<LicaoPTL22> {
       ),
       backgroundColor: Color(0xFFD9D9D9),
       body: SingleChildScrollView(
-        child: Padding(
+        child: Container(
           padding: const EdgeInsets.all(16.0),
+          height: MediaQuery.of(context).size.height,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
+              WidgetProgresso(count: 5),
+              SizedBox(height: 20),
               Container(
                 color: Colors.white,
                 child: Center(
@@ -61,18 +68,18 @@ class _LicaoPTL22State extends State<LicaoPTL22> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      _buildImageButton('Botão 1', imageSize),
+                      _buildImageButton('Imagem 1', 'https://img.freepik.com/vetores-premium/ilustracao-vetorial-de-estilo-de-desenho-a-lapis_484148-216.jpg', imageSize),
                       SizedBox(width: 20),
-                      _buildImageButton('Botão 2', imageSize),
+                      _buildImageButton('Imagem 2', 'https://www.artcamargo.com.br/media/catalog/product/cache/1/image/1000x1000/9df78eab33525d08d6e5fb8d27136e95/c/a/caderno-para-desenhar-canson-laranja-artcamargo-140g.png', imageSize),
                     ],
                   ),
                   SizedBox(height: 20),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      _buildImageButton('Botão 3', imageSize),
+                      _buildImageButton('Imagem 3', 'https://gartic.com.br/imgs/mural/an/andarilho/1250252799.gif', imageSize),
                       SizedBox(width: 20),
-                      _buildImageButton('Botão 4', imageSize),
+                      _buildImageButton('Imagem 4', 'https://medibangpaint.com/wp-content/uploads/2021/12/43-3.png', imageSize),
                     ],
                   ),
                 ],
@@ -80,12 +87,16 @@ class _LicaoPTL22State extends State<LicaoPTL22> {
               SizedBox(height: 20),
               CustomNextButton(
                 label: 'Próximo',
-                onPressed: _selectedButton != null
+                onPressed: _selectedImage != null && !_buttonsDisabled
                     ? () {
+                        Provider.of<ProgressManager>(context, listen: false).nextStep();
+                        setState(() {
+                          _buttonsDisabled = true;
+                        });
                         Navigator.pushNamed(context, '/licaoPTL23');
                       }
-                    : () {},
-                isEnabled: _selectedButton != null,
+                    : null,
+                isEnabled: _selectedImage != null && !_buttonsDisabled,
               ),
               SizedBox(height: 20),
             ],
@@ -95,64 +106,56 @@ class _LicaoPTL22State extends State<LicaoPTL22> {
     );
   }
 
-  Widget _buildImageButton(String buttonName, double imageSize) {
-    bool isSelected = _selectedButton == buttonName;
+  Widget _buildImageButton(String buttonName, String imageUrl, double imageSize) {
+    bool isSelected = _selectedImage == buttonName;
+    Color corDaBorda;
+
+    if (!isSelected) {
+      corDaBorda = Colors.transparent;
+    } else if (isSelected && buttonName == "Imagem 2") {
+      corDaBorda = Colors.green;
+    } else {
+      corDaBorda = Colors.red;
+    }
+
+
+  void mudarCor() {
+    setState(() {
+      corDaBorda = buttonName == "Imagem 2" ? Colors.green : Colors.red;
+    });
+  }
 
     return GestureDetector(
-      onTap: () {
-        _handleButtonClick(buttonName);
+      onTap: _buttonsDisabled || isSelected ? null : () {
+        _handleImageSelect(buttonName);
+        mudarCor();
+        print("$corDaBorda");
       },
       child: Container(
         decoration: BoxDecoration(
           border: Border.all(
-            color: isSelected ? Colors.blue : Colors.transparent,
+            color: corDaBorda,
             width: 4,
           ),
           borderRadius: BorderRadius.circular(8),
         ),
-        child: Image.network(
-          'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg',
-          width: imageSize,
-          height: imageSize,
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(8),
+          child: Image.network(
+            imageUrl,
+            width: imageSize,
+            height: imageSize,
+          ),
         ),
       ),
     );
   }
 
-  void _handleButtonClick(String buttonName) {
+  void _handleImageSelect(String imageName) {
     setState(() {
-      _selectedButton = buttonName;
+      _selectedImage = imageName;
+      _buttonsDisabled = false; 
     });
-    print('Botão $buttonName clicado!');
-  }
-}
-
-class ImageButton extends StatelessWidget {
-  final VoidCallback onPressed;
-  final Image image;
-  final bool isSelected;
-
-  const ImageButton({
-    Key? key,
-    required this.onPressed,
-    required this.image,
-    required this.isSelected,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onPressed,
-      child: Container(
-        decoration: BoxDecoration(
-          border: Border.all(
-            color: isSelected ? Colors.blue : Colors.transparent,
-            width: 4,
-          ),
-          borderRadius: BorderRadius.circular(8),
-        ),
-        child: image,
-      ),
-    );
+    print('Imagem $imageName selecionada!');
   }
 }
