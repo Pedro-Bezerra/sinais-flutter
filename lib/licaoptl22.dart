@@ -45,7 +45,7 @@ class _LicaoPTL22State extends State<LicaoPTL22> {
                 color: Colors.white,
                 child: Center(
                   child: Text(
-                    'CORUJA',
+                    'CADERNO',
                     style: TextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.bold,
@@ -96,7 +96,7 @@ class _LicaoPTL22State extends State<LicaoPTL22> {
                         Navigator.pushNamed(context, '/licaoPTL23');
                       }
                     : null,
-                isEnabled: _selectedImage != null && !_buttonsDisabled,
+                isEnabled: _selectedImage != null && _buttonsDisabled,
               ),
               SizedBox(height: 20),
             ],
@@ -108,33 +108,22 @@ class _LicaoPTL22State extends State<LicaoPTL22> {
 
   Widget _buildImageButton(String buttonName, String imageUrl, double imageSize) {
     bool isSelected = _selectedImage == buttonName;
-    Color corDaBorda;
+    Color borderColor = Colors.transparent;
 
-    if (!isSelected) {
-      corDaBorda = Colors.transparent;
-    } else if (isSelected && buttonName == "Imagem 2") {
-      corDaBorda = Colors.green;
-    } else {
-      corDaBorda = Colors.red;
+    if (isSelected) {
+      borderColor = buttonName == "Imagem 2" ? Colors.green : Colors.red;
     }
 
-
-  void mudarCor() {
-    setState(() {
-      corDaBorda = buttonName == "Imagem 2" ? Colors.green : Colors.red;
-    });
-  }
-
     return GestureDetector(
-      onTap: _buttonsDisabled || isSelected ? null : () {
+      onTap: _buttonsDisabled ? null : () {
         _handleImageSelect(buttonName);
-        mudarCor();
-        print("$corDaBorda");
+        Provider.of<ProgressManager>(context, listen: false).nextStep();
+        Navigator.pushNamed(context, '/licaoPTL23');
       },
       child: Container(
         decoration: BoxDecoration(
           border: Border.all(
-            color: corDaBorda,
+            color: borderColor,
             width: 4,
           ),
           borderRadius: BorderRadius.circular(8),
@@ -154,7 +143,7 @@ class _LicaoPTL22State extends State<LicaoPTL22> {
   void _handleImageSelect(String imageName) {
     setState(() {
       _selectedImage = imageName;
-      _buttonsDisabled = false; 
+      _buttonsDisabled = true; // Desabilita todos os botões após a seleção
     });
     print('Imagem $imageName selecionada!');
   }

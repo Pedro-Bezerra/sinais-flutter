@@ -38,7 +38,7 @@ class _LicaoPTL24State extends State<LicaoPTL24> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            WidgetProgresso(count: 4), // Agora exibe 4 bolas azuis
+            WidgetProgresso(count: 5), // Agora exibe 4 bolas azuis
             SizedBox(height: 20),
             Expanded(
               child: Column(
@@ -85,6 +85,7 @@ class _LicaoPTL24State extends State<LicaoPTL24> {
             CustomNextButton(
               label: 'Próximo',
               onPressed: _canProceed() ? () {
+                Provider.of<ProgressManager>(context, listen: false).nextStep();
                 Navigator.pushNamed(context, '/licaoPTL25');
               } : null,
               isEnabled: _canProceed(),

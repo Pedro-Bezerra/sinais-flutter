@@ -38,7 +38,7 @@ class _LicaoPTL25State extends State<LicaoPTL25> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
-              WidgetProgresso(count: 4), // Widget de progresso com 4 bolas azuis
+              WidgetProgresso(count: 5), // Widget de progresso com 4 bolas azuis
               SizedBox(height: 20),
               Text(
                 'Escreva o substantivo que corresponde à imagem',

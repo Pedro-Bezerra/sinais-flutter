@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:sinais_mobile/progresso.dart';
 import 'custom_next_button.dart';
 import 'widgetprogresso.dart'; // Certifique-se de importar o WidgetProgresso aqui também
 
@@ -116,6 +117,7 @@ class _LicaoPTL23State extends State<LicaoPTL23> {
   }
 
   void _navigateToLicaoPTL24() {
+    Provider.of<ProgressManager>(context, listen: false).nextStep();
     Navigator.pushNamed(context, '/licaoPTL24');
   }
 
