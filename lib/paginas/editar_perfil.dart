@@ -1,20 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
+import 'package:teste_prototipo/db/db.dart';
 import 'package:teste_prototipo/paginas/inicio.dart';
-import 'package:teste_prototipo/main.dart'; // Assuming this is where 'supabase' is defined
-
-Future<List<dynamic>?> atualizarUsuario(String usuario, String email) async {
-  try {
-    final response = await supabase
-        .from('cadastro')
-        .update({'usuario': usuario}).eq('email', email);
-
-    return response;
-  } catch (e) {
-    print("Erro no processamento dos dados");
-    return [];
-  }
-}
 
 final regexSpecial = RegExp('[!@#\$%^&*(),.?":{}|<>]');
 
@@ -50,19 +37,32 @@ class _EditarPerfilState extends State<EditarPerfil> {
                 "Editar perfil",
                 style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
               ),
-              const SizedBox(height: 20),             
+              const SizedBox(height: 20),
               TextFormField(
-                decoration: const InputDecoration(
-                  labelText: 'Usuario',
-                  border: OutlineInputBorder(),
+                decoration: InputDecoration(
+                  labelText: 'Usuário',
+                  labelStyle: TextStyle(color: Color.fromARGB(255, 5, 74, 145)),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8.0), // Circular border
+                  ),
                   enabledBorder: OutlineInputBorder(
                     borderSide:
                         BorderSide(color: Color.fromARGB(255, 5, 74, 145)),
+                    borderRadius: BorderRadius.circular(8.0), // Circular border
                   ),
                   focusedBorder: OutlineInputBorder(
                     borderSide:
                         BorderSide(color: Color.fromARGB(255, 5, 74, 145)),
+                    borderRadius: BorderRadius.circular(8.0), // Circular border
                   ),
+                  prefixIcon: Icon(Icons.person,
+                      color: Color.fromARGB(255, 5, 74, 145)),
+                  hintText: 'Insira seu usuário',
+                  hintStyle: TextStyle(color: Colors.grey),
+                  filled: true,
+                  fillColor: Color.fromARGB(255, 240, 240, 240),
+                  contentPadding:
+                      EdgeInsets.symmetric(vertical: 15, horizontal: 10),
                 ),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
@@ -80,14 +80,18 @@ class _EditarPerfilState extends State<EditarPerfil> {
                 height: 50,
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color.fromARGB(255, 133, 199, 242),
-                    foregroundColor: Colors.white,
-                    textStyle: const TextStyle(
-                        fontSize: 14, fontWeight: FontWeight.w900),
-                  ),
+                      elevation: 10,
+                      shadowColor: Color.fromARGB(255, 133, 199, 242),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      backgroundColor: const Color.fromARGB(255, 133, 199, 242),
+                      foregroundColor: Colors.white,
+                      textStyle: const TextStyle(
+                          fontSize: 14, fontWeight: FontWeight.w900)),
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
-                      atualizarUsuario(_username, email).then((value) {
+                      DB.atualizarUsuario(_username, email).then((value) {
                         if (listEquals(value, [])) {
                           print("Erro na atualização dos dados");
                           return;
@@ -104,7 +108,9 @@ class _EditarPerfilState extends State<EditarPerfil> {
                       });
                     }
                   },
-                  child: const Text('Editar'),
+                  child: const Text('Editar',
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold, letterSpacing: 1.5)),
                 ),
               ),
             ],

@@ -10,15 +10,7 @@ class RevisarPage extends StatelessWidget {
         body: Container(
       height: MediaQuery.sizeOf(context).height,
       width: MediaQuery.sizeOf(context).width,
-      decoration: const BoxDecoration(
-          gradient: LinearGradient(
-              colors: [
-            Color.fromARGB(255, 133, 199, 242),
-            Color.fromARGB(255, 5, 74, 145)
-          ],
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-              transform: GradientRotation(pi / 4))),
+      color: Color.fromARGB(255, 237, 228, 222),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -65,7 +57,7 @@ class BotaoRevisar extends StatelessWidget {
       height: MediaQuery.sizeOf(context).height * 0.13,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-            backgroundColor: Color.fromARGB(175, 190, 224, 247),
+            backgroundColor: Color.fromARGB(177, 133, 199, 242),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(5.0),
             )),

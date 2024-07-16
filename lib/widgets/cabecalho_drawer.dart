@@ -41,12 +41,13 @@ class _CabecalhoDrawerState extends State<CabecalhoDrawer> {
                 shape: BoxShape.circle,
                 image: DecorationImage(
                     image: AssetImage(
-                  'assets/images/frase.png',
+                  'assets/images/perfil.jpg',
                 ))),
           ),
           Text(
             usuario,
-            style: TextStyle(color: Colors.white, fontSize: 24),
+            style: TextStyle(
+                color: Colors.black, fontSize: 24, fontWeight: FontWeight.bold),
           )
         ],
       ),

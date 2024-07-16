@@ -1,24 +1,11 @@
-import 'dart:js_interop_unsafe';
-
 import 'package:flutter/material.dart';
+import 'package:teste_prototipo/db/db.dart';
+import 'package:teste_prototipo/paginas/historico_page.dart';
 import 'dart:math';
 
 import 'package:teste_prototipo/widgets/cabecalho_drawer.dart';
 import 'package:teste_prototipo/paginas/editar_perfil.dart';
 import 'package:teste_prototipo/paginas/home.dart';
-import 'package:teste_prototipo/main.dart';
-
-Future<bool> removerCadastro(String email) async {
-  try {
-    final response =
-        await supabase.from('cadastro').delete().eq('email', email);
-
-    return true;
-  } catch (e) {
-    print("Erro no processamento dos dados");
-    return false;
-  }
-}
 
 class PerfilPage extends StatefulWidget {
   final String email;
@@ -58,6 +45,7 @@ class _PerfilPageState extends State<PerfilPage> {
                   });
                 },
                 email: email,
+                usuario: usuario,
               ),
             ],
           ),
@@ -151,7 +139,7 @@ class _PerfilPageState extends State<PerfilPage> {
                   ),
                 ),
                 Positioned(
-                  top: 90,
+                  top: 100,
                   child: Text(
                     "Nível 1",
                     style: TextStyle(
@@ -208,12 +196,12 @@ class _PerfilPageState extends State<PerfilPage> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   Align(
-                    alignment: Alignment(-0.77, 0),
-                    child: 
-                  Text(
-                    "Recompensas",
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w900),
-                  )),
+                      alignment: Alignment(-0.77, 0),
+                      child: Text(
+                        "Recompensas",
+                        style: TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.w900),
+                      )),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
@@ -285,11 +273,13 @@ class CorpoDrawer extends StatelessWidget {
   final DrawerSections currentPage;
   final Function(DrawerSections) onItemTap;
   final String email;
+  final String usuario;
 
   CorpoDrawer(
       {required this.currentPage,
       required this.onItemTap,
-      required this.email});
+      required this.email,
+      required this.usuario});
 
   @override
   Widget build(BuildContext context) {
@@ -311,6 +301,20 @@ class CorpoDrawer extends StatelessWidget {
         ),
         ItemMenu(
           id: 2,
+          titulo: "Ver histórico",
+          icone: Icons.history,
+          selecionado: currentPage == DrawerSections.historico,
+          onTap: () {
+            onItemTap(DrawerSections.logout);
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => Historico(usuario: usuario, email: email),
+                ));
+          },
+        ),
+        ItemMenu(
+          id: 3,
           titulo: "Sair",
           icone: Icons.logout,
           selecionado: currentPage == DrawerSections.logout,
@@ -324,7 +328,7 @@ class CorpoDrawer extends StatelessWidget {
           },
         ),
         ItemMenu(
-          id: 3,
+          id: 4,
           titulo: "Remover cadastro",
           icone: Icons.delete,
           selecionado: currentPage == DrawerSections.remover_cadastro,
@@ -346,7 +350,7 @@ class CorpoDrawer extends StatelessWidget {
                   children: <Widget>[
                     SimpleDialogOption(
                       onPressed: () {
-                        removerCadastro(email).then((value) {
+                        DB.removerCadastro(email).then((value) {
                           if (value) {
                             Navigator.push(
                                 context,
@@ -428,4 +432,10 @@ class ItemMenu extends StatelessWidget {
   }
 }
 
-enum DrawerSections { editar_perfil, logout, remover_cadastro, nenhuma }
+enum DrawerSections {
+  editar_perfil,
+  logout,
+  remover_cadastro,
+  historico,
+  nenhuma
+}

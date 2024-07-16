@@ -58,12 +58,16 @@ class AppBarHome extends StatelessWidget {
 
     return Scaffold(
         body: Column(
-          mainAxisAlignment: MainAxisAlignment.end,
+      mainAxisAlignment: MainAxisAlignment.end,
       children: [
         Center(child: Text("SINAIS", style: sinaisStyle)),
         const ToggleLoginSignup(),
         SizedBox(height: 20),
-        const Text("Aperte o botão para ir pra tela de login ou de cadastro", style: TextStyle(fontSize: 10),),
+        const Text(
+          "Aperte o botão para ir para tela de login ou de cadastro",
+          style:
+              TextStyle(fontSize: 10, color: Color.fromARGB(255, 47, 47, 47)),
+        ),
       ],
     ));
   }
@@ -83,17 +87,24 @@ class _MyWidgetState extends State<ToggleLoginSignup> {
   Widget build(BuildContext context) {
     var telaLoginCadastro = context.watch<TelaLoginCadastro>();
 
-    final TextStyle loginStyle =
-        TextStyle(fontSize: 14, fontWeight: FontWeight.w900);
-    final TextStyle signupStyle =
+    final TextStyle textoBotaoStyle =
         TextStyle(fontSize: 14, fontWeight: FontWeight.w900);
 
     return Container(
-        color: const Color.fromARGB(255, 5, 74, 145),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(8),
+          color: Color.fromARGB(255, 5, 74, 145),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black26,
+              offset: Offset(0, 4),
+              blurRadius: 8.0,
+              spreadRadius: 2.0,
+            ),
+          ],
+        ),
         child: ToggleButtons(
-          /*borderRadius: const BorderRadius.all(
-            Radius.circular(10)
-          ),*/
+          borderRadius: const BorderRadius.all(Radius.circular(8)),
           selectedColor: Colors.white,
           color: const Color.fromARGB(255, 133, 199, 242),
           fillColor: const Color.fromARGB(255, 133, 199, 242),
@@ -118,12 +129,14 @@ class _MyWidgetState extends State<ToggleLoginSignup> {
           },
           children: [
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 12),
-              child: Text("Log in", style: loginStyle),
+              padding:
+                  const EdgeInsets.symmetric(vertical: 10.0, horizontal: 50.0),
+              child: Text("Log in", style: textoBotaoStyle),
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 12),
-              child: Text("Cadastro", style: signupStyle),
+              padding:
+                  const EdgeInsets.symmetric(vertical: 10.0, horizontal: 50.0),
+              child: Text("Cadastro", style: textoBotaoStyle),
             )
           ],
         ));

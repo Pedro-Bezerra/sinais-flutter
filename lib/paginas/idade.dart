@@ -44,15 +44,37 @@ class _IdadeState extends State<Idade> {
                         children: [
                           Container(
                             padding: EdgeInsets.all(16),
-                            width: MediaQuery.sizeOf(context).width,
+                            width: MediaQuery.sizeOf(context).width * 0.9,
                             child: TextFormField(
-                              style: TextStyle(
-                                  backgroundColor: Colors.white,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w400),
+                              decoration: InputDecoration(
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(
+                                      30.0), // Circular border
+                                ),
+                                enabledBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                      color: Color.fromARGB(255, 5, 74, 145)),
+                                  borderRadius: BorderRadius.circular(
+                                      30.0), // Circular border
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                      color: Color.fromARGB(255, 5, 74, 145)),
+                                  borderRadius: BorderRadius.circular(
+                                      30.0), // Circular border
+                                ),
+                                prefixIcon: Icon(Icons.numbers_rounded,
+                                    color: Color.fromARGB(255, 5, 74, 145)),
+                                hintText: 'Insira sua idade',
+                                hintStyle: TextStyle(color: Colors.grey),
+                                filled: true,
+                                fillColor: Color.fromARGB(255, 240, 240, 240),
+                                contentPadding: EdgeInsets.symmetric(
+                                    vertical: 15, horizontal: 10),
+                              ),
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
-                                  return 'Por favor, informe a sua idade';
+                                  return 'Informe a sua idade';
                                 }
                                 return null;
                               },
@@ -66,12 +88,23 @@ class _IdadeState extends State<Idade> {
                         ],
                       ),
                       BotaoNext(
-                          usuario: usuario,
-                          email: email,
-                          senha: senha,
-                          curso: curso,
-                          idade: idade,
-                          proximaPagina: Fluencia(usuario, email, senha, curso, idade),)
+                        usuario: usuario,
+                        email: email,
+                        senha: senha,
+                        curso: curso,
+                        idade: idade,
+                        funcao: () => {
+                          if (_formKey.currentState!.validate())
+                            {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => Fluencia(
+                                        usuario, email, senha, curso, idade),
+                                  ))
+                            }
+                        },
+                      )
                     ]))));
   }
 }

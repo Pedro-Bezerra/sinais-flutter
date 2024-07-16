@@ -6,14 +6,33 @@ import 'package:teste_prototipo/widgets/texto_dragging.dart';
 import 'package:teste_prototipo/widgets/video_player.dart';
 
 class LicaoL10 extends StatefulWidget {
+  final int pontuacao;
+  final int qtdPerguntas;
+
+  LicaoL10({this.pontuacao = 0, required this.qtdPerguntas});
+
   @override
-  _LicaoL10State createState() => _LicaoL10State();
+  _LicaoL10State createState() => _LicaoL10State(pontuacao, qtdPerguntas);
 }
 
 class _LicaoL10State extends State<LicaoL10> {
+  final int pontuacao;
+  final int qtdPerguntas;
+
+  _LicaoL10State(this.pontuacao, this.qtdPerguntas);
+
   void _handleTextDropped(String droppedText) {
     print("Text dropped: $droppedText");
     // Handle the dropped text as needed
+  }
+
+  int acertos = 0;
+  int qtdPalavras = 5;
+
+  void _incrementarAcerto() {
+    setState(() {
+      ++acertos;
+    });
   }
 
   @override
@@ -41,17 +60,39 @@ class _LicaoL10State extends State<LicaoL10> {
                     alignment: WrapAlignment.start,
                     runAlignment: WrapAlignment.start,
                     children: <Widget>[
-                      TextoDragAndDrop(resposta: "respondeu", ordem: "1", onTextDropped: _handleTextDropped,),
-                      TextoDragAndDrop(resposta: "aluna", ordem: "2", onTextDropped: _handleTextDropped,),
-                      TextoDragAndDrop(resposta: "A", ordem: "3", onTextDropped: _handleTextDropped,),
-                      TextoDragAndDrop(resposta: "prova", ordem: "4", onTextDropped: _handleTextDropped,),
-                      TextoDragAndDrop(resposta: "a", ordem: "5", onTextDropped: _handleTextDropped,),
+                      TextoDragAndDrop(
+                        resposta: "respondeu",
+                        ordem: "1",
+                        onTextDropped: _handleTextDropped,
+                      ),
+                      TextoDragAndDrop(
+                        resposta: "aluna",
+                        ordem: "2",
+                        onTextDropped: _handleTextDropped,
+                      ),
+                      TextoDragAndDrop(
+                        resposta: "A",
+                        ordem: "3",
+                        onTextDropped: _handleTextDropped,
+                      ),
+                      TextoDragAndDrop(
+                        resposta: "prova",
+                        ordem: "4",
+                        onTextDropped: _handleTextDropped,
+                      ),
+                      TextoDragAndDrop(
+                        resposta: "a",
+                        ordem: "5",
+                        onTextDropped: _handleTextDropped,
+                      ),
                     ],
                   ),
                 ],
               ),
             ),
-            BotaoNext(proximaPagina: ConectarColunas())
+            BotaoNext(
+              proximaPagina: ConectarColunas(qtdPerguntas: 2, pontuacao: pontuacao + 1,),
+            )
           ],
         ),
       ),

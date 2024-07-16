@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:teste_prototipo/db/db.dart';
 import 'package:teste_prototipo/paginas/inicio.dart';
 import 'package:teste_prototipo/widgets/botao_proximo.dart';
 import 'package:teste_prototipo/widgets/titulo.dart';
@@ -108,7 +109,12 @@ class _EscolaridadeState extends State<Escolaridade> {
             idade: idade,
             fluencia: fluencia,
             escolaridade: escolaridades[_selectedValue],
-            proximaPagina: InicioPage(usuario: usuario, email: email,),
+            proximaPagina: InicioPage(
+              usuario: usuario,
+              email: email,
+            ),
+            funcao: () => DB.inserirDadosCadastro(usuario, email, senha, curso, idade,
+                fluencia, escolaridades[_selectedValue]),
           )
         ],
       ),

@@ -8,15 +8,27 @@ import 'package:teste_prototipo/widgets/video_player.dart';
 import '../widgets/flashcard.dart';
 
 class LicaoFlashcard extends StatefulWidget {
+  final int pontuacao;
+  final int qtdPerguntas;
+
+  LicaoFlashcard({this.pontuacao = 0, required this.qtdPerguntas});
+
   @override
-  _LicaoFlashcardState createState() => _LicaoFlashcardState();
+  _LicaoFlashcardState createState() =>
+      _LicaoFlashcardState(pontuacao, qtdPerguntas);
 }
 
 class _LicaoFlashcardState extends State<LicaoFlashcard> {
+  final int pontuacao;
+  final int qtdPerguntas;
+
+  _LicaoFlashcardState(this.pontuacao, this.qtdPerguntas);
+
   String video = 'assets/videos/video_teste_libras.mp4';
   String palavra = 'BORRACHA';
   int indice = 1;
   int quantidade = 5;
+  int acertos = 1;
   List<String> palavras = [
     "BORRACHA",
     "CANETA",
@@ -31,6 +43,12 @@ class _LicaoFlashcardState extends State<LicaoFlashcard> {
       video = novoVideo;
       palavra = novaPalavra;
       indice = novoIndice;
+    });
+  }
+
+  void _incrementarAcerto() {
+    setState(() {
+      ++acertos;
     });
   }
 
@@ -99,6 +117,8 @@ class _LicaoFlashcardState extends State<LicaoFlashcard> {
                       nextValues['palavra'],
                       nextValues['indice'],
                     );
+                    _incrementarAcerto();
+                    print(acertos);
                   },
                 ),
               ],
@@ -107,7 +127,16 @@ class _LicaoFlashcardState extends State<LicaoFlashcard> {
               "$indice/$quantidade",
               style: TextStyle(fontSize: 24, fontWeight: FontWeight.w900),
             ),
-            BotaoNext(proximaPagina: indice == quantidade ? LicaoL10() : null),
+            BotaoNext(
+              proximaPagina: indice == quantidade
+                  ? LicaoL10(
+                      qtdPerguntas: qtdPerguntas + 1,
+                      pontuacao:
+                          acertos == quantidade ? pontuacao + 1 : pontuacao,
+                    )
+                  : null,
+              estaHabilitado: indice == quantidade,
+            ),
           ],
         ),
       ),

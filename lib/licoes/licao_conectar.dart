@@ -1,17 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:teste_prototipo/paginas/resultado_page.dart';
 import 'package:teste_prototipo/widgets/botao_proximo.dart';
 import 'package:teste_prototipo/widgets/conteudo_conectar.dart';
 import 'package:teste_prototipo/widgets/direcionamento.dart';
 import 'package:teste_prototipo/widgets/video_player.dart';
 
 class ConectarColunas extends StatefulWidget {
-  const ConectarColunas({super.key});
+  final int pontuacao;
+  final int qtdPerguntas;
+
+  const ConectarColunas(
+      {required this.qtdPerguntas, this.pontuacao = 0, super.key});
 
   @override
-  State<ConectarColunas> createState() => _ConectarColunasState();
+  State<ConectarColunas> createState() =>
+      _ConectarColunasState(pontuacao, qtdPerguntas);
 }
 
 class _ConectarColunasState extends State<ConectarColunas> {
+  final int pontuacao;
+  final int qtdPerguntas;
+
+  _ConectarColunasState(this.pontuacao, this.qtdPerguntas);
+
   int _selectedIndex = -1;
 
   void _handleItemClick(int index) {
@@ -114,7 +125,11 @@ class _ConectarColunasState extends State<ConectarColunas> {
                 ),
               ),
             ),
-            BotaoNext(proximaPagina: Placeholder()),
+            BotaoNext(
+                proximaPagina: TelaDeResultado(
+              acertos: pontuacao,
+              erros: qtdPerguntas + 1 - pontuacao, // + 1 porque tem que somar com essa
+            )),
           ],
         ),
       ),

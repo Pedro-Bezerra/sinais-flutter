@@ -1,40 +1,29 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:teste_prototipo/paginas/inicio.dart';
-import 'package:teste_prototipo/main.dart';
-
-void inserirDado(String usuario, String email, String senha, String curso,
-    int idade, String fluencia, String escolaridade) async {
-  await supabase.from('cadastro').insert({
-    'usuario': usuario,
-    'email': email,
-    'senha': senha,
-    'curso': curso,
-    'idade': idade,
-    'fluencia': fluencia,
-    'escolaridade': escolaridade
-  });
-}
 
 class BotaoNext extends StatelessWidget {
-  final String usuario;
-  final String email;
-  final String senha;
-  final String curso;
-  final int idade;
-  final String fluencia;
-  final String escolaridade;
+  final String? usuario;
+  final String? email;
+  final String? senha;
+  final String? curso;
+  final int? idade;
+  final String? fluencia;
+  final String? escolaridade;
   final Widget? proximaPagina;
+  final VoidCallback? funcao;
+  final bool estaHabilitado;
 
   const BotaoNext({
-    this.usuario = "",
-    this.email = "",
-    this.senha = "",
-    this.curso = "",
-    this.idade = 0,
-    this.fluencia = "",
-    this.escolaridade = "",
+    this.usuario,
+    this.email,
+    this.senha,
+    this.curso,
+    this.idade,
+    this.fluencia,
+    this.escolaridade,
     this.proximaPagina,
+    this.funcao,
+    this.estaHabilitado = true,
     super.key,
   });
 
@@ -45,16 +34,17 @@ class BotaoNext extends StatelessWidget {
       width: MediaQuery.sizeOf(context).width,
       height: MediaQuery.sizeOf(context).height * 0.1,
       child: ElevatedButton(
-         style: ElevatedButton.styleFrom(
-          minimumSize: Size(double.infinity, 50),
-          backgroundColor: Color(0xFF054A91),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(8),
-          )),
+        style: ElevatedButton.styleFrom(
+            elevation: 10,
+            shadowColor: Color.fromARGB(255, 133, 199, 242),
+            minimumSize: Size(double.infinity, 50),
+            backgroundColor: estaHabilitado ? Color(0xFF054A91) : Colors.grey,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(8),
+            )),
         onPressed: () {
-          if (escolaridade != "") {
-            inserirDado(
-                usuario, email, senha, curso, idade, fluencia, escolaridade);
+          if (funcao != null) {
+            funcao!();
           }
           if (proximaPagina != null) {
             Navigator.push(

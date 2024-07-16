@@ -1,46 +1,10 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:teste_prototipo/main.dart';
+import 'package:teste_prototipo/db/db.dart';
 import 'home.dart';
 
 final regexUpper = RegExp('[A-Z]');
 final regexSpecial = RegExp('[!@#\$%^&*(),.?":{}|<>]');
-
-Future<List<dynamic>?> getUserByEmail(String email) async {
-  try {
-    final response = await supabase
-        .from('cadastro')
-        .select()
-        .eq('email', email)
-        .limit(1)
-        .single();
-
-    return response.values.toList();
-  } catch (e) {
-    print("Erro na obtenção dos dados");
-    return [];
-  }
-}
-
-bool haCadastro(String email) {
-  getUserByEmail(email).then((value) {
-    if (listEquals(value!, [])) {
-      return false;
-    }
-  });
-  return true;
-}
-
-void redefinirSenha(String novaSenha, String email) async {
-  try {
-    await supabase
-        .from('cadastro')
-        .update({'senha': novaSenha}).eq('email', email);
-  } catch (e) {
-    print('Erro na obtenção dos dados');
-  }
-}
+final regexNumber = RegExp(r'\d');
 
 class TelaNovaSenha extends StatefulWidget {
   const TelaNovaSenha({super.key});
@@ -104,6 +68,24 @@ class _FormsNovaSenhaState extends State<FormsNovaSenha> {
   String _senhaConfirmada = '';
   bool _obscureNewPassword = true;
   bool _obscurePasswordConfirmation = true;
+  bool _isPasswordFocused = false;
+  final FocusNode _passwordFocusNode = FocusNode();
+
+  @override
+  void initState() {
+    super.initState();
+    _passwordFocusNode.addListener(() {
+      setState(() {
+        _isPasswordFocused = _passwordFocusNode.hasFocus;
+      });
+    });
+  }
+
+  @override
+  void dispose() {
+    _passwordFocusNode.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -117,20 +99,36 @@ class _FormsNovaSenhaState extends State<FormsNovaSenha> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               TextFormField(
-                decoration: const InputDecoration(
-                    labelText: 'Email',
-                    border: OutlineInputBorder(),
-                    enabledBorder: OutlineInputBorder(
-                        borderSide:
-                            BorderSide(color: Color.fromARGB(255, 5, 74, 145))),
-                    focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                            color: Color.fromARGB(255, 5, 74, 145)))),
+                decoration: InputDecoration(
+                  labelText: 'Email',
+                  labelStyle: TextStyle(color: Color.fromARGB(255, 5, 74, 145)),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8.0), // Circular border
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide:
+                        BorderSide(color: Color.fromARGB(255, 5, 74, 145)),
+                    borderRadius: BorderRadius.circular(8.0), // Circular border
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide:
+                        BorderSide(color: Color.fromARGB(255, 5, 74, 145)),
+                    borderRadius: BorderRadius.circular(8.0), // Circular border
+                  ),
+                  prefixIcon:
+                      Icon(Icons.email, color: Color.fromARGB(255, 5, 74, 145)),
+                  hintText: 'Insira seu email',
+                  hintStyle: TextStyle(color: Colors.grey),
+                  filled: true,
+                  fillColor: Color.fromARGB(255, 240, 240, 240),
+                  contentPadding:
+                      EdgeInsets.symmetric(vertical: 15, horizontal: 10),
+                ),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Please enter your email';
                   }
-                  if (!haCadastro(value)) {
+                  if (!DB.haCadastro(value)) {
                     return "Não há nenhum cadastro com esse email";
                   }
                   return null;
@@ -140,75 +138,148 @@ class _FormsNovaSenhaState extends State<FormsNovaSenha> {
                 },
               ),
               const SizedBox(height: 20),
-              TextFormField(
-                decoration: InputDecoration(
+              Focus(
+                focusNode: _passwordFocusNode,
+                child: TextFormField(
+                  decoration: InputDecoration(
                     suffixIcon: GestureDetector(
-                      onTap: () => setState(() {
-                        _obscureNewPassword = !_obscureNewPassword;
-                      }),
-                      child: Icon(_obscureNewPassword
-                          ? Icons.visibility_off
-                          : Icons.visibility),
+                      onTap: () {
+                        setState(() {
+                          _obscureNewPassword = !_obscureNewPassword;
+                        });
+                      },
+                      child: Icon(
+                        _obscureNewPassword
+                            ? Icons.visibility_off
+                            : Icons.visibility,
+                        color: Color.fromARGB(255, 5, 74, 145),
+                      ),
                     ),
-                    labelText: 'Nova senha',
-                    border: const OutlineInputBorder(),
-                    enabledBorder: const OutlineInputBorder(
-                        borderSide:
-                            BorderSide(color: Color.fromARGB(255, 5, 74, 145))),
-                    focusedBorder: const OutlineInputBorder(
-                        borderSide: BorderSide(
-                            color: Color.fromARGB(255, 5, 74, 145)))),
-                obscureText: _obscureNewPassword,
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter your new password';
-                  }
-                  if (value.length < 8) {
-                    return 'Your password must have at least 8 characters';
-                  }
-                  if (!regexUpper.hasMatch(value)) {
-                    return 'Your password must have an uppercase letter';
-                  }
-                  if (!regexSpecial.hasMatch(value)) {
-                    return 'Your password must have a special character';
-                  }
-                  return null;
-                },
-                onChanged: (value) {
-                  _novaSenha = value!;
-                },
+                    labelText: 'Senha',
+                    labelStyle:
+                        TextStyle(color: Color.fromARGB(255, 5, 74, 145)),
+                    border: OutlineInputBorder(
+                      borderRadius:
+                          BorderRadius.circular(8.0), // Circular border
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide:
+                          BorderSide(color: Color.fromARGB(255, 5, 74, 145)),
+                      borderRadius:
+                          BorderRadius.circular(8.0), // Circular border
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide:
+                          BorderSide(color: Color.fromARGB(255, 5, 74, 145)),
+                      borderRadius:
+                          BorderRadius.circular(8.0), // Circular border
+                    ),
+                    prefixIcon: Icon(Icons.lock,
+                        color: Color.fromARGB(255, 5, 74, 145)),
+                    hintText: 'Insira sua senha',
+                    hintStyle: TextStyle(color: Colors.grey),
+                    filled: true,
+                    fillColor: Color.fromARGB(255, 240, 240, 240),
+                    contentPadding:
+                        EdgeInsets.symmetric(vertical: 15, horizontal: 10),
+                  ),
+                  obscureText: _obscureNewPassword,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Informe uma senha';
+                    }
+                    if (value.length < 8) {
+                      return 'A senha deve ter no mínimo 8 caracteres';
+                    }
+                    if (!regexUpper.hasMatch(value)) {
+                      return 'A senha deve conter uma letra maiúscula';
+                    }
+                    if (!regexSpecial.hasMatch(value)) {
+                      return 'A senha deve conter um caracter especial';
+                    }
+                    if (!regexNumber.hasMatch(value)) {
+                      return "A senha deve conter um número";
+                    }
+                    return null;
+                  },
+                  onChanged: (value) {
+                    _novaSenha = value;
+                  },
+                ),
               ),
+              if (_isPasswordFocused)
+                Padding(
+                  padding: const EdgeInsets.only(top: 8.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: const [
+                      Text('A senha deve ter no mínimo 8 caracteres'),
+                      Text('A senha deve conter uma letra maiúscula'),
+                      Text('A senha deve conter um número'),
+                      Text('A senha deve conter um caracter especial'),
+                    ],
+                  ),
+                ),
               const SizedBox(height: 20),
               TextFormField(
                 decoration: InputDecoration(
-                    suffixIcon: GestureDetector(
-                        onTap: () => setState(() {
-                              _obscurePasswordConfirmation =
-                                  !_obscurePasswordConfirmation;
-                            }),
-                        child: Icon(_obscurePasswordConfirmation
-                            ? Icons.visibility_off
-                            : Icons.visibility)),
-                    labelText: 'Confirmar senha',
-                    border: const OutlineInputBorder(),
-                    enabledBorder: const OutlineInputBorder(
-                        borderSide:
-                            BorderSide(color: Color.fromARGB(255, 5, 74, 145))),
-                    focusedBorder: const OutlineInputBorder(
-                        borderSide: BorderSide(
-                            color: Color.fromARGB(255, 5, 74, 145)))),
+                  suffixIcon: GestureDetector(
+                    onTap: () => setState(() {
+                      _obscurePasswordConfirmation =
+                          !_obscurePasswordConfirmation;
+                    }),
+                    child: Icon(
+                      _obscurePasswordConfirmation
+                          ? Icons.visibility_off
+                          : Icons.visibility,
+                      color: Color.fromARGB(255, 5, 74, 145),
+                    ),
+                  ),
+                  labelText: 'Confirme sua senha',
+                  labelStyle: TextStyle(color: Color.fromARGB(255, 5, 74, 145)),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8.0), // Circular border
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide:
+                        BorderSide(color: Color.fromARGB(255, 5, 74, 145)),
+                    borderRadius: BorderRadius.circular(8.0), // Circular border
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide:
+                        BorderSide(color: Color.fromARGB(255, 5, 74, 145)),
+                    borderRadius: BorderRadius.circular(8.0), // Circular border
+                  ),
+                  prefixIcon:
+                      Icon(Icons.lock, color: Color.fromARGB(255, 5, 74, 145)),
+                  hintText: 'Insira sua senha',
+                  hintStyle: TextStyle(color: Colors.grey),
+                  filled: true,
+                  fillColor: Color.fromARGB(255, 240, 240, 240),
+                  contentPadding:
+                      EdgeInsets.symmetric(vertical: 15, horizontal: 10),
+                ),
                 obscureText: _obscurePasswordConfirmation,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'Please confirm your password';
+                    return 'Confirme sua senha';
                   }
-                  if (_novaSenha != _senhaConfirmada) {
-                    return "As senhas não são iguais";
+                  if (value != _senhaConfirmada) {
+                    return 'As senhas são diferentes';
+                  }
+                  if (value.length < 8) {
+                    return 'A senha deve ter no mínimo 8 caracteres';
+                  }
+                  if (!regexUpper.hasMatch(value)) {
+                    return 'A senha deve ter uma letra maiúscula';
+                  }
+                  if (!regexSpecial.hasMatch(value)) {
+                    return 'A senha deve ter um caracter especial';
                   }
                   return null;
                 },
                 onChanged: (value) {
-                  _senhaConfirmada = value!;
+                  _senhaConfirmada = value;
                 },
               ),
               const SizedBox(height: 20),
@@ -217,6 +288,11 @@ class _FormsNovaSenhaState extends State<FormsNovaSenha> {
                   height: 50,
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
+                        elevation: 10, 
+                        shadowColor: Color.fromARGB(255, 133, 199, 242),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8),
+                        ),
                         backgroundColor:
                             const Color.fromARGB(255, 133, 199, 242),
                         foregroundColor: Colors.white,
@@ -224,7 +300,7 @@ class _FormsNovaSenhaState extends State<FormsNovaSenha> {
                             fontSize: 14, fontWeight: FontWeight.w900)),
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
-                        redefinirSenha(_novaSenha, _email);
+                        DB.redefinirSenha(_novaSenha, _email);
                         print(
                             'New password: $_novaSenha, Confirmed password: $_senhaConfirmada');
                         Navigator.push(
@@ -233,7 +309,8 @@ class _FormsNovaSenhaState extends State<FormsNovaSenha> {
                         );
                       }
                     },
-                    child: const Text('Redefinir senha'),
+                    child: const Text('Redefinir senha',  style: TextStyle(
+                          fontWeight: FontWeight.bold, letterSpacing: 1.5)),
                   )),
             ],
           )),

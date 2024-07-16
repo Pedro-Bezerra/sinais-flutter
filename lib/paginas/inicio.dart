@@ -3,6 +3,7 @@ import 'dart:math';
 
 import 'package:teste_prototipo/paginas/aprender_page.dart';
 import 'package:teste_prototipo/paginas/buscar_page..dart';
+import 'package:teste_prototipo/paginas/dicionario_page.dart';
 import 'package:teste_prototipo/paginas/perfil_page.dart';
 import 'package:teste_prototipo/paginas/revisar_page.dart';
 
@@ -96,6 +97,8 @@ class _InicioPageState extends State<InicioPage> {
 
 
 
+
+/*
 class DicionarioPage extends StatelessWidget {
   const DicionarioPage({super.key});
 
@@ -117,3 +120,4 @@ class DicionarioPage extends StatelessWidget {
     ));
   }
 }
+*/
