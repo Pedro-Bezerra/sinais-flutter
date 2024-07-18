@@ -18,7 +18,8 @@ class _CabecalhoDrawerState extends State<CabecalhoDrawer> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: const BoxDecoration(
+      color: Color.fromARGB(255, 237, 228, 222),
+      /*decoration: const BoxDecoration(
           gradient: LinearGradient(
         colors: [
           Color.fromARGB(255, 133, 199, 242),
@@ -27,7 +28,7 @@ class _CabecalhoDrawerState extends State<CabecalhoDrawer> {
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
         transform: GradientRotation(pi / 4),
-      )),
+      )),*/
       width: double.infinity,
       height: 200,
       padding: EdgeInsets.only(top: 20.0),

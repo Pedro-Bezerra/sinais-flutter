@@ -99,7 +99,7 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                   focusedBorder: OutlineInputBorder(
                     borderSide:
-                        BorderSide(color: Color.fromARGB(255, 42, 54, 66)),
+                        BorderSide(color: Color.fromARGB(255, 5, 74, 145)),
                     borderRadius: BorderRadius.circular(8.0), // Circular border
                   ),
                   prefixIcon:

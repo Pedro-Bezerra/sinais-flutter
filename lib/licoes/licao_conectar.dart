@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:teste_prototipo/paginas/resultado_page.dart';
 import 'package:teste_prototipo/widgets/botao_proximo.dart';
 import 'package:teste_prototipo/widgets/conteudo_conectar.dart';
 import 'package:teste_prototipo/widgets/direcionamento.dart';
+import 'package:teste_prototipo/widgets/progresso.dart';
 import 'package:teste_prototipo/widgets/video_player.dart';
+import 'package:teste_prototipo/widgets/widget_progresso.dart';
 
 class ConectarColunas extends StatefulWidget {
   final int pontuacao;
@@ -39,6 +42,7 @@ class _ConectarColunasState extends State<ConectarColunas> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
+            WidgetProgresso(count: 3),
             Expanded(
               flex: 1,
               child: TextoDirecionamento("Conecte a imagem com o sinal"),
@@ -126,10 +130,15 @@ class _ConectarColunasState extends State<ConectarColunas> {
               ),
             ),
             BotaoNext(
+                funcao: () =>
+                    Provider.of<ProgressManager>(context, listen: false)
+                        .nextStep(),
                 proximaPagina: TelaDeResultado(
-              acertos: pontuacao,
-              erros: qtdPerguntas + 1 - pontuacao, // + 1 porque tem que somar com essa
-            )),
+                  acertos: pontuacao,
+                  erros: qtdPerguntas +
+                      1 -
+                      pontuacao, // + 1 porque tem que somar com essa
+                )),
           ],
         ),
       ),

@@ -42,9 +42,8 @@ class _LicaoPTL2State extends State<LicaoPTL2> {
           children: <Widget>[
             WidgetProgresso(count: 5),
             SizedBox(height: 20),
-            Image(
-              image: NetworkImage(
-                  'https://img.freepik.com/vetores-premium/ilustracao-vetorial-de-estilo-de-desenho-a-lapis_484148-216.jpg'),
+            Image.asset(
+              'assets/images/lapis.jpg',
               width: 250,
               height: 250,
             ),

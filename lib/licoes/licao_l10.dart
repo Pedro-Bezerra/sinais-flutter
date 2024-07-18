@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:teste_prototipo/widgets/botao_proximo.dart';
 import 'package:teste_prototipo/licoes/licao_conectar.dart';
 import 'package:teste_prototipo/widgets/direcionamento.dart';
+import 'package:teste_prototipo/widgets/progresso.dart';
 import 'package:teste_prototipo/widgets/texto_dragging.dart';
 import 'package:teste_prototipo/widgets/video_player.dart';
+import 'package:teste_prototipo/widgets/widget_progresso.dart';
 
 class LicaoL10 extends StatefulWidget {
   final int pontuacao;
@@ -43,6 +46,7 @@ class _LicaoL10State extends State<LicaoL10> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: <Widget>[
+            WidgetProgresso(count: 3),
             Expanded(
                 flex: 2,
                 child: VideoPlayerScreen(
@@ -91,6 +95,9 @@ class _LicaoL10State extends State<LicaoL10> {
               ),
             ),
             BotaoNext(
+              funcao: () =>
+                    Provider.of<ProgressManager>(context, listen: false)
+                        .nextStep(),
               proximaPagina: ConectarColunas(qtdPerguntas: 2, pontuacao: pontuacao + 1,),
             )
           ],

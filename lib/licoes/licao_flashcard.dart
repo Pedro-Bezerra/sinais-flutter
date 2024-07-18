@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:teste_prototipo/widgets/botao_proximo.dart';
 import 'package:teste_prototipo/widgets/botao_sim_nao.dart';
 import 'package:teste_prototipo/widgets/direcionamento.dart';
 import 'package:teste_prototipo/licoes/licao_l10.dart';
+import 'package:teste_prototipo/widgets/progresso.dart';
 import 'package:teste_prototipo/widgets/texto_flashcard.dart';
 import 'package:teste_prototipo/widgets/video_player.dart';
+import 'package:teste_prototipo/widgets/widget_progresso.dart';
 import '../widgets/flashcard.dart';
 
 class LicaoFlashcard extends StatefulWidget {
@@ -82,6 +85,7 @@ class _LicaoFlashcardState extends State<LicaoFlashcard> {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            WidgetProgresso(count: 3),
             Flashcard(
               front: VideoPlayerScreen(caminhoVideo: video),
               back: Container(
@@ -128,6 +132,9 @@ class _LicaoFlashcardState extends State<LicaoFlashcard> {
               style: TextStyle(fontSize: 24, fontWeight: FontWeight.w900),
             ),
             BotaoNext(
+              funcao: () =>
+                    Provider.of<ProgressManager>(context, listen: false)
+                        .nextStep(),
               proximaPagina: indice == quantidade
                   ? LicaoL10(
                       qtdPerguntas: qtdPerguntas + 1,

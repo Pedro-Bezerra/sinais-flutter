@@ -23,7 +23,8 @@ class RevisarPage extends StatelessWidget {
             padding: const EdgeInsets.all(16.0),
             child: TextField(
               decoration: InputDecoration(
-                hintText: 'Search...',
+                hintStyle: TextStyle(fontSize: 14, color: Colors.grey.shade300),
+                hintText: 'Buscar...',
                 prefixIcon: Icon(Icons.search),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8.0),

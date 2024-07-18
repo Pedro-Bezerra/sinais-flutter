@@ -2,22 +2,25 @@ import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 import 'package:teste_prototipo/db/db.dart';
 import 'package:teste_prototipo/paginas/inicio.dart';
+import 'package:teste_prototipo/paginas/perfil_page.dart';
 
 final regexSpecial = RegExp('[!@#\$%^&*(),.?":{}|<>]');
 
 class EditarPerfil extends StatefulWidget {
+  final String usuarioAntigo;
   final String email;
 
-  EditarPerfil({required this.email});
+  EditarPerfil({required this.usuarioAntigo, required this.email});
 
   @override
-  _EditarPerfilState createState() => _EditarPerfilState(email);
+  _EditarPerfilState createState() => _EditarPerfilState(usuarioAntigo, email);
 }
 
 class _EditarPerfilState extends State<EditarPerfil> {
   final String email;
+  final String usuarioAntigo;
 
-  _EditarPerfilState(this.email);
+  _EditarPerfilState(this.usuarioAntigo, this.email);
 
   final _formKey = GlobalKey<FormState>();
   String _username = '';
@@ -25,6 +28,24 @@ class _EditarPerfilState extends State<EditarPerfil> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back_rounded),
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => InicioPage(usuario: usuarioAntigo, email: email,),
+              ),
+            );
+          },
+        ),
+        title: Text(
+          'Voltar',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
+      ),
       body: Container(
         padding: const EdgeInsets.all(16.0),
         width: MediaQuery.of(context).size.width,

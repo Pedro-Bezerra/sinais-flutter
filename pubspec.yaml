@@ -79,6 +79,16 @@ flutter:
      - assets/images/vegetais.png
      - assets/images/viagem.png
      - assets/images/frase.png
+     - assets/images/arte.png
+     - assets/images/lapis.jpg
+     - assets/images/caneta.gif
+     - assets/images/caderno.png
+     - assets/images/cadeira.png
+     - assets/images/coruja.jpg
+     - assets/images/caneta.png
+     - assets/images/caderno.jpg
+     - assets/images/regua.jpg
+     - assets/images/borracha.jpg
 
   #   - images/a_dot_ham.jpeg
 

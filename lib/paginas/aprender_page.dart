@@ -36,17 +36,7 @@ class _AprenderPageState extends State<AprenderPage> {
       body: Container(
         height: MediaQuery.sizeOf(context).height,
         width: MediaQuery.sizeOf(context).width,
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            colors: [
-              Color.fromARGB(255, 133, 199, 242),
-              Color.fromARGB(255, 5, 74, 145)
-            ],
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            transform: GradientRotation(pi / 4),
-          ),
-        ),
+        color: Color.fromARGB(255, 237, 228, 222),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           crossAxisAlignment: CrossAxisAlignment.center,

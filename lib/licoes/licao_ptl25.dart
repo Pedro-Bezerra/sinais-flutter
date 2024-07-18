@@ -63,12 +63,12 @@ class _LicaoPTL25State extends State<LicaoPTL25> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
                         _buildImageTextField(
-                          'https://m.media-amazon.com/images/I/61xLyYajSXL._AC_UF894,1000_QL80_.jpg',
+                          'assets/images/borracha.jpg',
                           _controller1,
                         ),
                         SizedBox(height: 20),
                         _buildImageTextField(
-                          'https://img.kalunga.com.br/fotosdeprodutos/176072z_2.jpg',
+                          'assets/images/caneta.png',
                           _controller2,
                         ),
                       ],
@@ -80,12 +80,12 @@ class _LicaoPTL25State extends State<LicaoPTL25> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
                         _buildImageTextField(
-                          'https://www.papelariaartnova.com.br/img/products/caderno-espiral-univ-capa-dura-16x1-256-fls-zip-preto-tilibra-340821_1_600.jpg',
+                          'assets/images/caderno.jpg',
                           _controller3,
                         ),
                         SizedBox(height: 20),
                         _buildImageTextField(
-                          'https://cdnv2.moovin.com.br/marbig/imagens/produtos/det/regua-em-poliestireno-15cm-academie-img-150497_2805241429046215.jpg',
+                          'assets/images/regua.jpg',
                           _controller4,
                         ),
                       ],
@@ -95,11 +95,6 @@ class _LicaoPTL25State extends State<LicaoPTL25> {
               ),
               SizedBox(height: 20),
               BotaoNext(
-                funcao: _canProceed()
-                    ? () {
-                        Navigator.pushNamed(context, '/telaDeResultado');
-                      }
-                    : null,
                 estaHabilitado: _canProceed(),
                 proximaPagina: _canProceed()
                     ? TelaDeResultado(
@@ -117,15 +112,15 @@ class _LicaoPTL25State extends State<LicaoPTL25> {
   }
 
   Widget _buildImageTextField(
-      String imageUrl, TextEditingController controller) {
+      String imagePath, TextEditingController controller) {
     double imageSize = MediaQuery.of(context).size.width * 0.35;
 
     return Column(
       children: <Widget>[
         AspectRatio(
           aspectRatio: 1.0,
-          child: Image.network(
-            imageUrl,
+          child: Image.asset(
+            imagePath,
             fit: BoxFit.cover,
           ),
         ),

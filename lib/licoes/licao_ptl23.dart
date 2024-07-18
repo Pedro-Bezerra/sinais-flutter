@@ -59,7 +59,8 @@ class _LicaoPTL23State extends State<LicaoPTL23> {
             SizedBox(height: 20),
             Expanded(
               flex: 3,
-              child: Column(
+              child: SingleChildScrollView(
+                child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Row(
@@ -81,7 +82,7 @@ class _LicaoPTL23State extends State<LicaoPTL23> {
                   ),
                 ],
               ),
-            ),
+            )),
             SizedBox(height: 20),
             Text(
               'Ligue o verbo com a ação',
@@ -143,7 +144,7 @@ class _LicaoPTL23State extends State<LicaoPTL23> {
           borderRadius: BorderRadius.circular(8),
         ),
         child: Image.network(
-          'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg',
+          'assets/images/coruja.jpg',
           width: imageSize,
           height: imageSize,
         ),

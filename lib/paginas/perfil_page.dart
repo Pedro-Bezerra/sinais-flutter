@@ -55,6 +55,9 @@ class _PerfilPageState extends State<PerfilPage> {
         height: MediaQuery.sizeOf(context).height,
         width: MediaQuery.sizeOf(context).width,
         decoration: const BoxDecoration(
+          color: Color.fromARGB(255, 237, 228, 222),
+        ),
+        /*decoration: const BoxDecoration(
           gradient: LinearGradient(
             colors: [
               Color.fromARGB(255, 133, 199, 242),
@@ -64,7 +67,7 @@ class _PerfilPageState extends State<PerfilPage> {
             end: Alignment.bottomRight,
             transform: GradientRotation(pi / 4),
           ),
-        ),
+        ),*/
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
@@ -108,7 +111,15 @@ class _PerfilPageState extends State<PerfilPage> {
                   height: MediaQuery.sizeOf(context).height * 0.3,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(15),
-                    color: Color.fromARGB(255, 237, 228, 222),
+                    gradient: LinearGradient(
+                      colors: [
+                        Color.fromARGB(255, 133, 199, 242),
+                        Color.fromARGB(255, 5, 74, 145)
+                      ],
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                      transform: GradientRotation(pi / 4),
+                    ),
                   ),
                 ),
                 Positioned(
@@ -190,7 +201,15 @@ class _PerfilPageState extends State<PerfilPage> {
               height: MediaQuery.sizeOf(context).height * 0.2,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(15),
-                color: Color.fromARGB(255, 237, 228, 222),
+                gradient: LinearGradient(
+                  colors: [
+                    Color.fromARGB(255, 133, 199, 242),
+                    Color.fromARGB(255, 5, 74, 145)
+                  ],
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  transform: GradientRotation(pi / 4),
+                ),
               ),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -209,7 +228,7 @@ class _PerfilPageState extends State<PerfilPage> {
                         children: [
                           Icon(
                             Icons.card_giftcard_rounded,
-                            color: Color.fromARGB(255, 5, 74, 145),
+                            color: Colors.white,
                           ),
                           Text(
                             "Nível 1",
@@ -221,7 +240,7 @@ class _PerfilPageState extends State<PerfilPage> {
                         children: [
                           Icon(
                             Icons.card_giftcard_rounded,
-                            color: Color.fromARGB(255, 5, 74, 145),
+                            color: Colors.white,
                           ),
                           Text(
                             "Nível 2",
@@ -233,7 +252,7 @@ class _PerfilPageState extends State<PerfilPage> {
                         children: [
                           Icon(
                             Icons.card_giftcard_rounded,
-                            color: Color.fromARGB(255, 5, 74, 145),
+                            color: Colors.white,
                           ),
                           Text(
                             "Nível 3",
@@ -295,7 +314,7 @@ class CorpoDrawer extends StatelessWidget {
             Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => EditarPerfil(email: email),
+                  builder: (context) => EditarPerfil(usuarioAntigo: usuario, email: email),
                 ));
           },
         ),
@@ -309,7 +328,8 @@ class CorpoDrawer extends StatelessWidget {
             Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => Historico(usuario: usuario, email: email),
+                  builder: (context) =>
+                      Historico(usuario: usuario, email: email),
                 ));
           },
         ),
