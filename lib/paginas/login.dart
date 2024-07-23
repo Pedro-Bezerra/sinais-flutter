@@ -37,17 +37,17 @@ class _LoginPageState extends State<LoginPage> {
                   labelText: 'Email',
                   labelStyle: TextStyle(color: Color.fromARGB(255, 5, 74, 145)),
                   border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8.0), // Circular border
+                    borderRadius: BorderRadius.circular(8.0), 
                   ),
                   enabledBorder: OutlineInputBorder(
                     borderSide:
                         BorderSide(color: Color.fromARGB(255, 5, 74, 145)),
-                    borderRadius: BorderRadius.circular(8.0), // Circular border
+                    borderRadius: BorderRadius.circular(8.0), 
                   ),
                   focusedBorder: OutlineInputBorder(
                     borderSide:
                         BorderSide(color: Color.fromARGB(255, 5, 74, 145)),
-                    borderRadius: BorderRadius.circular(8.0), // Circular border
+                    borderRadius: BorderRadius.circular(8.0),
                   ),
                   prefixIcon:
                       Icon(Icons.email, color: Color.fromARGB(255, 5, 74, 145)),
@@ -90,17 +90,17 @@ class _LoginPageState extends State<LoginPage> {
                   labelText: 'Senha',
                   labelStyle: TextStyle(color: Color.fromARGB(255, 5, 74, 145)),
                   border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8.0), // Circular border
+                    borderRadius: BorderRadius.circular(8.0), 
                   ),
                   enabledBorder: OutlineInputBorder(
                     borderSide:
                         BorderSide(color: Color.fromARGB(255, 5, 74, 145)),
-                    borderRadius: BorderRadius.circular(8.0), // Circular border
+                    borderRadius: BorderRadius.circular(8.0),
                   ),
                   focusedBorder: OutlineInputBorder(
                     borderSide:
                         BorderSide(color: Color.fromARGB(255, 5, 74, 145)),
-                    borderRadius: BorderRadius.circular(8.0), // Circular border
+                    borderRadius: BorderRadius.circular(8.0), 
                   ),
                   prefixIcon:
                       Icon(Icons.lock, color: Color.fromARGB(255, 5, 74, 145)),

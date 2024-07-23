@@ -9,14 +9,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  bool _showSignupPage = false;
-
-  void _togglePage() {
-    setState(() {
-      _showSignupPage = !_showSignupPage;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     var telaLoginCadastro = context.watch<TelaLoginCadastro>();

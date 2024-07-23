@@ -13,8 +13,7 @@ class DB {
       );
     } catch (e) {
       print('Error initializing Supabase: $e');
-      // Handle initialization error as needed
-      return; // Exit main function if initialization fails
+      return; 
     }
   }
 

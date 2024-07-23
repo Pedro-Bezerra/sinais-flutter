@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:teste_prototipo/licoes/licao_ptl22.dart';
 import 'package:teste_prototipo/licoes/licao_ptl25.dart';
 import 'package:teste_prototipo/paginas/inicio.dart';
+import 'package:teste_prototipo/widgets/botao_de_progresso.dart';
 import 'package:teste_prototipo/widgets/botao_proximo.dart';
 import 'package:teste_prototipo/widgets/widget_progresso.dart';
 import 'package:teste_prototipo/widgets/progresso.dart'; // Importar o ProgressManager
@@ -43,7 +44,7 @@ class _LicaoPTL24State extends State<LicaoPTL24> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            WidgetProgresso(count: 5), // Agora exibe 4 bolas azuis
+            BarraProgresso(totalQuestoes: 5, questoesCompletadas: 3),
             SizedBox(height: 20),
             Expanded(
               child: Column(
@@ -94,8 +95,7 @@ class _LicaoPTL24State extends State<LicaoPTL24> {
             BotaoNext(
               funcao: _canProceed()
                   ? () {
-                      Provider.of<ProgressManager>(context, listen: false)
-                          .nextStep();
+                      
                     }
                   : null,
               estaHabilitado: _canProceed(),

@@ -102,7 +102,6 @@ class TelaDeResultado extends StatelessWidget {
                 ),
                 onPressed: () {
                   //Historico.mudarPontuacao(acertos);
-                  Provider.of<ProgressManager>(context, listen: false).reset();
                   DB.inserirDadosHistorico(
                       "Vitinho", "vitor.farias@upe.br", acertos, erros);
                   Navigator.push(

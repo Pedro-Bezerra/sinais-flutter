@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:teste_prototipo/licoes/licao_ptl23.dart';
 import 'package:teste_prototipo/paginas/inicio.dart';
+import 'package:teste_prototipo/widgets/botao_de_progresso.dart';
 import 'package:teste_prototipo/widgets/botao_proximo.dart';
 import 'package:teste_prototipo/widgets/widget_progresso.dart';
 import 'package:teste_prototipo/widgets/progresso.dart';
@@ -43,7 +44,7 @@ class _LicaoPTL22State extends State<LicaoPTL22> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
-              WidgetProgresso(count: 5),
+              BarraProgresso(totalQuestoes: 5, questoesCompletadas: 1),
               SizedBox(height: 20),
               Container(
                 color: Colors.white,
@@ -96,8 +97,6 @@ class _LicaoPTL22State extends State<LicaoPTL22> {
               BotaoNext(
                 funcao: _selectedImage != null && _buttonsDisabled
                     ? () {
-                        Provider.of<ProgressManager>(context, listen: false)
-                          .nextStep();
                         
                       }
                     : null,

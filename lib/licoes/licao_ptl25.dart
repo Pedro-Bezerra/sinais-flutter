@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:flutter/services.dart';
 import 'package:teste_prototipo/paginas/inicio.dart';
 import 'package:teste_prototipo/paginas/resultado_page.dart';
+import 'package:teste_prototipo/widgets/botao_de_progresso.dart';
 import 'package:teste_prototipo/widgets/botao_proximo.dart';
 import 'package:teste_prototipo/widgets/widget_progresso.dart';
 import 'package:teste_prototipo/widgets/progresso.dart';
@@ -43,8 +44,7 @@ class _LicaoPTL25State extends State<LicaoPTL25> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
-              WidgetProgresso(
-                  count: 5), // Widget de progresso com 4 bolas azuis
+              BarraProgresso(totalQuestoes: 5, questoesCompletadas: 4),
               SizedBox(height: 20),
               Text(
                 'Escreva o substantivo que corresponde à imagem',
@@ -95,14 +95,12 @@ class _LicaoPTL25State extends State<LicaoPTL25> {
               ),
               SizedBox(height: 20),
               BotaoNext(
-                estaHabilitado: _canProceed(),
-                proximaPagina: _canProceed()
-                    ? TelaDeResultado(
-                        acertos: 0,
-                        erros: 0,
-                      )
-                    : null,
-              ),
+                  //estaHabilitado: _canProceed(),
+                  proximaPagina: //_canProceed()
+                      TelaDeResultado(
+                acertos: 0,
+                erros: 0,
+              )),
               SizedBox(height: 20),
             ],
           ),
@@ -145,16 +143,10 @@ class _LicaoPTL25State extends State<LicaoPTL25> {
               FilteringTextInputFormatter.allow(
                   RegExp(r'[a-zA-ZáÁâÂãÃàÀéÉêÊíÍóÓôÔõÕúÚüÜçÇ\s]+')),
             ],
-            onChanged: (text) {
-              Provider.of<ProgressManager>(context, listen: false).nextStep();
-            },
+            onChanged: (text) {},
           ),
         ),
       ],
     );
-  }
-
-  bool _canProceed() {
-    return Provider.of<ProgressManager>(context).currentStep >= 4;
   }
 }

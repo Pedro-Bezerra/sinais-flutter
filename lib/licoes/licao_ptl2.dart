@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:teste_prototipo/licoes/licao_ptl22.dart';
 import 'package:teste_prototipo/paginas/inicio.dart';
+import 'package:teste_prototipo/widgets/botao_de_progresso.dart';
 import 'package:teste_prototipo/widgets/botao_proximo.dart';
 import 'package:teste_prototipo/widgets/widget_progresso.dart';
 import 'package:teste_prototipo/widgets/progresso.dart';
@@ -25,7 +26,6 @@ class _LicaoPTL2State extends State<LicaoPTL2> {
           IconButton(
             icon: Icon(Icons.close),
             onPressed: () {
-              Provider.of<ProgressManager>(context, listen: false).reset();
               MaterialPageRoute(
                 builder: (context) => InicioPage(
                     usuario: "Vitinho", email: "vitor.farias@upe.br"),
@@ -40,7 +40,7 @@ class _LicaoPTL2State extends State<LicaoPTL2> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            WidgetProgresso(count: 5),
+            BarraProgresso(totalQuestoes: 5, questoesCompletadas: 0),
             SizedBox(height: 20),
             Image.asset(
               'assets/images/lapis.jpg',
@@ -66,11 +66,7 @@ class _LicaoPTL2State extends State<LicaoPTL2> {
             BotaoNext(
               funcao: _selectedButton != null && !_buttonsDisabled
                   ? () {
-                      Provider.of<ProgressManager>(context, listen: false)
-                          .nextStep();
-                      setState(() {
-                        _buttonsDisabled = true;
-                      });
+                      
                     }
                   : null,
               proximaPagina: _selectedButton != null && !_buttonsDisabled

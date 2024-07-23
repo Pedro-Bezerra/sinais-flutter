@@ -101,9 +101,7 @@ class _AprenderPageState extends State<AprenderPage> {
             BotaoIniciarLicao(
                 number: 1,
                 legenda: "Vocabulário",
-                proximaPagina: /*LicaoPTL2()*/ LicaoL10(
-                  qtdPerguntas: 1,
-                )),
+                proximaPagina: LicaoPTL2() ),
             /*LicaoFlashcard(
                   qtdPerguntas: 1,
                 )),*/

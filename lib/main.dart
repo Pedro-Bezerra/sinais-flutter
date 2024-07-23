@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => TelaLoginCadastro()),
-        ChangeNotifierProvider(create: (context) => ProgressManager(),), 
+        //ChangeNotifierProvider(create: (context) => ProgressManager(),), 
       ],
         child: MaterialApp(
             title: 'Login',

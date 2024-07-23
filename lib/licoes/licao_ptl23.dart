@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:teste_prototipo/licoes/licao_ptl24.dart';
 import 'package:teste_prototipo/paginas/inicio.dart';
+import 'package:teste_prototipo/widgets/botao_de_progresso.dart';
 import 'package:teste_prototipo/widgets/botao_proximo.dart';
 import 'package:teste_prototipo/widgets/widget_progresso.dart';
 import 'package:teste_prototipo/widgets/progresso.dart'; // Certifique-se de importar o WidgetProgresso aqui também
@@ -54,8 +55,7 @@ class _LicaoPTL23State extends State<LicaoPTL23> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            WidgetProgresso(
-                count: 5), // Certifique-se de que o count está correto aqui
+            BarraProgresso(totalQuestoes: 5, questoesCompletadas: 2),
             SizedBox(height: 20),
             Expanded(
               flex: 3,
@@ -123,7 +123,6 @@ class _LicaoPTL23State extends State<LicaoPTL23> {
   }
 
   void _navigateToLicaoPTL24() {
-    Provider.of<ProgressManager>(context, listen: false).nextStep();
   }
 
   Widget _buildImage(String identifier) {
