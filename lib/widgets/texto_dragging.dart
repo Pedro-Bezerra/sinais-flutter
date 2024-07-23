@@ -4,11 +4,17 @@ class TextoDragAndDrop extends StatefulWidget {
   final String resposta;
   final String ordem;
   final ValueChanged<String> onTextDropped;
+  final List<String> droppedTexts;
+  final List<bool> occupiedTargets; // New list to track occupied targets
+  final int index; // Index to identify this target
 
   TextoDragAndDrop({
     required this.resposta,
     required this.ordem,
     required this.onTextDropped,
+    required this.droppedTexts,
+    required this.occupiedTargets, // Pass the occupiedTargets list
+    required this.index, // Pass the index of this target
   });
 
   @override
@@ -19,10 +25,15 @@ class _TextoDragAndDropState extends State<TextoDragAndDrop> {
   String _droppedText = '';
 
   void _onAcceptWithDetails(DragTargetDetails<String> details) {
-    setState(() {
-      _droppedText = details.data;
-    });
-    widget.onTextDropped(details.data);
+    // Check if this target is already occupied
+    if (!widget.droppedTexts.contains(details.data) && !widget.occupiedTargets[widget.index]) {
+      setState(() {
+        _droppedText = details.data;
+        widget.droppedTexts.add(details.data);
+        widget.occupiedTargets[widget.index] = true; // Mark this target as occupied
+      });
+      widget.onTextDropped(details.data);
+    }
   }
 
   BoxDecoration _getContainerDecoration() {
@@ -32,7 +43,7 @@ class _TextoDragAndDropState extends State<TextoDragAndDrop> {
         (_droppedText != "aluna" && widget.ordem != "2") ||
         (_droppedText != "respondeu" && widget.ordem != "3") ||
         (_droppedText != "a" && widget.ordem != "4") ||
-        (_droppedText != "prova" && widget.ordem != "1");
+        (_droppedText != "prova" && widget.ordem != "5");
 
     bool certo = (_droppedText == "A" && widget.ordem == "1") ||
         (_droppedText == "aluna" && widget.ordem == "2") ||

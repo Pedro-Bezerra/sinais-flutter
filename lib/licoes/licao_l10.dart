@@ -31,6 +31,8 @@ class _LicaoL10State extends State<LicaoL10> {
 
   int acertos = 0;
   int qtdPalavras = 5;
+  List<String> droppedTexts = [];
+  List<bool> occupiedTargets = [false, false, false, false, false];
 
   void _incrementarAcerto() {
     setState(() {
@@ -68,26 +70,41 @@ class _LicaoL10State extends State<LicaoL10> {
                         resposta: "respondeu",
                         ordem: "1",
                         onTextDropped: _handleTextDropped,
+                        droppedTexts: droppedTexts,
+                        occupiedTargets: occupiedTargets,
+                        index: 0,
                       ),
                       TextoDragAndDrop(
                         resposta: "aluna",
                         ordem: "2",
                         onTextDropped: _handleTextDropped,
+                        droppedTexts: droppedTexts,
+                        occupiedTargets: occupiedTargets,
+                        index: 1,
                       ),
                       TextoDragAndDrop(
                         resposta: "A",
                         ordem: "3",
                         onTextDropped: _handleTextDropped,
+                        droppedTexts: droppedTexts,
+                        occupiedTargets: occupiedTargets,
+                        index: 2,
                       ),
                       TextoDragAndDrop(
                         resposta: "prova",
                         ordem: "4",
                         onTextDropped: _handleTextDropped,
+                        droppedTexts: droppedTexts,
+                        occupiedTargets: occupiedTargets,
+                        index: 3,
                       ),
                       TextoDragAndDrop(
                         resposta: "a",
                         ordem: "5",
                         onTextDropped: _handleTextDropped,
+                        droppedTexts: droppedTexts,
+                        occupiedTargets: occupiedTargets,
+                        index: 4,
                       ),
                     ],
                   ),
@@ -95,10 +112,12 @@ class _LicaoL10State extends State<LicaoL10> {
               ),
             ),
             BotaoNext(
-              funcao: () =>
-                    Provider.of<ProgressManager>(context, listen: false)
-                        .nextStep(),
-              proximaPagina: ConectarColunas(qtdPerguntas: 2, pontuacao: pontuacao + 1,),
+              funcao: () => Provider.of<ProgressManager>(context, listen: false)
+                  .nextStep(),
+              proximaPagina: ConectarColunas(
+                qtdPerguntas: 2,
+                pontuacao: pontuacao + 1,
+              ),
             )
           ],
         ),
