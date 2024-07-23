@@ -7,6 +7,8 @@ class TextoDragAndDrop extends StatefulWidget {
   final List<String> droppedTexts;
   final List<bool> occupiedTargets; // New list to track occupied targets
   final int index; // Index to identify this target
+  final ValueChanged<bool>
+      onRedBorderChanged; // Callback for red border changes
 
   TextoDragAndDrop({
     required this.resposta,
@@ -15,6 +17,7 @@ class TextoDragAndDrop extends StatefulWidget {
     required this.droppedTexts,
     required this.occupiedTargets, // Pass the occupiedTargets list
     required this.index, // Pass the index of this target
+    required this.onRedBorderChanged, // Pass the callback for red border changes
   });
 
   @override
@@ -23,14 +26,17 @@ class TextoDragAndDrop extends StatefulWidget {
 
 class _TextoDragAndDropState extends State<TextoDragAndDrop> {
   String _droppedText = '';
+  bool hasRedBorder = false; // Variable to track if any border is red
 
   void _onAcceptWithDetails(DragTargetDetails<String> details) {
     // Check if this target is already occupied
-    if (!widget.droppedTexts.contains(details.data) && !widget.occupiedTargets[widget.index]) {
+    if (!widget.droppedTexts.contains(details.data) &&
+        !widget.occupiedTargets[widget.index]) {
       setState(() {
         _droppedText = details.data;
         widget.droppedTexts.add(details.data);
-        widget.occupiedTargets[widget.index] = true; // Mark this target as occupied
+        widget.occupiedTargets[widget.index] =
+            true; // Mark this target as occupied
       });
       widget.onTextDropped(details.data);
     }
@@ -55,6 +61,8 @@ class _TextoDragAndDropState extends State<TextoDragAndDrop> {
       borderColor = Colors.green;
     } else if (errado && _droppedText != "") {
       borderColor = Colors.red;
+      hasRedBorder = true;
+      widget.onRedBorderChanged(hasRedBorder);
     } else {
       borderColor = Color.fromARGB(75, 150, 150, 150);
     }

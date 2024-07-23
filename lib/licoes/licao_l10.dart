@@ -29,6 +29,14 @@ class _LicaoL10State extends State<LicaoL10> {
     // Handle the dropped text as needed
   }
 
+  bool anyRedBorder = false;
+
+  void _handleRedBorderChanged(bool hasRedBorder) {
+    setState(() {
+      anyRedBorder = hasRedBorder;
+    });
+  }
+
   int acertos = 0;
   int qtdPalavras = 5;
   List<String> droppedTexts = [];
@@ -73,6 +81,7 @@ class _LicaoL10State extends State<LicaoL10> {
                         droppedTexts: droppedTexts,
                         occupiedTargets: occupiedTargets,
                         index: 0,
+                        onRedBorderChanged: _handleRedBorderChanged, // Pass the callback
                       ),
                       TextoDragAndDrop(
                         resposta: "aluna",
@@ -81,6 +90,7 @@ class _LicaoL10State extends State<LicaoL10> {
                         droppedTexts: droppedTexts,
                         occupiedTargets: occupiedTargets,
                         index: 1,
+                        onRedBorderChanged: _handleRedBorderChanged, // Pass the callback
                       ),
                       TextoDragAndDrop(
                         resposta: "A",
@@ -89,6 +99,7 @@ class _LicaoL10State extends State<LicaoL10> {
                         droppedTexts: droppedTexts,
                         occupiedTargets: occupiedTargets,
                         index: 2,
+                        onRedBorderChanged: _handleRedBorderChanged, // Pass the callback
                       ),
                       TextoDragAndDrop(
                         resposta: "prova",
@@ -97,6 +108,7 @@ class _LicaoL10State extends State<LicaoL10> {
                         droppedTexts: droppedTexts,
                         occupiedTargets: occupiedTargets,
                         index: 3,
+                        onRedBorderChanged: _handleRedBorderChanged, // Pass the callback
                       ),
                       TextoDragAndDrop(
                         resposta: "a",
@@ -105,6 +117,7 @@ class _LicaoL10State extends State<LicaoL10> {
                         droppedTexts: droppedTexts,
                         occupiedTargets: occupiedTargets,
                         index: 4,
+                        onRedBorderChanged: _handleRedBorderChanged, // Pass the callback
                       ),
                     ],
                   ),
@@ -116,7 +129,7 @@ class _LicaoL10State extends State<LicaoL10> {
                   .nextStep(),
               proximaPagina: ConectarColunas(
                 qtdPerguntas: 2,
-                pontuacao: pontuacao + 1,
+                pontuacao: anyRedBorder ? pontuacao : pontuacao + 1,
               ),
             )
           ],
