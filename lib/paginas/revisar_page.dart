@@ -15,6 +15,7 @@ class RevisarPage extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
+          SizedBox(height: 50,),
           Text(
             "Revisar lições",
             style: TextStyle(fontSize: 24),

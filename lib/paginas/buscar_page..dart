@@ -33,31 +33,32 @@ class BuscarPage extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                SizedBox(height: 60), // To account for the search bar height
+                SizedBox(height: 60),
                 Expanded(
                   child: GridView.builder(
-                    padding: const EdgeInsets.all(8.0),
+                    padding:
+                        const EdgeInsets.only(top: 40.0, left: 30, right: 30),
                     gridDelegate:
                         const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 3, // Number of items per row
-                      crossAxisSpacing: 8.0, // Space between items horizontally
-                      mainAxisSpacing: 8.0, // Space between items vertically
-                      childAspectRatio: 2, // Aspect ratio of the items
+                      crossAxisCount: 3,
+                      crossAxisSpacing: 8.0,
+                      mainAxisSpacing: 8.0,
+                      childAspectRatio: 1.2,
                     ),
-                    itemCount: gridItems.length, // Total number of items
+                    itemCount: gridItems.length,
                     itemBuilder: (context, index) {
                       return Container(
                         decoration: BoxDecoration(
                           color: Colors.white,
-                          borderRadius: BorderRadius.circular(8.0),
+                          borderRadius: BorderRadius.circular(15.0),
                         ),
                         child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Expanded(
                               child: Image.asset(
                                 gridItems[index]['image']!,
                                 fit: BoxFit.contain,
-                                width: double.infinity,
                               ),
                             ),
                             const SizedBox(height: 4.0),
@@ -82,23 +83,12 @@ class BuscarPage extends StatelessWidget {
               width: MediaQuery.sizeOf(context).width * 0.5,
               child: TextField(
                 decoration: InputDecoration(
-                  hintStyle: TextStyle(fontSize: 14, color: Colors.grey.shade300),
+                  hintStyle:
+                      TextStyle(fontSize: 14, color: Colors.grey.shade300),
                   hintText: 'Buscar...',
-                  prefixIcon: Icon(
-                    Icons.search_rounded,
-                    size: 35,
-                    color: Colors.black,
-                  ),
+                  prefixIcon: Icon(Icons.search),
                   border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8.0), // Circular border
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Color.fromARGB(255, 5, 74, 145)),
-                    borderRadius: BorderRadius.circular(8.0), // Circular border
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Color.fromARGB(255, 5, 74, 145)),
-                    borderRadius: BorderRadius.circular(10.0), // Circular border
+                    borderRadius: BorderRadius.circular(8.0),
                   ),
                   filled: true,
                   fillColor: Colors.white,

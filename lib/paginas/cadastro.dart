@@ -57,31 +57,10 @@ class _SignUpPageState extends State<SignUpPage> {
                       color: Color.fromARGB(255, 47, 47, 47))),
               SizedBox(height: 20),
               TextFormField(
-                decoration: InputDecoration(
-                  labelText: 'Usuário',
-                  labelStyle: TextStyle(color: Color.fromARGB(255, 5, 74, 145)),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8.0), // Circular border
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                    borderSide:
-                        BorderSide(color: Color.fromARGB(255, 5, 74, 145)),
-                    borderRadius: BorderRadius.circular(8.0), // Circular border
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide:
-                        BorderSide(color: Color.fromARGB(255, 5, 74, 145)),
-                    borderRadius: BorderRadius.circular(8.0), // Circular border
-                  ),
-                  prefixIcon: Icon(Icons.person,
-                      color: Color.fromARGB(255, 5, 74, 145)),
-                  hintText: 'Insira seu usuário',
-                  hintStyle: TextStyle(color: Colors.grey),
-                  filled: true,
-                  fillColor: Color.fromARGB(255, 240, 240, 240),
-                  contentPadding:
-                      EdgeInsets.symmetric(vertical: 15, horizontal: 10),
-                ),
+                decoration: construirDecoracaoTextField(
+                    label: "Usuário",
+                    hint: "Insire seu usuário",
+                    iconePrevio: Icons.person),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Informe o seu usuário';
@@ -94,31 +73,10 @@ class _SignUpPageState extends State<SignUpPage> {
               ),
               const SizedBox(height: 20),
               TextFormField(
-                decoration: InputDecoration(
-                  labelText: 'Email',
-                  labelStyle: TextStyle(color: Color.fromARGB(255, 5, 74, 145)),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8.0), // Circular border
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                    borderSide:
-                        BorderSide(color: Color.fromARGB(255, 5, 74, 145)),
-                    borderRadius: BorderRadius.circular(8.0), // Circular border
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide:
-                        BorderSide(color: Color.fromARGB(255, 5, 74, 145)),
-                    borderRadius: BorderRadius.circular(8.0), // Circular border
-                  ),
-                  prefixIcon:
-                      Icon(Icons.email, color: Color.fromARGB(255, 5, 74, 145)),
-                  hintText: 'Insira seu email',
-                  hintStyle: TextStyle(color: Colors.grey),
-                  filled: true,
-                  fillColor: Color.fromARGB(255, 240, 240, 240),
-                  contentPadding:
-                      EdgeInsets.symmetric(vertical: 15, horizontal: 10),
-                ),
+                decoration: construirDecoracaoTextField(
+                    label: "Email",
+                    hint: "Insire seu email",
+                    iconePrevio: Icons.email),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Informe um email';
@@ -136,48 +94,24 @@ class _SignUpPageState extends State<SignUpPage> {
               Focus(
                 focusNode: _passwordFocusNode,
                 child: TextFormField(
-                  decoration: InputDecoration(
-                    suffixIcon: GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          _obscurePasswordCreation = !_obscurePasswordCreation;
-                        });
-                      },
-                      child: Icon(
-                        _obscurePasswordCreation
-                            ? Icons.visibility_off
-                            : Icons.visibility,
-                        color: Color.fromARGB(255, 5, 74, 145),
-                      ),
-                    ),
-                    labelText: 'Senha',
-                    labelStyle:
-                        TextStyle(color: Color.fromARGB(255, 5, 74, 145)),
-                    border: OutlineInputBorder(
-                      borderRadius:
-                          BorderRadius.circular(8.0), // Circular border
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderSide:
-                          BorderSide(color: Color.fromARGB(255, 5, 74, 145)),
-                      borderRadius:
-                          BorderRadius.circular(8.0), // Circular border
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide:
-                          BorderSide(color: Color.fromARGB(255, 5, 74, 145)),
-                      borderRadius:
-                          BorderRadius.circular(8.0), // Circular border
-                    ),
-                    prefixIcon: Icon(Icons.lock,
-                        color: Color.fromARGB(255, 5, 74, 145)),
-                    hintText: 'Insira sua senha',
-                    hintStyle: TextStyle(color: Colors.grey),
-                    filled: true,
-                    fillColor: Color.fromARGB(255, 240, 240, 240),
-                    contentPadding:
-                        EdgeInsets.symmetric(vertical: 15, horizontal: 10),
-                  ),
+                  decoration: construirDecoracaoTextField(
+                      label: "Senha",
+                      hint: "Insire sua senha",
+                      iconePrevio: Icons.lock,
+                      iconePosterior: GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            _obscurePasswordCreation =
+                                !_obscurePasswordCreation;
+                          });
+                        },
+                        child: Icon(
+                          _obscurePasswordCreation
+                              ? Icons.visibility_off
+                              : Icons.visibility,
+                          color: Color.fromARGB(255, 5, 74, 145),
+                        ),
+                      )),
                   obscureText: _obscurePasswordCreation,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
@@ -217,43 +151,22 @@ class _SignUpPageState extends State<SignUpPage> {
                 ),
               const SizedBox(height: 20),
               TextFormField(
-                decoration: InputDecoration(
-                  suffixIcon: GestureDetector(
-                    onTap: () => setState(() {
-                      _obscurePasswordConfirmation =
-                          !_obscurePasswordConfirmation;
-                    }),
-                    child: Icon(
-                      _obscurePasswordConfirmation
-                          ? Icons.visibility_off
-                          : Icons.visibility,
-                      color: Color.fromARGB(255, 5, 74, 145),
-                    ),
-                  ),
-                  labelText: 'Confirme sua senha',
-                  labelStyle: TextStyle(color: Color.fromARGB(255, 5, 74, 145)),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8.0), // Circular border
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                    borderSide:
-                        BorderSide(color: Color.fromARGB(255, 5, 74, 145)),
-                    borderRadius: BorderRadius.circular(8.0), // Circular border
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide:
-                        BorderSide(color: Color.fromARGB(255, 5, 74, 145)),
-                    borderRadius: BorderRadius.circular(8.0), // Circular border
-                  ),
-                  prefixIcon:
-                      Icon(Icons.lock, color: Color.fromARGB(255, 5, 74, 145)),
-                  hintText: 'Insira sua senha',
-                  hintStyle: TextStyle(color: Colors.grey),
-                  filled: true,
-                  fillColor: Color.fromARGB(255, 240, 240, 240),
-                  contentPadding:
-                      EdgeInsets.symmetric(vertical: 15, horizontal: 10),
-                ),
+                decoration: construirDecoracaoTextField(
+                    label: "Confime sua senha",
+                    hint: "Insira sua senha",
+                    iconePrevio: Icons.lock,
+                    iconePosterior: GestureDetector(
+                      onTap: () => setState(() {
+                        _obscurePasswordConfirmation =
+                            !_obscurePasswordConfirmation;
+                      }),
+                      child: Icon(
+                        _obscurePasswordConfirmation
+                            ? Icons.visibility_off
+                            : Icons.visibility,
+                        color: Color.fromARGB(255, 5, 74, 145),
+                      ),
+                    )),
                 obscureText: _obscurePasswordConfirmation,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
@@ -319,4 +232,33 @@ class _SignUpPageState extends State<SignUpPage> {
       ),
     );
   }
+}
+
+InputDecoration construirDecoracaoTextField(
+    {required String label,
+    required String hint,
+    required IconData iconePrevio,
+    Widget? iconePosterior}) {
+  return InputDecoration(
+    labelText: label,
+    labelStyle: TextStyle(color: Color.fromARGB(255, 5, 74, 145)),
+    border: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(8.0),
+    ),
+    enabledBorder: OutlineInputBorder(
+      borderSide: BorderSide(color: Color.fromARGB(255, 5, 74, 145)),
+      borderRadius: BorderRadius.circular(8.0),
+    ),
+    focusedBorder: OutlineInputBorder(
+      borderSide: BorderSide(color: Color.fromARGB(255, 5, 74, 145)),
+      borderRadius: BorderRadius.circular(8.0),
+    ),
+    prefixIcon: Icon(iconePrevio, color: Color.fromARGB(255, 5, 74, 145)),
+    suffixIcon: iconePosterior != null ? iconePosterior : null,
+    hintText: hint,
+    hintStyle: TextStyle(color: Colors.grey),
+    filled: true,
+    fillColor: Color.fromARGB(255, 240, 240, 240),
+    contentPadding: EdgeInsets.symmetric(vertical: 15, horizontal: 10),
+  );
 }

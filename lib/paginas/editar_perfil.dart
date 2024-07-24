@@ -36,7 +36,10 @@ class _EditarPerfilState extends State<EditarPerfil> {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => InicioPage(usuario: usuarioAntigo, email: email,),
+                builder: (context) => InicioPage(
+                  usuario: usuarioAntigo,
+                  email: email,
+                ),
               ),
             );
           },
@@ -60,31 +63,10 @@ class _EditarPerfilState extends State<EditarPerfil> {
               ),
               const SizedBox(height: 20),
               TextFormField(
-                decoration: InputDecoration(
-                  labelText: 'Usuário',
-                  labelStyle: TextStyle(color: Color.fromARGB(255, 5, 74, 145)),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8.0), // Circular border
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                    borderSide:
-                        BorderSide(color: Color.fromARGB(255, 5, 74, 145)),
-                    borderRadius: BorderRadius.circular(8.0), // Circular border
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide:
-                        BorderSide(color: Color.fromARGB(255, 5, 74, 145)),
-                    borderRadius: BorderRadius.circular(8.0), // Circular border
-                  ),
-                  prefixIcon: Icon(Icons.person,
-                      color: Color.fromARGB(255, 5, 74, 145)),
-                  hintText: 'Insira seu usuário',
-                  hintStyle: TextStyle(color: Colors.grey),
-                  filled: true,
-                  fillColor: Color.fromARGB(255, 240, 240, 240),
-                  contentPadding:
-                      EdgeInsets.symmetric(vertical: 15, horizontal: 10),
-                ),
+                decoration: construirDecoracaoTextField(
+                    label: "Usuário",
+                    hint: "Insire seu usuário",
+                    iconePrevio: Icons.person),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Informe o seu usuário';
@@ -140,4 +122,33 @@ class _EditarPerfilState extends State<EditarPerfil> {
       ),
     );
   }
+}
+
+InputDecoration construirDecoracaoTextField(
+    {required String label,
+    required String hint,
+    required IconData iconePrevio,
+    Widget? iconePosterior}) {
+  return InputDecoration(
+    labelText: label,
+    labelStyle: TextStyle(color: Color.fromARGB(255, 5, 74, 145)),
+    border: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(8.0),
+    ),
+    enabledBorder: OutlineInputBorder(
+      borderSide: BorderSide(color: Color.fromARGB(255, 5, 74, 145)),
+      borderRadius: BorderRadius.circular(8.0),
+    ),
+    focusedBorder: OutlineInputBorder(
+      borderSide: BorderSide(color: Color.fromARGB(255, 5, 74, 145)),
+      borderRadius: BorderRadius.circular(8.0),
+    ),
+    prefixIcon: Icon(iconePrevio, color: Color.fromARGB(255, 5, 74, 145)),
+    suffixIcon: iconePosterior != null ? iconePosterior : null,
+    hintText: hint,
+    hintStyle: TextStyle(color: Colors.grey),
+    filled: true,
+    fillColor: Color.fromARGB(255, 240, 240, 240),
+    contentPadding: EdgeInsets.symmetric(vertical: 15, horizontal: 10),
+  );
 }

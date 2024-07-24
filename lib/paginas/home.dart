@@ -69,10 +69,12 @@ class ToggleLoginSignup extends StatefulWidget {
   const ToggleLoginSignup({super.key});
 
   @override
-  State<ToggleLoginSignup> createState() => _MyWidgetState();
+  State<ToggleLoginSignup> createState() => _ToggleLoginSignupState();
 }
 
-class _MyWidgetState extends State<ToggleLoginSignup> {
+
+
+class _ToggleLoginSignupState extends State<ToggleLoginSignup> {
   List<bool> isSelected = [true, false];
 
   @override

@@ -33,31 +33,8 @@ class _LoginPageState extends State<LoginPage> {
                       color: Color.fromARGB(255, 47, 47, 47))),
               SizedBox(height: 20),
               TextFormField(
-                decoration: InputDecoration(
-                  labelText: 'Email',
-                  labelStyle: TextStyle(color: Color.fromARGB(255, 5, 74, 145)),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8.0), 
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                    borderSide:
-                        BorderSide(color: Color.fromARGB(255, 5, 74, 145)),
-                    borderRadius: BorderRadius.circular(8.0), 
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide:
-                        BorderSide(color: Color.fromARGB(255, 5, 74, 145)),
-                    borderRadius: BorderRadius.circular(8.0),
-                  ),
-                  prefixIcon:
-                      Icon(Icons.email, color: Color.fromARGB(255, 5, 74, 145)),
-                  hintText: 'Insira seu email',
-                  hintStyle: TextStyle(color: Colors.grey),
-                  filled: true,
-                  fillColor: Color.fromARGB(255, 240, 240, 240),
-                  contentPadding:
-                      EdgeInsets.symmetric(vertical: 15, horizontal: 10),
-                ),
+                decoration: construirDecoracaoTextField(
+                    label: "Email", hint: "Insira seu email", iconePrevio: Icons.email),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Informe um email';
@@ -73,44 +50,21 @@ class _LoginPageState extends State<LoginPage> {
               ),
               const SizedBox(height: 20),
               TextFormField(
-                decoration: InputDecoration(
-                  suffixIcon: GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        _obscurePassword = !_obscurePassword;
-                      });
-                    },
-                    child: Icon(
-                      _obscurePassword
-                          ? Icons.visibility_off
-                          : Icons.visibility,
-                      color: Color.fromARGB(255, 5, 74, 145),
-                    ),
-                  ),
-                  labelText: 'Senha',
-                  labelStyle: TextStyle(color: Color.fromARGB(255, 5, 74, 145)),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8.0), 
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                    borderSide:
-                        BorderSide(color: Color.fromARGB(255, 5, 74, 145)),
-                    borderRadius: BorderRadius.circular(8.0),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide:
-                        BorderSide(color: Color.fromARGB(255, 5, 74, 145)),
-                    borderRadius: BorderRadius.circular(8.0), 
-                  ),
-                  prefixIcon:
-                      Icon(Icons.lock, color: Color.fromARGB(255, 5, 74, 145)),
-                  hintText: 'Insira sua senha',
-                  hintStyle: TextStyle(color: Colors.grey),
-                  filled: true,
-                  fillColor: Color.fromARGB(255, 240, 240, 240),
-                  contentPadding:
-                      EdgeInsets.symmetric(vertical: 15, horizontal: 10),
-                ),
+                decoration: construirDecoracaoTextField(
+                    label: "Senha", hint: "Insira sua senha", iconePrevio: Icons.lock,
+                    iconePosterior: GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          _obscurePassword = !_obscurePassword;
+                        });
+                      },
+                      child: Icon(
+                        _obscurePassword
+                            ? Icons.visibility_off
+                            : Icons.visibility,
+                        color: Color.fromARGB(255, 5, 74, 145),
+                      ),
+                    )),
                 obscureText: _obscurePassword,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
@@ -155,7 +109,7 @@ class _LoginPageState extends State<LoginPage> {
                   height: 50,
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                        elevation: 10, 
+                        elevation: 10,
                         shadowColor: Color.fromARGB(255, 133, 199, 242),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(8),
@@ -202,4 +156,31 @@ class _LoginPageState extends State<LoginPage> {
       ),
     );
   }
+}
+
+InputDecoration construirDecoracaoTextField(
+    {required String label, required String hint, required IconData iconePrevio,
+    Widget? iconePosterior}) {
+  return InputDecoration(
+    labelText: label,
+    labelStyle: TextStyle(color: Color.fromARGB(255, 5, 74, 145)),
+    border: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(8.0),
+    ),
+    enabledBorder: OutlineInputBorder(
+      borderSide: BorderSide(color: Color.fromARGB(255, 5, 74, 145)),
+      borderRadius: BorderRadius.circular(8.0),
+    ),
+    focusedBorder: OutlineInputBorder(
+      borderSide: BorderSide(color: Color.fromARGB(255, 5, 74, 145)),
+      borderRadius: BorderRadius.circular(8.0),
+    ),
+    prefixIcon: Icon(iconePrevio, color: Color.fromARGB(255, 5, 74, 145)),
+    suffixIcon: iconePosterior != null ? iconePosterior : null,
+    hintText: hint,
+    hintStyle: TextStyle(color: Colors.grey),
+    filled: true,
+    fillColor: Color.fromARGB(255, 240, 240, 240),
+    contentPadding: EdgeInsets.symmetric(vertical: 15, horizontal: 10),
+  );
 }
