@@ -8,11 +8,21 @@ import 'package:teste_prototipo/widgets/widget_progresso.dart';
 import 'package:teste_prototipo/widgets/progresso.dart'; // Certifique-se de importar o WidgetProgresso aqui também
 
 class LicaoPTL23 extends StatefulWidget {
+  final int pontuacao;
+  final int qtdPerguntas;
+
+  LicaoPTL23({this.pontuacao = 0, required this.qtdPerguntas});
+
   @override
-  _LicaoPTL23State createState() => _LicaoPTL23State();
+  _LicaoPTL23State createState() => _LicaoPTL23State(pontuacao, qtdPerguntas);
 }
 
 class _LicaoPTL23State extends State<LicaoPTL23> {
+  int pontuacao;
+  int qtdPerguntas;
+
+  _LicaoPTL23State(this.pontuacao, this.qtdPerguntas);
+
   Map<String, String?> _imageToButtonMap = {
     'Imagem 1': null,
     'Imagem 2': null,
@@ -53,36 +63,35 @@ class _LicaoPTL23State extends State<LicaoPTL23> {
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             BarraProgresso(totalQuestoes: 5, questoesCompletadas: 2),
             SizedBox(height: 20),
             Expanded(
-              flex: 3,
-              child: SingleChildScrollView(
-                child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Row(
+                flex: 3,
+                child: SingleChildScrollView(
+                  child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      _buildImage('Imagem 1'),
-                      SizedBox(width: 20),
-                      _buildImage('Imagem 2'),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          _buildImage('Imagem 1'),
+                          SizedBox(width: 20),
+                          _buildImage('Imagem 2'),
+                        ],
+                      ),
+                      SizedBox(height: 20),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          _buildImage('Imagem 3'),
+                          SizedBox(width: 20),
+                          _buildImage('Imagem 4'),
+                        ],
+                      ),
                     ],
                   ),
-                  SizedBox(height: 20),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      _buildImage('Imagem 3'),
-                      SizedBox(width: 20),
-                      _buildImage('Imagem 4'),
-                    ],
-                  ),
-                ],
-              ),
-            )),
+                )),
             SizedBox(height: 20),
             Text(
               'Ligue o verbo com a ação',
@@ -114,7 +123,7 @@ class _LicaoPTL23State extends State<LicaoPTL23> {
             BotaoNext(
               funcao: _canProceed() ? _navigateToLicaoPTL24 : null,
               estaHabilitado: _canProceed(),
-              proximaPagina: _canProceed() ? LicaoPTL24() : null,
+              proximaPagina: _canProceed() ? LicaoPTL24(pontuacao: pontuacao + 1, qtdPerguntas: qtdPerguntas + 1,) : null,
             ),
           ],
         ),
@@ -122,8 +131,7 @@ class _LicaoPTL23State extends State<LicaoPTL23> {
     );
   }
 
-  void _navigateToLicaoPTL24() {
-  }
+  void _navigateToLicaoPTL24() {}
 
   Widget _buildImage(String identifier) {
     String? selectedButton = _imageToButtonMap[identifier];

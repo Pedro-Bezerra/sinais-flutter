@@ -9,11 +9,21 @@ import 'package:teste_prototipo/widgets/widget_progresso.dart';
 import 'package:teste_prototipo/widgets/progresso.dart';
 
 class LicaoPTL25 extends StatefulWidget {
+  final int pontuacao;
+  final int qtdPerguntas;
+
+  LicaoPTL25({this.pontuacao=0, required this.qtdPerguntas});
+
   @override
-  _LicaoPTL25State createState() => _LicaoPTL25State();
+  _LicaoPTL25State createState() => _LicaoPTL25State(pontuacao, qtdPerguntas);
 }
 
 class _LicaoPTL25State extends State<LicaoPTL25> {
+  int pontuacao;
+  int qtdPerguntas;
+
+  _LicaoPTL25State(this.pontuacao, this.qtdPerguntas);
+
   final TextEditingController _controller1 = TextEditingController();
   final TextEditingController _controller2 = TextEditingController();
   final TextEditingController _controller3 = TextEditingController();
@@ -42,7 +52,6 @@ class _LicaoPTL25State extends State<LicaoPTL25> {
         child: Container(
           padding: const EdgeInsets.all(16.0),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
               BarraProgresso(totalQuestoes: 5, questoesCompletadas: 4),
               SizedBox(height: 20),
@@ -125,20 +134,18 @@ class _LicaoPTL25State extends State<LicaoPTL25> {
         SizedBox(height: 10),
         Container(
           decoration: BoxDecoration(
-            color: Colors.white, // Fundo branco
-            border:
-                Border.all(color: Color(0xFF054A91)), // Cor da borda e traço
-            borderRadius: BorderRadius.circular(8.0), // Borda arredondada
+            color: Colors.white,
+            border: Border.all(color: Color(0xFF054A91)),
+            borderRadius: BorderRadius.circular(8.0),
           ),
           padding: EdgeInsets.symmetric(horizontal: 8.0),
           child: TextField(
             controller: controller,
             decoration: InputDecoration(
               hintText: '',
-              border: InputBorder.none, // Remove a borda padrão do TextField
+              border: InputBorder.none,
             ),
-            style: TextStyle(
-                color: Color(0xFF054A91)), // Cor do texto da caixa de texto
+            style: TextStyle(color: Color(0xFF054A91)),
             inputFormatters: [
               FilteringTextInputFormatter.allow(
                   RegExp(r'[a-zA-ZáÁâÂãÃàÀéÉêÊíÍóÓôÔõÕúÚüÜçÇ\s]+')),

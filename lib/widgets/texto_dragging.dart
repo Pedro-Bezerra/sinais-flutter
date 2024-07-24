@@ -7,8 +7,7 @@ class TextoDragAndDrop extends StatefulWidget {
   final List<String> droppedTexts;
   final List<bool> occupiedTargets; // New list to track occupied targets
   final int index; // Index to identify this target
-  final ValueChanged<bool>
-      onRedBorderChanged; // Callback for red border changes
+  final ValueChanged<bool> onRedBorderChanged; // Callback for red border changes
 
   TextoDragAndDrop({
     required this.resposta,
@@ -26,7 +25,7 @@ class TextoDragAndDrop extends StatefulWidget {
 
 class _TextoDragAndDropState extends State<TextoDragAndDrop> {
   String _droppedText = '';
-  bool hasRedBorder = false; // Variable to track if any border is red
+  bool hasRedBorder = false; 
 
   void _onAcceptWithDetails(DragTargetDetails<String> details) {
     // Check if this target is already occupied
@@ -35,16 +34,14 @@ class _TextoDragAndDropState extends State<TextoDragAndDrop> {
       setState(() {
         _droppedText = details.data;
         widget.droppedTexts.add(details.data);
-        widget.occupiedTargets[widget.index] =
-            true; // Mark this target as occupied
+        widget.occupiedTargets[widget.index] = true; // Mark this target as occupied
       });
       widget.onTextDropped(details.data);
+      _updateBorderColor(); // Update border color after accepting text
     }
   }
 
-  BoxDecoration _getContainerDecoration() {
-    Color borderColor;
-
+  void _updateBorderColor() {
     bool errado = (_droppedText != "A" && widget.ordem != "1") ||
         (_droppedText != "aluna" && widget.ordem != "2") ||
         (_droppedText != "respondeu" && widget.ordem != "3") ||
@@ -58,37 +55,61 @@ class _TextoDragAndDropState extends State<TextoDragAndDrop> {
         (_droppedText == "prova" && widget.ordem == "5");
 
     if (certo) {
-      borderColor = Colors.green;
-    } else if (errado && _droppedText != "") {
-      borderColor = Colors.red;
+      hasRedBorder = false;
+    } else if (errado && _droppedText.isNotEmpty) {
       hasRedBorder = true;
-      widget.onRedBorderChanged(hasRedBorder);
     } else {
-      borderColor = Color.fromARGB(75, 150, 150, 150);
+      hasRedBorder = false;
     }
 
-    return BoxDecoration(
-      color: Colors.white,
-      border: Border.all(
-        color: borderColor, // Border color based on dropped text
-        width: 1.0, // Border width
-      ),
-      borderRadius: BorderRadius.circular(8.0), // Border radius
-    );
+    // Ensure the state change happens outside the build method
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      widget.onRedBorderChanged(hasRedBorder);
+    });
+  }
+
+  Color _determineBorderColor() {
+    bool errado = (_droppedText != "A" && widget.ordem != "1") ||
+        (_droppedText != "aluna" && widget.ordem != "2") ||
+        (_droppedText != "respondeu" && widget.ordem != "3") ||
+        (_droppedText != "a" && widget.ordem != "4") ||
+        (_droppedText != "prova" && widget.ordem != "5");
+
+    bool certo = (_droppedText == "A" && widget.ordem == "1") ||
+        (_droppedText == "aluna" && widget.ordem == "2") ||
+        (_droppedText == "respondeu" && widget.ordem == "3") ||
+        (_droppedText == "a" && widget.ordem == "4") ||
+        (_droppedText == "prova" && widget.ordem == "5");
+
+    if (certo) {
+      return Colors.green;
+    } else if (errado && _droppedText.isNotEmpty) {
+      return Colors.red;
+    } else {
+      return Color.fromARGB(75, 150, 150, 150);
+    }
   }
 
   @override
   Widget build(BuildContext context) {
+    Color borderColor = _determineBorderColor(); // Get the border color once
+
     return Column(
       children: <Widget>[
         DragTarget<String>(
           onAcceptWithDetails: _onAcceptWithDetails,
-          builder: (BuildContext context, List<dynamic> accepted,
-              List<dynamic> rejected) {
+          builder: (BuildContext context, List<dynamic> accepted, List<dynamic> rejected) {
             return Container(
               width: MediaQuery.of(context).size.width * 0.2,
               height: MediaQuery.of(context).size.height * 0.1,
-              decoration: _getContainerDecoration(),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                border: Border.all(
+                  color: borderColor, // Use the determined border color
+                  width: 1.0,
+                ),
+                borderRadius: BorderRadius.circular(8.0),
+              ),
               child: Center(
                 child: Text(
                   _droppedText.isEmpty ? widget.ordem : _droppedText,
@@ -109,8 +130,7 @@ class _TextoDragAndDropState extends State<TextoDragAndDrop> {
             color: Colors.transparent,
             child: Text(
               widget.resposta,
-              style:
-                  TextStyle(fontSize: 20, color: Colors.black.withOpacity(0.7)),
+              style: TextStyle(fontSize: 20, color: Colors.black.withOpacity(0.7)),
             ),
           ),
           childWhenDragging: Text(

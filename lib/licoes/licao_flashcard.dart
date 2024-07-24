@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:teste_prototipo/widgets/botao_de_progresso.dart';
 import 'package:teste_prototipo/widgets/botao_proximo.dart';
 import 'package:teste_prototipo/widgets/botao_sim_nao.dart';
 import 'package:teste_prototipo/widgets/direcionamento.dart';
@@ -32,6 +33,7 @@ class _LicaoFlashcardState extends State<LicaoFlashcard> {
   int indice = 1;
   int quantidade = 5;
   int acertos = 1;
+  int erros = 0;
   List<String> palavras = [
     "BORRACHA",
     "CANETA",
@@ -52,6 +54,12 @@ class _LicaoFlashcardState extends State<LicaoFlashcard> {
   void _incrementarAcerto() {
     setState(() {
       ++acertos;
+    });
+  }
+
+  void _incrementarErro() {
+    setState(() {
+      ++erros;
     });
   }
 
@@ -85,7 +93,7 @@ class _LicaoFlashcardState extends State<LicaoFlashcard> {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            WidgetProgresso(count: 3),
+            BarraProgresso(totalQuestoes: 5, questoesCompletadas: 2),
             Flashcard(
               front: VideoPlayerScreen(caminhoVideo: video),
               back: Container(
@@ -109,6 +117,7 @@ class _LicaoFlashcardState extends State<LicaoFlashcard> {
                       nextValues['palavra'],
                       nextValues['indice'],
                     );
+                    _incrementarErro();
                   },
                 ),
                 BotaoSimNao(
@@ -132,14 +141,11 @@ class _LicaoFlashcardState extends State<LicaoFlashcard> {
               style: TextStyle(fontSize: 24, fontWeight: FontWeight.w900),
             ),
             BotaoNext(
-              funcao: () =>
-                    Provider.of<ProgressManager>(context, listen: false)
-                        .nextStep(),
               proximaPagina: indice == quantidade
                   ? LicaoL10(
                       qtdPerguntas: qtdPerguntas + 1,
                       pontuacao:
-                          acertos == quantidade ? pontuacao + 1 : pontuacao,
+                          erros == 0 ? pontuacao + 1 : pontuacao,
                     )
                   : null,
               estaHabilitado: indice == quantidade,

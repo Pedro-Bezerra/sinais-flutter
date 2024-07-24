@@ -3,48 +3,60 @@ import 'package:provider/provider.dart';
 import 'package:teste_prototipo/licoes/licao_ptl22.dart';
 import 'package:teste_prototipo/licoes/licao_ptl25.dart';
 import 'package:teste_prototipo/paginas/inicio.dart';
+import 'package:teste_prototipo/paginas/resultado_page.dart';
 import 'package:teste_prototipo/widgets/botao_de_progresso.dart';
 import 'package:teste_prototipo/widgets/botao_proximo.dart';
 import 'package:teste_prototipo/widgets/widget_progresso.dart';
 import 'package:teste_prototipo/widgets/progresso.dart'; // Importar o ProgressManager
 
 class LicaoPTL24 extends StatefulWidget {
+  final int pontuacao;
+  final int qtdPerguntas;
+
+  LicaoPTL24({this.pontuacao = 0, required this.qtdPerguntas});
+
   @override
-  _LicaoPTL24State createState() => _LicaoPTL24State();
+  _LicaoPTL24State createState() => _LicaoPTL24State(pontuacao, qtdPerguntas);
 }
 
 class _LicaoPTL24State extends State<LicaoPTL24> {
+  int pontuacao;
+  int qtdPerguntas;
+
+  _LicaoPTL24State(this.pontuacao, this.qtdPerguntas);
+
   String? _selectedButton;
   String? _selectedSpace1;
   String? _selectedSpace2;
   String? _selectedSpace3;
   String? _selectedSpace4;
 
+  List<bool> acertos = [false, false, false, false];
+
+  void acertouAResposta(int indice) {
+    setState(() {
+      acertos[indice] = true;
+    });
+  }
+
+  void errouAResposta(int indice) {
+    setState(() {
+      acertos[indice] = false;
+    });
+  }
+
+  bool acertou() {
+    return acertos[0] && acertos[1] && acertos[2] && acertos[3];
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(''),
-        automaticallyImplyLeading: false,
-        actions: [
-          IconButton(
-            icon: Icon(Icons.close),
-            onPressed: () {
-              MaterialPageRoute(
-                builder: (context) => InicioPage(
-                    usuario: "Vitinho", email: "vitor.farias@upe.br"),
-              );
-            },
-          ),
-        ],
-      ),
-      backgroundColor: Color(0xFFD9D9D9),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            BarraProgresso(totalQuestoes: 5, questoesCompletadas: 3),
+            BarraProgresso(totalQuestoes: 5, questoesCompletadas: 4),
             SizedBox(height: 20),
             Expanded(
               child: Column(
@@ -92,14 +104,21 @@ class _LicaoPTL24State extends State<LicaoPTL24> {
               ],
             ),
             SizedBox(height: 20),
-            BotaoNext(
-              funcao: _canProceed()
-                  ? () {
-                      
-                    }
-                  : null,
+            /*BotaoNext(
+              funcao: _canProceed() ? () {} : null,
               estaHabilitado: _canProceed(),
-              proximaPagina: _canProceed() ? LicaoPTL25() : null,
+              proximaPagina: _canProceed() ? LicaoPTL25(pontuacao: acertou ? pontuacao + 1 : pontuacao, qtdPerguntas: qtdPerguntas + 1,) : null,
+            )*/
+            BotaoNext(
+              funcao: _canProceed() ? () {} : null,
+              estaHabilitado: _canProceed(),
+              proximaPagina: _canProceed()
+                  ? TelaDeResultado(
+                      acertos: acertou() ? pontuacao + 1 : pontuacao,
+                      erros: acertou()
+                          ? qtdPerguntas - pontuacao - 1
+                          : qtdPerguntas - pontuacao)
+                  : null,
             ),
           ],
         ),
@@ -149,9 +168,8 @@ class _LicaoPTL24State extends State<LicaoPTL24> {
         ),
       ),
       style: ElevatedButton.styleFrom(
-        backgroundColor: label == 'Azul'
-            ? Color(0xFF054A91)
-            : Color(0xFF054A91), // Ajuste aqui para o botão 'Azul'
+        backgroundColor:
+            label == 'Azul' ? Color(0xFF054A91) : Color(0xFF054A91),
         minimumSize: Size(150, 50),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8),
@@ -173,15 +191,35 @@ class _LicaoPTL24State extends State<LicaoPTL24> {
         switch (spaceNumber) {
           case 1:
             _selectedSpace1 = _selectedButton;
+            if (_selectedButton == "Azul") {
+              acertouAResposta(0);
+            } else {
+              errouAResposta(0);
+            }
             break;
           case 2:
             _selectedSpace2 = _selectedButton;
+            if (_selectedButton == "Inteligente") {
+              acertouAResposta(1);
+            } else {
+              errouAResposta(1);
+            }
             break;
           case 3:
             _selectedSpace3 = _selectedButton;
+            if (_selectedButton == "Difícil") {
+              acertouAResposta(2);
+            } else {
+              errouAResposta(2);
+            }
             break;
           case 4:
             _selectedSpace4 = _selectedButton;
+            if (_selectedButton == "Bonito") {
+              acertouAResposta(3);
+            } else {
+              errouAResposta(3);
+            }
             break;
         }
       });

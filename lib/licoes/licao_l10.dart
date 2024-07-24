@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:teste_prototipo/licoes/licao_ptl24.dart';
+import 'package:teste_prototipo/widgets/botao_de_progresso.dart';
 import 'package:teste_prototipo/widgets/botao_proximo.dart';
 import 'package:teste_prototipo/licoes/licao_conectar.dart';
 import 'package:teste_prototipo/widgets/direcionamento.dart';
@@ -42,6 +44,14 @@ class _LicaoL10State extends State<LicaoL10> {
   List<String> droppedTexts = [];
   List<bool> occupiedTargets = [false, false, false, false, false];
 
+  bool estaTudoOcupado() {
+    return occupiedTargets[0] &&
+        occupiedTargets[1] &&
+        occupiedTargets[2] &&
+        occupiedTargets[3] &&
+        occupiedTargets[4];
+  }
+
   void _incrementarAcerto() {
     setState(() {
       ++acertos;
@@ -56,7 +66,7 @@ class _LicaoL10State extends State<LicaoL10> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: <Widget>[
-            WidgetProgresso(count: 3),
+            BarraProgresso(totalQuestoes: 5, questoesCompletadas: 3),
             Expanded(
                 flex: 2,
                 child: VideoPlayerScreen(
@@ -81,7 +91,8 @@ class _LicaoL10State extends State<LicaoL10> {
                         droppedTexts: droppedTexts,
                         occupiedTargets: occupiedTargets,
                         index: 0,
-                        onRedBorderChanged: _handleRedBorderChanged, // Pass the callback
+                        onRedBorderChanged:
+                            _handleRedBorderChanged, // Pass the callback
                       ),
                       TextoDragAndDrop(
                         resposta: "aluna",
@@ -90,7 +101,8 @@ class _LicaoL10State extends State<LicaoL10> {
                         droppedTexts: droppedTexts,
                         occupiedTargets: occupiedTargets,
                         index: 1,
-                        onRedBorderChanged: _handleRedBorderChanged, // Pass the callback
+                        onRedBorderChanged:
+                            _handleRedBorderChanged, // Pass the callback
                       ),
                       TextoDragAndDrop(
                         resposta: "A",
@@ -99,7 +111,8 @@ class _LicaoL10State extends State<LicaoL10> {
                         droppedTexts: droppedTexts,
                         occupiedTargets: occupiedTargets,
                         index: 2,
-                        onRedBorderChanged: _handleRedBorderChanged, // Pass the callback
+                        onRedBorderChanged:
+                            _handleRedBorderChanged, // Pass the callback
                       ),
                       TextoDragAndDrop(
                         resposta: "prova",
@@ -108,7 +121,8 @@ class _LicaoL10State extends State<LicaoL10> {
                         droppedTexts: droppedTexts,
                         occupiedTargets: occupiedTargets,
                         index: 3,
-                        onRedBorderChanged: _handleRedBorderChanged, // Pass the callback
+                        onRedBorderChanged:
+                            _handleRedBorderChanged, // Pass the callback
                       ),
                       TextoDragAndDrop(
                         resposta: "a",
@@ -117,7 +131,8 @@ class _LicaoL10State extends State<LicaoL10> {
                         droppedTexts: droppedTexts,
                         occupiedTargets: occupiedTargets,
                         index: 4,
-                        onRedBorderChanged: _handleRedBorderChanged, // Pass the callback
+                        onRedBorderChanged:
+                            _handleRedBorderChanged, // Pass the callback
                       ),
                     ],
                   ),
@@ -125,12 +140,13 @@ class _LicaoL10State extends State<LicaoL10> {
               ),
             ),
             BotaoNext(
-              funcao: () => Provider.of<ProgressManager>(context, listen: false)
-                  .nextStep(),
-              proximaPagina: ConectarColunas(
-                qtdPerguntas: 2,
-                pontuacao: anyRedBorder ? pontuacao : pontuacao + 1,
-              ),
+              proximaPagina: estaTudoOcupado()
+                  ? LicaoPTL24(
+                      qtdPerguntas: qtdPerguntas + 1,
+                      pontuacao: anyRedBorder ? pontuacao : pontuacao + 1,
+                    )
+                  : null,
+              estaHabilitado: estaTudoOcupado(),
             )
           ],
         ),

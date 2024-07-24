@@ -74,11 +74,10 @@ class _HistoricoState extends State<Historico> {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(child: CircularProgressIndicator());
           } else if (snapshot.hasError) {
-            return Center(child: Text("Error loading data"));
+            return Center(child: Text("Erro no carregamento dos dados"));
           } else if (!snapshot.hasData || snapshot.data.isEmpty) {
-            return Center(child: Text("No data available"));
+            return Center(child: Text("Não há nenhum dado disponível. Responda ao mínimo uma lição!"));
           } else {
-            // Access the data here
             var data = snapshot.data;
             return Center(
               child: Column(

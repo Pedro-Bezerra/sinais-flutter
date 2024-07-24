@@ -8,33 +8,34 @@ import 'package:teste_prototipo/widgets/widget_progresso.dart';
 import 'package:teste_prototipo/widgets/progresso.dart';
 
 class LicaoPTL2 extends StatefulWidget {
+  final int pontuacao;
+  final int qtdPerguntas;
+
+  LicaoPTL2({this.pontuacao = 0, required this.qtdPerguntas});
+
   @override
-  _LicaoPTL2State createState() => _LicaoPTL2State();
+  _LicaoPTL2State createState() => _LicaoPTL2State(pontuacao, qtdPerguntas);
 }
 
 class _LicaoPTL2State extends State<LicaoPTL2> {
   String? _selectedButton;
   bool _buttonsDisabled = false;
 
+  int pontuacao;
+  int qtdPerguntas;
+  bool acertou = false;
+
+  _LicaoPTL2State(this.pontuacao, this.qtdPerguntas);
+
+  void acertouAResposta() {
+    setState(() {
+      acertou = true;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(''),
-        automaticallyImplyLeading: false,
-        actions: [
-          IconButton(
-            icon: Icon(Icons.close),
-            onPressed: () {
-              MaterialPageRoute(
-                builder: (context) => InicioPage(
-                    usuario: "Vitinho", email: "vitor.farias@upe.br"),
-              );
-            },
-          ),
-        ],
-      ),
-      backgroundColor: Color(0xFFD9D9D9),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -64,13 +65,13 @@ class _LicaoPTL2State extends State<LicaoPTL2> {
             _buildButton(context, 'Caneta'),
             SizedBox(height: 20),
             BotaoNext(
-              funcao: _selectedButton != null && !_buttonsDisabled
-                  ? () {
-                      
-                    }
-                  : null,
+              funcao:
+                  _selectedButton != null && !_buttonsDisabled ? () {} : null,
               proximaPagina: _selectedButton != null && !_buttonsDisabled
-                  ? LicaoPTL22()
+                  ? LicaoPTL22(
+                      pontuacao: acertou ? pontuacao + 1 : pontuacao,
+                      qtdPerguntas: qtdPerguntas + 1,
+                    )
                   : null,
               estaHabilitado: _selectedButton != null && !_buttonsDisabled,
             ),
@@ -90,6 +91,7 @@ class _LicaoPTL2State extends State<LicaoPTL2> {
       buttonColor = Colors.grey;
     } else if (isSelected && buttonLabel == 'Lápis') {
       buttonColor = Colors.green;
+      acertouAResposta();
     } else if (isSelected && buttonLabel != 'Lápis') {
       buttonColor = Colors.red;
     } else {

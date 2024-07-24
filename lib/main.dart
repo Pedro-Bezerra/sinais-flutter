@@ -15,16 +15,23 @@ void main() async {
   runApp(MyApp());
 }
 
-final supabase = Supabase.instance.client;
-
 class MyApp extends StatelessWidget {
+
+
+  static String meuCurso = "";
+
+  static void setCurso(String curso) {
+    meuCurso = curso;
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
-      providers: [
-        ChangeNotifierProvider(create: (context) => TelaLoginCadastro()),
-        //ChangeNotifierProvider(create: (context) => ProgressManager(),), 
-      ],
+        providers: [
+          ChangeNotifierProvider(create: (context) => TelaLoginCadastro()),
+          //ChangeNotifierProvider(create: (context) => ProgressManager(),),
+        ],
         child: MaterialApp(
             title: 'Login',
             theme: ThemeData(
@@ -33,8 +40,10 @@ class MyApp extends StatelessWidget {
                 navigationBarTheme: NavigationBarThemeData(
                   indicatorColor: Colors.transparent,
                   labelTextStyle: WidgetStateProperty.all(TextStyle(
-                      fontSize: 12, color: Color.fromARGB(255, 183, 179, 179))),
+                      fontSize: 12, color: Color.fromARGB(255, 47, 47, 47))),
                 )),
             home: HomePage()));
   }
 }
+
+

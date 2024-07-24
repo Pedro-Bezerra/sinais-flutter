@@ -17,18 +17,8 @@ class _TelaNovaSenhaState extends State<TelaNovaSenha> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Column(
-      children: [
-        const Expanded(
-          flex: 1,
-          child: AppBarNovaSenha(),
-        ),
-        Expanded(
-          flex: 4,
-          child: FormsNovaSenha(),
-        ),
-      ],
-    ));
+      body: FormsNovaSenha(),
+    );
   }
 }
 
@@ -116,6 +106,8 @@ class _FormsNovaSenhaState extends State<FormsNovaSenha> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+                  AppBarNovaSenha(),
+                  SizedBox(height: 80,),
                   TextFormField(
                     decoration: InputDecoration(
                       labelText: 'Email',

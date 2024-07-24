@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:teste_prototipo/licoes/licao_conectar.dart';
 import 'package:teste_prototipo/licoes/licao_l10.dart';
 import 'package:teste_prototipo/licoes/licao_ptl2.dart';
+import 'package:teste_prototipo/main.dart';
 import 'dart:math';
 
 import 'package:teste_prototipo/widgets/botao_iniciar_licao.dart';
@@ -101,10 +102,9 @@ class _AprenderPageState extends State<AprenderPage> {
             BotaoIniciarLicao(
                 number: 1,
                 legenda: "Vocabulário",
-                proximaPagina: LicaoPTL2() ),
-            /*LicaoFlashcard(
+                proximaPagina: LicaoPTL2(
                   qtdPerguntas: 1,
-                )),*/
+                )),
             Icon(Icons.circle,
                 color: Color.fromARGB(255, 203, 203, 203), size: 15),
             Icon(Icons.circle,
